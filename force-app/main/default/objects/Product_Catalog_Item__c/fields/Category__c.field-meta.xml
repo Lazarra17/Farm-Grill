@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Alacarte</fullName>
+                <default>false</default>
+                <label>Alacarte</label>
+            </value>
+            <value>
+                <fullName>Meal - with Rice</fullName>
+                <default>false</default>
+                <label>Meal - with Rice</label>
+            </value>
+            <value>
+                <fullName>Meal - Unli Rice</fullName>
+                <default>false</default>
+                <label>Meal - Unli Rice</label>
+            </value>
+            <value>
+                <fullName>Meal - with Rice &amp; Drink</fullName>
+                <default>false</default>
+                <label>Meal - with Rice &amp; Drink</label>
+            </value>
+            <value>
+                <fullName>Bilao / Family Bundle</fullName>
+                <default>false</default>
+                <label>Bilao / Family Bundle</label>
+            </value>
+            <value>
+                <fullName>Snacks</fullName>
+                <default>false</default>
+                <label>Snacks</label>
+            </value>
+            <value>
+                <fullName>Drinks</fullName>
+                <default>false</default>
+                <label>Drinks</label>
+            </value>
+            <value>
+                <fullName>Delivery</fullName>
+                <default>false</default>
+                <label>Delivery</label>
+            </value>
+            <value>
+                <fullName>Veggies</fullName>
+                <default>false</default>
+                <label>Veggies</label>
+            </value>
+            <value>
+                <fullName>Inasal</fullName>
+                <default>false</default>
+                <label>Inasal</label>
+            </value>
+            <value>
+                <fullName>Barbeque</fullName>
+                <default>false</default>
+                <label>Barbeque</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

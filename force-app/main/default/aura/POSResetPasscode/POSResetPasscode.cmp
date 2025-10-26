@@ -1,0 +1,61 @@
+<aura:component controller="POSMainController">
+    <aura:attribute name="errMessage" type="String"  />
+    <aura:attribute name="contact" type="Contact"  />
+    <aura:attribute name="isPasscodeReset" type="Boolean" default="false"  />
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close" onclick="{!c.hideModal}">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">RESET PASSCODE</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-grid slds-wrap slds-gutters">
+                    
+                    <aura:if isTrue="{!v.isPasscodeReset}">
+                        
+                        <div class="slds-col slds-size_12-of-12 slds-m-top_medium">
+                          	<p>Your passcode has been reset.</p>
+                        </div>
+                        
+                        
+                        <aura:set attribute="else">
+                            
+                            <div class="slds-col slds-size_12-of-12 slds-m-top_medium">
+                                <lightning:input aura:id="oldps" type="password" label="Enter old passcode" name="oldps" maxlength="6"  required="true"
+                                                 minlength="6" messageWhenTooShort="Passcode must be 6 digits."  
+                                                 pattern="[0-9]*" messageWhenPatternMismatch="Passcode must be numbers only." />
+                                
+                                <lightning:input aura:id="newps" type="password" label="Enter new passcode" name="newps"  maxlength="6"  required="true"
+                                                 minlength="6" messageWhenTooShort="Passcode must be 6 digits."  
+                                                 pattern="[0-9]*" messageWhenPatternMismatch="Passcode must be numbers only." />
+                                
+                                <lightning:input aura:id="conps" type="password" label="Confirm your passcode" name="conps" maxlength="6"  required="true"
+                                                 minlength="6" messageWhenTooShort="Passcode must be 6 digits."  
+                                                 pattern="[0-9]*" messageWhenPatternMismatch="Passcode must be numbers only." />
+                            </div>
+                            
+                            
+                            
+                            
+                            <div class="slds-col slds-size_12-of-12 slds-text-align_right slds-m-top_small">
+                                
+                                <lightning:button variant="brand" label="Reset" title="Save" onclick="{!c.validateInput }" />
+                                
+                                
+                                
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

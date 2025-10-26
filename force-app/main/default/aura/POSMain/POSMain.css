@@ -1,0 +1,199 @@
+.THIS {
+   
+}
+
+.THIS p, .THIS h4, .THIS h5{
+    margin: 0px !important; 
+   
+}
+
+.THIS .product-category-container{
+    overflow: scroll;
+}
+
+.THIS .product-tile{
+    background-color: #f1f1f1;
+    font-size: 15px;
+    width: 120px;
+    height: 70px;
+    border: 1px solid #ccc;
+    border-radius:5px;
+    background-size: cover;
+    color: white;
+    position: relative;
+    padding: 0px;
+}   
+
+.THIS .product-tile:hover{
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.THIS .btn-label{
+    background-color: rgba(0,0,0,0.3); 
+    position: absolute; 
+    bottom: 0;
+    width: 100%;
+    font-weight: 600;
+    
+}
+
+.THIS .product-category-title{
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
+   
+}
+
+.THIS .preview-container{
+    height: 200px;
+    
+}
+
+.THIS .receipt{
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.THIS .gc-btn-minus, .THIS .gc-btn-plus{
+    padding: 3px;
+    padding-top: 5px;
+}
+
+.THIS .gc-icon-minus, .THIS .gc-icon-plus{
+    font-size: 30px;
+    color: #382670;
+}
+
+.THIS .gc-icon-plus{
+    font-size: 30px;
+    color: green;
+}
+
+.THIS .gc-btn-router{
+    padding: 3px;
+    padding-top: 5px;
+}
+
+.THIS .gc-btn{
+    padding:6px 50px 8px;
+    border-radius: 25px;
+    color: white;
+    background-color: #382670;
+    font-weight: 600;
+    border: none;
+    
+}
+
+.THIS .gc-btn-group{
+    border: 1px solid #382670;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.THIS .gc-btn-router{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+.THIS .btn-pos{
+    padding-top:3px;
+    padding-bottom: 3px;
+    width: 100%;
+}
+
+.THIS .pos-cash{
+    border: 1px solid #382670;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+.THIS .pos-cash .slds-input, .THIS .pos-cash:active .slds-input:active{
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.THIS .selected{
+    background-color: green !important;
+    color: white;
+    font-weight: 600;
+}
+
+.THIS .btn-calc{
+    width: 100%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #f1f1f1;
+    border: 1px solid #777;
+}
+
+.THIS .error-msg{
+    color: red;
+    font-size: 13px;
+    padding-top:3px;
+}
+
+.THIS .btn-clr{
+    background-color: orange;
+}
+
+.THIS .bg-red{
+    background-color: red;
+}
+
+.THIS .bg-green{
+    background-color: green;
+}
+
+.THIS .order-type .slds-radio_faux{
+    padding: 0px 50px;
+}
+
+.THIS .slds-radio_button__label{
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.THIS .color-orange{
+    color: orange;
+}
+
+.THIS .color-red{
+    color: crimson;
+}
+
+.THIS .color-green{
+    color: green;
+}
+
+.THIS.pos-main-login{
+    height: 100vh;
+    padding-top: 8%;
+}
+
+
+
+.THIS.pos-spinner{
+    position: fixed;
+    display: inline-block;
+	z-index: 1;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.THIS .active{
+    box-shadow: 0 0 3px 3px #48abe0;
+}
+
+.THIS .fa-backspace{
+    color: red;
+}
+
+.THIS .panel-p{
+    font-size: 14px;
+}

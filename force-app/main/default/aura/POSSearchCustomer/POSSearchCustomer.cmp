@@ -1,0 +1,41 @@
+<aura:component >
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="selectedRowsCount" type="Integer" default="0" />
+    <aura:attribute name="maxRowSelection" type="Integer" default="1" />
+    
+    
+
+    
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close" onclick="{!c.hideModal}">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">ENTER CUSTOMER DETAILS - COD</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_12-of-12">
+                        <lightning:datatable
+                                             columns="{! v.columns }"
+                                             data="{! v.data }"
+                                             keyField="id"
+                                             class="existing-customer-table"
+                                             maxRowSelection="{! v.maxRowSelection }"
+                                             onrowselection="{! c.onRowSelection }"/>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    
+    
+</aura:component>

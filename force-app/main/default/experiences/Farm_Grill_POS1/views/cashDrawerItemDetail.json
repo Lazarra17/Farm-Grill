@@ -1,0 +1,66 @@
+{
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "413d0612-d5d7-480c-b345-18049521b9a4",
+  "label" : "Cash Drawer Item Detail",
+  "regions" : [ {
+    "id" : "3151b53a-60a8-4b9c-8044-9eb98ffbea65",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordHeadline",
+      "id" : "bd3f7e35-c9e2-4459-bfbc-bcc5c4e824fa",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "detailsTabLabel" : "Details",
+        "discussionsTabLabel" : "Feed",
+        "recordId" : "{!recordId}",
+        "relatedTabLabel" : "Related",
+        "showLegacyActivityComposer" : false,
+        "tab1Type" : "details",
+        "tab2Type" : "related",
+        "tab3Type" : "chatter",
+        "tab4Type" : "none",
+        "timelineTabLabel" : "Activity"
+      },
+      "componentName" : "forceCommunity:recordHomeTabs",
+      "id" : "610f5606-78dc-427f-941a-ce5620234855",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a6edcf5a-2f54-401a-82e1-4f0aaf966b5d",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "5c2d9612-95a1-4b7a-99e4-ef2c6b279be6",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "fd9229e1-2a56-473b-b2cf-a1482d729691",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "54d4ef4f-0bac-400d-bfa7-67f268c9bf13",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-a00"
+}

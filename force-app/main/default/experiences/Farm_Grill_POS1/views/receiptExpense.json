@@ -1,0 +1,46 @@
+{
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "12246374-256b-43c4-9872-924ef2a84580",
+  "label" : "Receipt Expense",
+  "regions" : [ {
+    "id" : "2d90e521-8416-4582-80dd-2752600d7cec",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:POSExpenseReceipt",
+      "id" : "b997a423-2119-45c3-a32a-611f13d3118b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "ec07a4f2-3718-4823-bc23-98e61e4a3649",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "297f56a3-c138-4f96-9831-b504b54e68a6",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Receipt Expense"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "9fb5142d-f485-4142-aeb2-bcaa0bf9eaa5",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "15690dd1-167a-4f05-a003-ab974fc6f04a",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "DlKgOMV2EGVRgiCvp4bDc8NIoSRgfM",
+  "type" : "view",
+  "viewType" : "custom-receipt-expense"
+}

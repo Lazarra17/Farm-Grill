@@ -1,0 +1,39 @@
+{
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "9b64cd43-1b9a-43f3-850e-eb4005891fac",
+  "label" : "Cash Drawer Item Related List",
+  "regions" : [ {
+    "id" : "cf63f4b5-25dd-446f-8571-edb25b858a6b",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customTitle" : "",
+        "parentRecordId" : "{!recordId}",
+        "relatedListName" : "{!relationshipApiName}",
+        "showBreadCrumbs" : true,
+        "showCustomTitle" : false,
+        "showManualRefreshButton" : true,
+        "showRowNumbers" : true
+      },
+      "componentName" : "forceCommunity:relatedList",
+      "id" : "a88772aa-010c-4ae8-b152-a4c8d0683342",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "3d666e11-082f-43f9-af11-3cc9063c6e58",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "73fb9b9c-d7e2-4777-b81a-9b5609a31df8",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-a00"
+}

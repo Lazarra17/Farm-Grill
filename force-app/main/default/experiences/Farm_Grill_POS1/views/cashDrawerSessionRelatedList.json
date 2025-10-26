@@ -1,0 +1,39 @@
+{
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "10790a12-ce35-4a20-8e81-323d292c8308",
+  "label" : "Cash Drawer Session Related List",
+  "regions" : [ {
+    "id" : "1887fc69-a1e6-4618-80f7-60bf92ea8bf4",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customTitle" : "",
+        "parentRecordId" : "{!recordId}",
+        "relatedListName" : "{!relationshipApiName}",
+        "showBreadCrumbs" : true,
+        "showCustomTitle" : false,
+        "showManualRefreshButton" : true,
+        "showRowNumbers" : true
+      },
+      "componentName" : "forceCommunity:relatedList",
+      "id" : "1f8d6731-db5f-4ea7-b22c-a0acff569863",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "3331b72c-d1b0-4869-94d8-2b7bf379cb4f",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "265ad75b-180e-48ed-a5e5-f655c333da61",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-a01"
+}

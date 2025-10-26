@@ -1,0 +1,89 @@
+<aura:component controller="POSCashDrawerNewItemController">
+    <aura:attribute name="cashDrawerId" type="String"  />
+    <aura:attribute name="errMessage" type="String"  />
+    <aura:attribute name="total" type="currency"  />
+    <aura:attribute name="type" type="String" />
+    <aura:attribute name="posSettings" type="POS_Setting__mdt" default="{'Account_Name__c': '', 'VFP_Url__c': ''}"  />
+    <aura:attribute name="cashDrawerItem" type="Cash_Drawer_Item__c" default="{
+                                                                              'X1000__c' : '', 'X500__c' : '', 'X200__c' : '', 'X100__c' : '', 
+                                                                              'X50__c' : '', 'X20__c' : '', 'X10__c' : '', 'X5__c' : '', 
+                                                                              'X1__c' : '', 
+                                                                              }"  />
+    <aura:registerEvent name="compEvent" type="c:POSEvent"/>
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close" onclick="{!c.hideModal}">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">NEW CASH DRAWER ITEM</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_12-of-12">
+                        <aura:if isTrue="{!v.type != ''}">
+                            <lightning:select name="type" label="Type" required="true" value="{!v.type}" aura:id="type" >
+                                <option value="{!v.type}">{!v.type}</option>
+                            </lightning:select>
+                            <aura:set attribute="else">
+                                <lightning:select name="type" label="Type" required="true" value="{!v.type}" aura:id="type" >
+                                    <option value="Expense">Expense</option>
+                                    <option value="Withdrawal">Withdrawal</option>
+                                    <option value="Additional Cash">Additional Cash</option>
+                                </lightning:select>
+                            </aura:set>
+                        </aura:if>
+                        
+                        
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12 slds-m-top_medium">
+                        <p>Denomination</p>
+                        
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12 slds-m-top_medium">
+                        <span>{!v.errMessage}</span>
+                        
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                     	<lightning:input type="number" name="X1000" label="1000" value="{!v.cashDrawerItem.X1000__c}" maxlength="3" onchange="{!c.calculateTotal}" />
+                        <lightning:input type="number" name="X500" label="500" value="{!v.cashDrawerItem.X500__c}" maxlength="3" onchange="{!c.calculateTotal}" />
+                        <lightning:input type="number" name="X200" label="200" value="{!v.cashDrawerItem.X200__c}" maxlength="3" onchange="{!c.calculateTotal}" />
+                        <lightning:input type="number" name="X100" label="100" value="{!v.cashDrawerItem.X100__c}" maxlength="3" onchange="{!c.calculateTotal}" />
+                        <lightning:input type="number" name="X50" label="50" value="{!v.cashDrawerItem.X50__c}" maxlength="3" onchange="{!c.calculateTotal}" />
+                    </div>
+                    
+                    <div class="slds-col slds-size_6-of-12">
+                        <lightning:input type="number" name="X20" label="20" value="{!v.cashDrawerItem.X20__c}" maxlength="3" onchange="{!c.calculateTotal}" />
+                        <lightning:input type="number" name="X10" label="10" value="{!v.cashDrawerItem.X10__c}" maxlength="3" onchange="{!c.calculateTotal}" />
+                        <lightning:input type="number" name="X5" label="5" value="{!v.cashDrawerItem.X5__c}" maxlength="3" onchange="{!c.calculateTotal}" />
+                        <lightning:input type="number" aura:id="newItem" name="X1" label="1" value="{!v.cashDrawerItem.X1__c}" maxlength="3" onchange="{!c.calculateTotal}" />
+                        <lightning:input type="number" name="total" disabled="true" label="Total" value="{!v.total}" />
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12">
+                        <lightning:textarea name="notes" label="Notes" required="true" aura:id="newItem" value="{!v.cashDrawerItem.Notes__c}" />
+                        
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12 slds-text-align_right slds-m-top_small">
+                        <aura:if isTrue="{!v.type == 'Ending Count'}">
+                            	 <lightning:button variant="brand" label="End Session &amp; Print" title="Save" onclick="{!c.save }" />
+                            <aura:set attribute="else">
+                                <lightning:button variant="brand" label="Save &amp; Print" title="Save" onclick="{!c.save }" />
+                            </aura:set>
+                        </aura:if>
+                        
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

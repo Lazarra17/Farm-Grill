@@ -1,0 +1,18 @@
+{
+  "forgotPasswordRouteId" : "a61a7a3b-377c-435a-bec1-64d9c43e5c16",
+  "isAvailableToGuests" : true,
+  "isFilteredComponentsView" : false,
+  "isProgressiveRenderingEnabled" : false,
+  "loginAppPageId" : "0fbeaeb1-f476-4264-82f9-ac332ebf1809",
+  "mainAppPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "preferredDomain" : "none",
+  "selfRegistrationRouteId" : "d05e0e82-41a9-4585-9843-351389c9af6a",
+  "trustedSitesForScript" : [ {
+    "id" : "8cd5964a-141c-4ebe-952e-379a8406c28c",
+    "isActive" : true,
+    "trustedSiteName" : "forcepos",
+    "trustedSiteUrl" : "https://forcepos-dev-ed.develop.my.site.com/",
+    "type" : "trustedSitesForScripts"
+  } ],
+  "type" : "site"
+}

@@ -1,0 +1,46 @@
+{
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "0ab1fa58-b69c-4493-adee-c6e554d8c2c6",
+  "label" : "Receipt Kitchen",
+  "regions" : [ {
+    "id" : "c5bd86cd-7e42-44ed-a3b4-982bf825f526",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:POSKitchenReceipt",
+      "id" : "d2b21de4-5221-41cb-8b75-e7773de31c4d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "25f6a0b1-c89e-4ce3-9817-24f3bbbc24ac",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "606c04ee-e81c-4bcf-a30c-8aa4d55e234f",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Receipt Kitchen"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "71fcb1ae-372a-487f-bb7b-7fed61c5ddf1",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "78eae45a-0208-44e2-8767-b6fcc1e701d0",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "DlKgOMV2EGVRgiCvp4bDc8NIoSRgfM",
+  "type" : "view",
+  "viewType" : "custom-receipt-kitchen"
+}

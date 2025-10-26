@@ -1,0 +1,107 @@
+<aura:component extends="forceCommunity:navigationMenuBase">
+    <aura:attribute name="employee" type="Contact" />
+    <aura:attribute name="cashDrawer" type="String" />
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:handler event="c:POSAppEvent" action="{!c.handleApplicationEvent}"/>
+    
+    
+    <div class="collapse"  id="headerMenu">
+        
+        <div class="" >
+            <div class="fixed-top d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height: 100vh;">
+                
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_11-of-12">
+                        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                            
+                            <span class="fs-4">FARM GRILL POS</span>
+                        </a>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                        <i class="fa fa-window-close" aria-hidden="true" data-bs-toggle="collapse" data-bs-target="#headerMenu" role="button" aria-expanded="false" aria-controls="headerMenu"></i>
+                    </div>
+                </div>
+                <hr />
+                <ul class="nav nav-pills flex-column mb-auto" onclick="{!c.onClick}">
+                    
+                    <aura:iteration items="{!v.menuItems}" var="item">
+                        <aura:if isTrue="{!item.label == 'Home'}">
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                    <i class="fa fa-home slds-p-right_x-small" aria-hidden="true"></i> 
+                                    {!item.label}
+                                </a>
+                            </li>
+                            
+                            <aura:set attribute="else">
+                                <aura:if isTrue="{!item.label == 'Cash Drawer'}">
+                                    <li class="nav-item">
+                                        <a href="{!'/s/cash-drawer?recordId=' + v.cashDrawer}" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                            <i class="fa fa-cash-register slds-p-right_x-small" aria-hidden="true"></i> 
+                                            {!item.label} 
+                                        </a>
+                                    </li>
+                                    
+                                    <aura:set attribute="else">
+                                        
+                                        <aura:if isTrue="{!item.label == 'Delivery Orders'}">
+                                            <li class="nav-item">
+                                                <a href="{!'/s/pending-remittance?recordId=' + v.cashDrawer}" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                                    <i class="fa fa-truck slds-p-right_x-small" aria-hidden="true"></i> 
+                                                    {!item.label} 
+                                                </a>
+                                            </li>
+                                            
+                                            <aura:set attribute="else">
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                                        <i class="slds-p-right_x-small" aria-hidden="true"></i> 
+                                                        {!item.label}
+                                                    </a>
+                                                </li>
+                                            </aura:set>
+                                            
+                                        </aura:if>
+                                        
+                                      
+                                    </aura:set>
+                                    
+                                </aura:if>
+                            </aura:set>
+                        </aura:if>
+                        
+                      
+                        
+                        
+                    </aura:iteration>
+                    
+                    
+                
+                </ul>
+                <hr />
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">   
+                        <i class="fa fa fa-user slds-p-right_small"></i>
+                        <strong>{!v.employee.FirstName}</strong>
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                        <!--li><a class="dropdown-item" href="#">Settings</a></li-->
+                        <li><a class="dropdown-item" href="{!'/s/profile?recordId=' + v.employee.contactId}" onclick="{!c.hideModal}">Profile</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#" onclick="{!c.signout}" >Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="" style="background-color: black; width: 100%; height: 100vh; position: fixed; opacity: .5; z-index: 1"  data-bs-toggle="collapse" data-bs-target="#headerMenu" role="button" aria-expanded="false" aria-controls="headerMenu">
+                
+            </div>
+        </div>
+        
+        
+    </div>
+    
+    
+    
+    
+    
+</aura:component>

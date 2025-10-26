@@ -1,0 +1,100 @@
+{
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "componentName" : "siteforce:sldsTwoCol84Layout",
+  "dataProviders" : [ ],
+  "id" : "f6e949bb-ffa4-4c7d-b097-64c6a78f456b",
+  "label" : "Cash Drawer",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:POSCashDrawer",
+      "id" : "883995ac-488b-42c4-aecc-8794c83e249b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "814b2761-690e-4cc0-a509-0526d77cadfb",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "506d0ee2-0a71-4595-83aa-e05b80150e56",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "f16c3fb8-2ed4-4c70-8c5b-5431897a60c7",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "Details"
+          } ],
+          "useOverflowMenu" : true
+        }
+      },
+      "componentName" : "forceCommunity:tabLayout",
+      "id" : "506d0ee2-0a71-4595-83aa-e05b80150e56",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:recordDetail",
+          "id" : "e2ee7b48-efaf-4d73-af31-be6a5002f66d",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "f16c3fb8-2ed4-4c70-8c5b-5431897a60c7",
+        "regionLabel" : "Details",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "9d564087-8d05-4c1f-bf83-c7aa75a6d51b",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}",
+        "width" : "SMALL"
+      },
+      "componentName" : "forceCommunity:relatedRecords",
+      "id" : "9e852a43-eca8-4d90-b12d-afe6e06ae0d6",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4d4c5aba-a3b6-44f2-af5d-23e668d61675",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "f82d5891-3ff5-480c-9309-2dd2be0b4e86",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Cash Drawer"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "862d98fe-e9b1-4d69-912c-6807cfe1e8e1",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5c0e409b-39ab-42ee-97b0-542a1a88361a",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "1PNKxMtuod2nCbpd12zHXMnQ0YGsgh",
+  "type" : "view",
+  "viewType" : "custom-cash-drawer"
+}

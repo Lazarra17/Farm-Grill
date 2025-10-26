@@ -1,0 +1,46 @@
+{
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "ac9e45f2-f335-4e77-8972-4b0948ca5ff8",
+  "label" : "Pending Remittance",
+  "regions" : [ {
+    "id" : "2aaa5835-087c-40df-8272-966f1e3f1aa5",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:POSPendingRemittance",
+      "id" : "abdd2bbb-2d96-4b43-8bfc-6cb90eaad033",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f92ca587-2bd0-4974-ab5d-c15457c1f132",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "605a66c9-7137-46f7-ba05-196679bdc898",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Pending Remittance"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "0c0664ff-1f84-4c14-8451-4422a02fa9dc",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4300a124-6055-4d7e-82d8-fb8fc01f88f6",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "1PNKxMtuod2nCbpd12zHXMnQ0YGsgh",
+  "type" : "view",
+  "viewType" : "custom-pending-remittance"
+}

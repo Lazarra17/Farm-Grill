@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Family__c</fullName>
+    <label>Sub Family</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Family</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Solo</fullName>
+                <default>false</default>
+                <label>Solo</label>
+            </value>
+            <value>
+                <fullName>With Rice</fullName>
+                <default>false</default>
+                <label>With Rice</label>
+            </value>
+            <value>
+                <fullName>Unli Rice</fullName>
+                <default>false</default>
+                <label>Unli Rice</label>
+            </value>
+            <value>
+                <fullName>Platter</fullName>
+                <default>false</default>
+                <label>Platter</label>
+            </value>
+            <value>
+                <fullName>Rice Meal</fullName>
+                <default>false</default>
+                <label>Rice Meal</label>
+            </value>
+            <value>
+                <fullName>Paa</fullName>
+                <default>false</default>
+                <label>Paa</label>
+            </value>
+            <value>
+                <fullName>Pecho</fullName>
+                <default>false</default>
+                <label>Pecho</label>
+            </value>
+            <value>
+                <fullName>120G w/ Rice</fullName>
+                <default>false</default>
+                <label>120G w/ Rice</label>
+            </value>
+            <value>
+                <fullName>500G</fullName>
+                <default>false</default>
+                <label>500G</label>
+            </value>
+            <value>
+                <fullName>1KG</fullName>
+                <default>false</default>
+                <label>1KG</label>
+            </value>
+            <value>
+                <fullName>Swakto</fullName>
+                <default>false</default>
+                <label>Swakto</label>
+            </value>
+            <value>
+                <fullName>Mismo</fullName>
+                <default>false</default>
+                <label>Mismo</label>
+            </value>
+            <value>
+                <fullName>1.5L</fullName>
+                <default>false</default>
+                <label>1.5L</label>
+            </value>
+            <value>
+                <fullName>350ML</fullName>
+                <default>false</default>
+                <label>350ML</label>
+            </value>
+            <value>
+                <fullName>500ML</fullName>
+                <default>false</default>
+                <label>500ML</label>
+            </value>
+            <value>
+                <fullName>1L</fullName>
+                <default>false</default>
+                <label>1L</label>
+            </value>
+            <value>
+                <fullName>Dolores Poblacion</fullName>
+                <default>false</default>
+                <label>Dolores Poblacion</label>
+            </value>
+            <value>
+                <fullName>Dapdap</fullName>
+                <default>false</default>
+                <label>Dapdap</label>
+            </value>
+            <value>
+                <fullName>Lunang</fullName>
+                <default>false</default>
+                <label>Lunang</label>
+            </value>
+            <value>
+                <fullName>Salak</fullName>
+                <default>false</default>
+                <label>Salak</label>
+            </value>
+            <value>
+                <fullName>Malaintos</fullName>
+                <default>false</default>
+                <label>Malaintos</label>
+            </value>
+            <value>
+                <fullName>Malobago</fullName>
+                <default>false</default>
+                <label>Malobago</label>
+            </value>
+            <value>
+                <fullName>Pecho - Unli</fullName>
+                <default>false</default>
+                <label>Pecho - Unli</label>
+            </value>
+            <value>
+                <fullName>Paa - Unli</fullName>
+                <default>false</default>
+                <label>Paa - Unli</label>
+            </value>
+            <value>
+                <fullName>Free</fullName>
+                <default>false</default>
+                <label>Free</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>Swakto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>Mismo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>1.5L</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>350ML</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>500ML</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>1L</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <controllingFieldValue>Chicken</controllingFieldValue>
+            <controllingFieldValue>Veggies</controllingFieldValue>
+            <valueName>Solo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <controllingFieldValue>Chicken</controllingFieldValue>
+            <controllingFieldValue>Veggies</controllingFieldValue>
+            <valueName>With Rice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <controllingFieldValue>Chicken</controllingFieldValue>
+            <valueName>Unli Rice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <valueName>Platter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <valueName>Rice Meal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <valueName>120G w/ Rice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <valueName>500G</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <valueName>1KG</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chicken</controllingFieldValue>
+            <valueName>Paa</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chicken</controllingFieldValue>
+            <valueName>Pecho</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chicken</controllingFieldValue>
+            <valueName>Pecho - Unli</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chicken</controllingFieldValue>
+            <valueName>Paa - Unli</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>Dolores Poblacion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>Dapdap</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>Lunang</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>Salak</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>Malaintos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>Malobago</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>Free</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

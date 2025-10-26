@@ -1,0 +1,17 @@
+.THIS .slds-modal__title{
+    margin: 0px;
+}
+
+.THIS .full-width {
+    width: 100%;
+}
+
+.THIS .print-amount{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.THIS .slds-modal__container {
+    max-width: 50rem !important; /* Or your desired maximum width */
+    width: 50% !important;    /* Or your desired width */
+}

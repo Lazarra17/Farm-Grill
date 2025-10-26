@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "945d5f32-2923-4ba7-a4b2-ac11f6d7441b",
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "configurationTags" : [ ],
+  "devName" : "Cash_Drawer_Item_List__c",
+  "id" : "419e8ca8-83e2-41b0-bcf2-64867b447df5",
+  "label" : "Cash Drawer Item List",
+  "objectApiName" : "Cash_Drawer_Item__c",
+  "routeType" : "list-a00",
+  "type" : "route",
+  "urlPrefix" : "cash-drawer-item"
+}

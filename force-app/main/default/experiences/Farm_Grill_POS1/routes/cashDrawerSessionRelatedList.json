@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "10790a12-ce35-4a20-8e81-323d292c8308",
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "configurationTags" : [ ],
+  "devName" : "Cash_Drawer_Session_Related_List__c",
+  "id" : "aa0bf69d-0200-4840-a448-bfc746f585bf",
+  "label" : "Cash Drawer Session Related List",
+  "objectApiName" : "Cash_Drawer_Session__c",
+  "routeType" : "relatedlist-a01",
+  "type" : "route",
+  "urlPrefix" : "cash-drawer-session"
+}

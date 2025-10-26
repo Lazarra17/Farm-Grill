@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "89a94982-ddb5-49a0-8d43-e3c249301b47",
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "configurationTags" : [ ],
+  "devName" : "Receipt_Customer__c",
+  "id" : "8eaec058-ccd8-4bbd-b90e-bfff03478465",
+  "label" : "Receipt Customer",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-receipt-customer",
+  "type" : "route",
+  "urlPrefix" : "receipt-customer"
+}

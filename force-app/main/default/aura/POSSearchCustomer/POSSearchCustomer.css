@@ -1,0 +1,9 @@
+.THIS .slds-modal__container {
+    width: 80% !important; /* Adjust width as needed */
+    max-width: 800px !important; /* Adjust max-width as needed */
+}
+
+.THIS .slds-modal__content, .THIS .modal-body {
+    max-height: 700px !important; /* Adjust max-height as needed */
+    height: auto; /* Set to auto to allow height to adjust to content */
+}

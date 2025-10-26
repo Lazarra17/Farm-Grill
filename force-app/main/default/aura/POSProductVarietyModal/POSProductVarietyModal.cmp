@@ -1,0 +1,82 @@
+<aura:component >
+    
+    <aura:attribute name="order" type="Object"  />
+    <aura:attribute name="products" type="List" />  
+    <aura:attribute name="selectedProduct" type="String" />
+    <aura:attribute name="productImg" type="String" />
+    <aura:attribute name="qty" type="Integer" default="1" />
+    <aura:attribute name="orderItem" type="Object" /> 
+    <aura:attribute name="error" type="String" />
+    <aura:attribute name="cashDrawer" type="Cash_Drawer_Session__c" />
+    <aura:registerEvent name="posAppEvent" type="c:POSAppEvent"/>
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close" onclick="{!c.hideModal}">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">{!v.selectedProduct}</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_7-of-12">
+                        <img class="prod-img" src="{!v.productImg}"></img>
+                        
+                    </div>
+                    
+                    <div class="slds-col slds-size_5-of-12">
+                        
+                        <div class="slds-grid slds-wrap">
+                            
+                            <div class="slds-col slds-size_6-of-12">
+                                <p class="panel-p">Quantity</p>
+                            </div>
+                            <div class="slds-col slds-size_6-of-12">
+                                
+                            </div>
+                            
+                            
+                            <div class="slds-col slds-size_12-of-12 slds-m-bottom_medium">
+                                <div class="btn-group gc-btn-group" role="group">
+                                    <button type="button" class="btn gc-btn-minus" onclick="{!c.minusOne}"><i class="fa fa-minus-circle gc-icon-minus" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn gc-btn-router">{!v.qty}</button>
+                                    <button type="button" class="btn gc-btn-plus" onclick="{!c.addOne}"><i class="fa fa-plus-circle gc-icon-plus" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                       
+                            
+                            <div class="slds-col slds-size_12-of-12">
+                                <aura:iteration items="{!v.products}" var="item" indexVar="prodIndex">
+                                    
+                                    <aura:iteration items="{!item.value}" var="prod" indexVar="prodIndex">
+                                        <aura:if isTrue="{!prod.Product_Group__r.Name == v.selectedProduct}">
+                                            <p class="slds-p-bottom_medium">
+                                                <lightning:button variant="brand-outline"
+                                                                  class="full-width slds-p-top_x-small slds-p-bottom_x-small"
+                                                                  label="{!prod.Product__r.Sub_Family__c}" 
+                                                                  title="{!prod.Product__r.Sub_Family__c}"
+                                                                  value="{!prod.Product__c}"
+                                                                  onclick="{! c.createOrderItem }" />
+                                            </p>
+                                            
+                                        </aura:if>
+                                    </aura:iteration>
+                                    
+                                    
+                                </aura:iteration>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

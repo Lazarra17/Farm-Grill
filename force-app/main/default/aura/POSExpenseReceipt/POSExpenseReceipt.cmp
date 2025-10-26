@@ -1,0 +1,170 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" 
+                access="global" controller="POSReceiptController">
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="receiptData" type="Object" />
+    <aura:attribute name="receiptSettings" type="Object" />
+    
+    <table class="Company Information">
+        <tr style="">
+            <td style="padding-bottom: 15px; text-align:center;"> 
+                <h3>{!v.receiptSettings.Title__c}</h3> 
+                <p>{!v.receiptSettings.Tagline__c}</p>
+                <p>{!v.receiptSettings.Address__c}</p>
+                <p>{!v.receiptSettings.Contact_Number__c}</p>
+                <p style="border-bottom: 1px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;">
+                    
+                </p>
+            </td>
+            
+        </tr>
+    </table>
+    
+    <table class="items">
+        <thead>
+             <tr>
+                <th style="width: 80%; text-align: center; padding-bottom: 10px" colspan="2">{!v.receiptData.Type__c}</th>
+                <th style="text-align: right; width: 20%;"></th>
+            </tr>
+            <tr>
+                <th style="width: 80%; text-align: left">QTY ITEM</th>
+                <th style="text-align: right; width: 20%;">AMOUNT</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <aura:if isTrue="{!v.receiptData.X1000__c != 0}">
+                <tr>
+                    <td>({!v.receiptData.X1000__c}) x1000</td>
+                    <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.X1000__c * 1000}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.receiptData.X500__c != 0}">
+                <tr>
+                    <td>({!v.receiptData.X500__c}) x500</td>
+                    <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.X500__c * 500}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.receiptData.X200__c != 0}">
+                <tr>
+                    <td>({!v.receiptData.X200__c}) x200</td>
+                    <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.X200__c * 200}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.receiptData.X100__c != 0}">
+                <tr>
+                    <td>({!v.receiptData.X100__c}) x100</td>
+                    <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.X100__c * 100}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.receiptData.X50__c != 0}">
+                <tr>
+                    <td>({!v.receiptData.X50__c}) x50</td>
+                    <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.X50__c * 50}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.receiptData.X20__c != 0}">
+                <tr>
+                    <td>({!v.receiptData.X20__c}) x20</td>
+                    <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.X20__c * 20}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.receiptData.X10__c != 0}">
+                <tr>
+                    <td>({!v.receiptData.X10__c}) x10</td>
+                    <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.X10__c * 10}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.receiptData.X5__c != 0}">
+                <tr>
+                    <td>({!v.receiptData.X5__c}) x5</td>
+                    <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.X5__c * 5}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.receiptData.X1__c != 0}">
+                <tr>
+                    <td>({!v.receiptData.X1__c}) x1</td>
+                    <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.X1__c * 1}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:if>
+            
+      
+            
+            
+        </tbody>
+        
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr >
+                <td style="padding-top: 25px;">Total</td>
+                <td style="text-align: right; padding-top: 25px;">
+                    <lightning:formattedNumber value="{!v.receiptData.Total_Amount__c}" style="currency" currencyCode="PHP"/>
+                </td>
+                
+            </tr>
+            
+            <tr >
+                <td style="">Cash Drawer Id</td>
+                <td style="text-align: right;">
+                    {!v.receiptData.Cash_Drawer_Session__r.Name}
+                </td>
+                
+            </tr>
+            <tr >
+                <td style="padding-top: 15px; text-align: center; font-weight: 600" colspan="2">Notes</td>
+                <td style="">
+                  
+                </td>
+                
+            </tr>
+            
+            <tr >
+                <td style="text-align: left;" colspan="2"> 
+                    {!v.receiptData.Notes__c}
+                </td>
+                <td style="">
+                    
+                </td>
+                
+            </tr>
+            
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        
+            <tr> 
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            
+          
+            
+            <tr>
+                <td coslpan="2"  style="height: 20px; border-bottom: 1px solid #ccc"></td>
+                <td style="height: 50px; border-bottom: 1px solid #ccc"></td>
+            </tr>
+            
+        </tfoot>
+    </table>
+    
+</aura:component>

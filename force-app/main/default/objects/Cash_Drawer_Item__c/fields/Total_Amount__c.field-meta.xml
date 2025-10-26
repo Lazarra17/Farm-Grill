@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Amount__c</fullName>
+    <formula>(X1000__c * 1000) +
+(X500__c * 500) +
+(X200__c * 200) +
+(X100__c * 100) +
+(X50__c * 50) +
+(X20__c * 20) +
+(X10__c * 10) +
+(X5__c * 5) +
+(X1__c * 1) +
+Custom__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,77 @@
+<aura:component controller="POSPendingRemittanceController">
+    <aura:attribute name="cashDrawerSessionId" type="String"  />
+    <aura:attribute name="opportunityId" type="String" />
+    <aura:attribute name="opptyName" type="String"  />
+    <aura:attribute name="errMessage" type="String"  />
+    <aura:attribute name="type" type="String"  />
+    <aura:attribute name="isRequired" type="Boolean" default="false"  />
+    <aura:attribute name="isExactAmount" type="Boolean" default="false"  />
+    <aura:attribute name="showSpinner" type="Boolean" default="false"  />
+    
+    <aura:attribute name="totalAmount" type="Integer"  />
+    <aura:attribute name="cashDrawerItem" type="Cash_Drawer_Item__c" default="{'Notes__c':'', 'Custom__c': ''}"  />
+    <aura:registerEvent name="compEvent" type="c:POSEvent"/>
+    
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="pos-spinner">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close" onclick="{!c.hideModal}">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">REMIT PAYMENT TO CASHIER</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-grid slds-wrap slds-gutters">
+                    
+                    <div class="slds-col slds-size_12-of-12 slds-m-top_medium">
+                        <span>{!v.errMessage}</span>
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12">
+                        <lightning:input type="text" name="cashDrawerItem" disabled="true" label="Cash Drawer Item" value="{!v.opptyName}"/>
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12">
+                        <lightning:select name="type" label="Type" required="true" value="{!v.type}" aura:id="type" >
+                            <option value="Cash">Cash</option>
+                            <option value="GCash">GCash</option>
+                        </lightning:select>
+                    </div>
+                    
+                    <aura:if isTrue="{!v.type == 'GCash'}">
+                        <div class="slds-col slds-size_12-of-12">
+                            <lightning:input type="text" name="referenceNumber" maxlength="13" required="true" label="Reference Number" aura:id="remit" value="{!v.cashDrawerItem.Reference_Number__c}"/>
+                        </div>
+                    </aura:if>
+                    <div class="slds-col slds-size_12-of-12">
+                        <lightning:input type="number" name="amount" required="true" label="Amount" aura:id="remit" value="{!v.cashDrawerItem.Custom__c}" maxlength="4" onchange="{!c.handleOnChange}" />
+                    </div>
+                    
+                    
+                    <div class="slds-col slds-size_12-of-12">
+                        <lightning:textarea name="notes" label="Notes" aura:id="remit" value="{!v.cashDrawerItem.Notes__c}" />
+                        
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12 slds-text-align_right slds-m-top_small">
+                        <aura:if isTrue="{!v.isExactAmount}">
+                        <lightning:button variant="brand"  label="&nbsp;&nbsp;&nbsp;Save &nbsp;&nbsp;&nbsp;" title="Save" onclick="{!c.save }" />
+                        </aura:if>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

@@ -1,0 +1,145 @@
+<aura:component controller="POSMainController">
+    <aura:attribute name="contact" type="Contact" default="{'FirstName' : '', 'LastName' : '',
+                                                           'MobilePhone' : '', 'Complete_Address__c' : ''}"  />
+    <aura:attribute name="employee" type="Contact"  />
+    <aura:attribute name="total" type="currency"  />
+    <aura:attribute name="expectedChange" type="currency"  />
+    <aura:attribute name="cashToTender" type="currency"  />
+    <aura:attribute name="notes" type="String" />
+    <aura:attribute name="order" type="Object"  />
+    <aura:attribute name="cashDrawer" type="Cash_Drawer_Session__c" />
+    <aura:attribute name="modeOfPaymentSelected" type="String" />
+    <aura:attribute name="riderOptions" type="List" />
+    <aura:attribute name="existingCustomers" type="Object" />
+    <aura:attribute name="riderSelected" type="String" />
+    <aura:attribute name="showSpinner" type="Boolean" />
+    <aura:attribute name="customerSelected" type="String" />
+    <aura:attribute name="customerType" type="String" default="New Customer" />
+    <aura:attribute name="customerTypeOptions" type="List" default="[
+                                                                    {'value' : 'New Customer', 'label': '  New Customer  '},
+                                                                    {'value' : 'Existing Customer', 'label': '  Existing Customer  '}
+                                                                    ]" />
+    
+    <aura:registerEvent name="posAppEvent" type="c:POSAppEvent"/>
+    
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="selectedRowsCount" type="Integer" default="0" />
+    <aura:attribute name="maxRowSelection" type="Integer" default="1" />
+    
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="pos-spinner">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close" onclick="{!c.hideModal}">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">ENTER CUSTOMER DETAILS - COD</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                
+                
+                
+                <div class="slds-grid slds-wrap slds-gutters">
+                    
+                    
+                    <div class="slds-col slds-size_12-of-12 slds-text-align_center">
+                      
+                        <lightning:radioGroup name="customerType"
+                                              class=""
+                                              options="{! v.customerTypeOptions }"
+                                              value="{! v.customerType }"
+                                              onchange="{!c.handleChange}"
+                                              type="button"/>
+                        
+                        
+                        
+                    </div>
+                    
+                    
+                   
+                        <div class="slds-col slds-size_12-of-12 slds-m-top_medium">
+                            <span>{!v.errMessage}</span>
+                            
+                        </div>
+                    <div class="slds-col slds-size_12-of-12">
+                        <aura:if isTrue="{!v.customerType == 'New Customer'}">
+                            <lightning:input type="text" name="firstName" label="First Name" value="{!v.contact.FirstName}"  />
+                            <lightning:input type="text" name="lastName" aura:id="contact" required="true" label="Last Name" value="{!v.contact.LastName}" />
+
+                            
+                            <aura:set attribute="else">
+                                
+                                
+                                <lightning:select name="customerName" onchange="{!c.handleCustomerChange}" label="Customer Name" 
+                                                  required="true" value="{!v.customerSelected}" aura:id="customer" >
+                                    <option value="">--Select Customer--</option>
+                                    <aura:iteration items="{!v.existingCustomers}" var="item">
+                                        <option value="{!item.Id}">{!item.Name}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                                
+                            </aura:set>
+                            
+                        </aura:if>   
+                        
+                        <lightning:input type="phone" name="contactNumber" aura:id="contact" required="true" label="Contact Number" value="{!v.contact.MobilePhone}" />
+                        <lightning:input name="address" label="Address" aura:id="contact" required="true" value="{!v.contact.Complete_Address__c}" />
+                        
+                        
+                            <lightning:select name="deliveryRider" label="Delivery Rider" required="true" value="{!v.riderSelected}" aura:id="rider" 
+                                              onchange="{!c.handleRiderChange}">
+                                              >
+                                <option value="">--Select Rider--</option>
+                                <aura:iteration items="{!v.riderOptions}" var="item">
+                                    <option value="{!item.value}">{!item.label}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                            
+                            <lightning:textarea name="Notes" label="Notes" aura:id="newItem" value="{!v.notes}" />
+                            
+                        </div>
+                        
+                        
+                        <div class="slds-col slds-size_12-of-12">
+                             <lightning:input type="number" formatter="currency" aura:id="contact" required="true" name="cashToTender" label="Cash To Tender by Customer" value="{!v.order.PaymentReceived}"  />
+                        </div>
+                        
+                        <div class="slds-col slds-size_6-of-12">
+                            <lightning:input type="number" disabled="true" formatter="currency" name="Total" label="Total Amount" value="{!v.order.Total}"  />
+                            
+                        </div>
+                        
+                        <div class="slds-col slds-size_6-of-12">
+                            <lightning:input type="number" disabled="true" formatter="currency" name="Total" label="Expected Change" value="{!v.order.PaymentReceived - v.order.Total}"  />
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="slds-col slds-size_12-of-12 slds-text-align_right slds-m-top_small">
+                            
+                            <lightning:button variant="brand" label="Place Order &amp; Print" title="Place Order &amp; Print" onclick="{!c.placeOrder}" />
+                            
+                            
+                            
+                        </div>
+                        
+             
+                    
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

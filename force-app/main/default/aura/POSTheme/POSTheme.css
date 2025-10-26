@@ -1,0 +1,36 @@
+/*GigaCommTheme.css*/
+.THIS {
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.THIS .fa-window-close{
+    font-size: 20px;
+
+}
+
+.THIS.pos-container, .THIS .pos-container{
+    background-color: white;
+    border-radius: 10px;
+   
+}
+
+.THIS .header-title{
+    font-size: 13px;
+    color: #555;
+} 
+
+.THIS .fa-bars{
+    font-size: 25px;
+    padding-top: 10px;
+}
+
+.THIS .header-menu-title{
+    font-weight: 600;
+    font-size: 20px;
+    color: #333;
+    padding-left: 10px;
+}

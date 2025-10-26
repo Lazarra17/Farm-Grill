@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "0ab1fa58-b69c-4493-adee-c6e554d8c2c6",
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "configurationTags" : [ ],
+  "devName" : "Receipt_Kitchen__c",
+  "id" : "849447db-2c41-4124-a7bb-2450fe556e35",
+  "label" : "Receipt Kitchen",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-receipt-kitchen",
+  "type" : "route",
+  "urlPrefix" : "receipt-kitchen"
+}

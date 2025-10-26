@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "f6e949bb-ffa4-4c7d-b097-64c6a78f456b",
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "configurationTags" : [ ],
+  "devName" : "Cash_Drawer__c",
+  "id" : "4b6f062e-efce-4bd9-a196-10824f081e70",
+  "label" : "Cash Drawer",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-cash-drawer",
+  "type" : "route",
+  "urlPrefix" : "cash-drawer"
+}

@@ -1,0 +1,108 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" 
+                access="global" controller="POSReceiptController">
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="receiptData" type="Object" />
+    <aura:attribute name="receiptSettings" type="Object" />
+    
+    <table class="Company Information">
+        <tr style="">
+            <td style="padding-bottom: 25px; text-align:center;"> 
+                <h1 style="font-size: 35px">{!v.receiptData.oppty.Queue_Number__c}</h1>
+                <img src="{!$Resource.FarmGrillLogo}" class="receipt-logo" />
+                <h3>Farm Grill</h3>
+                <p>#1 Chicken Inasal in town</p>
+                <p>Brgy 4, Dolores Eastern Samar</p>
+                <p>09208072857</p>
+                <p style="border-bottom: 1px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;">
+                    
+                </p>
+            </td>
+            
+        </tr>
+    </table>
+    
+    <table class="items">
+        <thead>
+            <tr>
+                <th style="width: 80%; text-align: left">QTY ITEM</th>
+                <th style="text-align: right; width: 20%;">AMOUNT</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <aura:iteration items="{!v.receiptData.opptyLines}" var="item">
+                <tr>
+                    <td>{!item.Quantity} {!item.Product2.Name}</td>
+                    <td style="text-align: center;"> <lightning:formattedNumber value="{!item.TotalPrice}" style="currency" currencyCode="PHP"/></td>
+                </tr>
+            </aura:iteration>
+            
+            
+        </tbody>
+        
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr >
+                <td style="border-bottom: 1px solid #ccc; margin-bottom: 3px; padding-bottom: 5px; padding-top: 15px;">Total</td>
+                <td style="text-align: center; border-bottom: 1px solid #ccc;">
+                    <lightning:formattedNumber value="{!v.receiptData.oppty.Amount}" style="currency" currencyCode="PHP"/>
+                </td>
+                
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td  style="padding-top: 15px" colspan="2"></td>
+            </tr>
+            
+            <tr>
+                <td>Cash Tendered</td>
+                <td style="text-align: right; ">
+                    <lightning:formattedNumber value="{!v.receiptData.oppty.Cash_Tendered__c}" style="currency" currencyCode="PHP"/>
+                    
+                </td>
+                
+            </tr>
+            <tr>
+                <td>Change</td>
+                <td style="text-align: right; ">
+                    <lightning:formattedNumber value="{!v.receiptData.oppty.Change__c}" style="currency" currencyCode="PHP"/>
+                    
+                </td>
+                
+            </tr>
+            
+            
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            
+            <tr>
+                <td colspan="2" style="text-align: center; padding-top: 15px;">Thank you.  Please come again!</td>
+                <td></td>
+            </tr>
+            
+            <tr>
+                <td coslpan="2"  style="height: 50px; border-bottom: 1px solid #ccc"></td>
+                <td style="height: 50px; border-bottom: 1px solid #ccc"></td>
+            </tr>
+            
+        </tfoot>
+    </table>
+    
+</aura:component>

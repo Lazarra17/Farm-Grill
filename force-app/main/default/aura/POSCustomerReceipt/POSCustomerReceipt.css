@@ -1,0 +1,33 @@
+@media print {
+    .THIS html, .THIS body {
+        height: auto;
+    }
+}
+
+@page {
+    size: 58mm 60mm;
+    margin: 0;
+}
+
+
+.THIS body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    width: 215px;
+    margin:0px;
+    padding:0px;
+}
+
+.THIS table{
+    width: 100%;
+}
+
+.THIS h3, .THIS p, .THIS h1{
+    margin: 0px;
+    margin-bottom: 1px;
+    padding:0px;
+}
+
+.THIS .receipt-logo{
+    width: 90px;
+}

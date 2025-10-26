@@ -1,0 +1,427 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global" controller="POSMainController">
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:attribute name="products" type="List" />
+    <aura:attribute name="productCategories" type="List" />
+    <aura:attribute name="productImg" type="String" />
+    <aura:attribute name="selectedProduct" type="String" />
+    <aura:attribute name="existingCustomers" type="Object" />
+    <aura:attribute name="riderOptions" type="List" />
+    <aura:attribute name="order" type="Object"  />
+    <aura:attribute name="posSettings" type="POS_Setting__mdt" default="{'Account_Name__c': '', 'VFP_Url__c': ''}"  />
+    <aura:attribute name="opp" type="Opportunity"  />
+    <aura:attribute name="orderItem" type="Object" /> 
+    <aura:attribute name="qty" type="Integer" default="1" />
+    <aura:attribute name="referenceNumberLength" type="Integer" default="0" />
+    <aura:attribute name="cashDrawer" type="Cash_Drawer_Session__c" />
+    <aura:attribute name="employeeCode" type="String" />
+    <aura:attribute name="username" type="String" />
+    <aura:attribute name="passcode" type="String" />
+    <aura:attribute name="employee" type="Contact" />
+    <aura:attribute name="error" type="String" />
+    <aura:attribute name="orderTypeOptions" type="List"/>
+    <aura:attribute name="modeOfPaymentOptions" type="List"/>
+    <aura:attribute name="orderTypeOptionSelected" type="String"  />
+    <aura:attribute name="modeOfPaymentSelected" type="String" default="Cash" />
+    <aura:attribute name="startTime" type="Time" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false"  />
+    <aura:attribute name="isAmountCalcButtons" type="Boolean" default="true"  />
+    <aura:handler event="c:POSAppEvent" action="{!c.handleApplicationEvent}"/>
+    <aura:registerEvent name="posAppEvent" type="c:POSAppEvent"/>
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="pos-spinner">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.employee != null}">
+        <div class="slds-grid slds-wrap slds-gutters  pos-main pos-container slds-p-left_medium slds-p-right_medium slds-p-bottom_small  slds-p-top_small slds-m-bottom_small">
+            <div class="slds-col slds-size_2-of-12 slds-p-left_none">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_2-of-12 slds-p-left_none slds-p-right_none">
+                        <i class="fa fa-bars" data-bs-toggle="collapse" href="#headerMenu" role="button" aria-expanded="false" aria-controls="headerMenu"></i>
+                        
+                    </div>
+                    <div class="slds-col slds-size_10-of-12">
+                        <p class="header-title">Cashier</p>
+                        <h5 class="header-content">{!v.employee.FirstName}</h5>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <p class="header-title">Session Date</p>
+                <h5 class="header-content"><lightning:formattedDateTime value="{!v.cashDrawer.Start_Date__c}"/></h5>
+            </div>
+            
+            <div class="slds-col slds-size_1-of-12">
+                <p class="header-title">GCash</p>
+                <h5 class="header-content">
+                    <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Total_Sales_Gcash__c}" minimumFractionDigits="2" />
+                </h5> 
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <p class="header-title">Cash in Drawer</p>
+                <h5 class="header-content">
+                    <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" />
+                </h5>
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <p class="header-title slds-text-align_center">Pending Remittance</p>
+                <h5 class="header-content slds-text-align_center" >
+                    {!v.cashDrawer.Number_of_Pending_Remittances__c}
+                </h5>
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <p class="header-title">Orders Count</p>
+                <h5 class="header-content">{!v.cashDrawer.Total_Count_Orders__c}</h5>
+            </div>
+            <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                <p class="header-title">Status</p>
+                <h5 class="header-content">{!v.cashDrawer.Status__c}</h5>
+            </div>
+            <div class="slds-col slds-size_2-of-12 slds-text-align_right slds-p-top_xx-small">
+                <aura:if isTrue="{!v.cashDrawer != null}">
+                    
+                    <aura:if isTrue="{!v.cashDrawer.Status__c == 'Open'}">
+                        <lightning:button variant="destructive-text" label="End Session" title="End Session" onclick="{! c.endSession }"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.cashDrawer.Status__c == 'Closed'}">
+                        <lightning:button variant="brand-outline" label="New Session" title="New Session" onclick="{! c.startSession }" />
+                    </aura:if>
+                     
+                    
+                    <aura:set attribute="else">
+                        <lightning:button variant="brand-outline" label="New Session" title="New Session" onclick="{! c.startSession }" />
+                    </aura:set>
+                </aura:if>
+                
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap slds-gutters pos-main">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12 pos-container slds-p-top_small">
+                <div class="slds-grid slds-p-bottom_small">
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning:radioGroup name="orderType"
+                                              class="order-type"
+                                              label="Order Type"
+                                              options="{! v.orderTypeOptions }"
+                                              value="{! v.orderTypeOptionSelected }"
+                                              onchange="{!c.changeMOP}"
+                                              type="button"/>
+                    </div>
+                </div>
+                <aura:iteration items="{!v.productCategories}" var="item" indexVar="itemIndex">
+                    
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-1">
+                            <h2 class="product-category-title">{!item.key}</h2>
+                        </div>
+                    </div>
+                    <div class="slds-grid product-category-container slds-gutters slds-gutters_x-small slds-m-bottom_small">
+                        
+                        
+                        <aura:iteration items="{!item.value}" var="prodGroup" indexVar="prodIndex">
+                            <div class="slds-col slds-size_2-of-12">
+                                
+                                <button id="{!itemIndex + '_' + prodIndex}" 
+                                        class="product-tile" 
+                                        data-group-name="{!prodGroup.Name}" 
+                                        data-product-img="{!prodGroup.Product_Image_Url__c}" 
+                                        
+                                        style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
+                                        onclick="{!c.showVariety}"
+                                        >
+                                    <p class="btn-label">{!prodGroup.Name} </p>
+                                    
+                                </button>
+                            </div>
+                        </aura:iteration>
+                        
+                        
+                        
+                        
+                        
+                            
+                        
+                        <!--aura:iteration items="{!item.value}" var="product" indexVar="prodIndex">
+                            <div class="slds-col slds-size_2-of-12">
+                                <aura:if isTrue="{!v.selectedProduct == itemIndex + '_' + prodIndex}">
+                                    <button id="{!itemIndex + '_' + prodIndex}" 
+                                            data-pbe="{!product.TECH_PriceBookEntryId__c}" 
+                                            data-product-id="{!product.Product__c}" 
+                                            data-product-name="{!product.Product__r.Name}" 
+                                            data-unit-price="{!product.TECH_Unit_Price__c}" 
+                                            class="product-tile selected" 
+                                            onclick="{!c.selectProduct}">
+                                        {!product.Product__r.ProductCode}
+                                    </button>
+                                    <aura:set attribute="else">
+                                        <button id="{!itemIndex + '_' + prodIndex}" 
+                                                data-pbe="{!product.TECH_PriceBookEntryId__c}" 
+                                                data-product-id="{!product.Product__c}" 
+                                                data-product-name="{!product.Product__r.Name}" 
+                                                data-unit-price="{!product.TECH_Unit_Price__c}"   
+                                                class="product-tile" onclick="{!c.selectProduct}"
+                                                style="{!'background-image: url(\'' + product.Product__r.Product_Image_Url__c + '\')'}"
+                                                >
+                                            <p class="btn-label">{!product.Product__r.ProductCode}</p>
+                                            
+                                        </button>
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                        </aura:iteration-->
+                        
+                    </div>
+                    
+                </aura:iteration>
+                
+                
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                
+                <div class="slds-grid slds-wrap">
+                    <c:POSSummary order="{!v.order}" />
+                    
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-m-top_small slds-p-left_large slds-p-right_large slds-p-top_small slds-p-bottom_medium pos-container">
+                        
+                        <div class="slds-grid slds-wrap">
+                            
+                            <!--div class="slds-col slds-size_6-of-12">
+                                <p class="panel-p">Quantity</p>
+                            </div>
+                            <div class="slds-col slds-size_6-of-12">
+                                
+                            </div>
+                            
+                            
+                            <div class="slds-col slds-size_5-of-12">
+                                <div class="btn-group gc-btn-group" role="group">
+                                    <button type="button" class="btn gc-btn-minus" onclick="{!c.minusOne}"><i class="fa fa-minus-circle gc-icon-minus" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn gc-btn-router">{!v.qty}</button>
+                                    <button type="button" class="btn gc-btn-plus" onclick="{!c.addOne}"><i class="fa fa-plus-circle gc-icon-plus" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_7-of-12">
+                                <lightning:button variant="brand" class="btn-pos" label="Add to Cart" title="Add to Cart" onclick="{!c.addToCart}"  />
+                                <aura:if isTrue="{!v.error != null}">
+                                    <p class="error-msg">{!v.error}</p>
+                                </aura:if>
+                                
+                            </div-->
+                            
+                            
+                            
+                            <div class="slds-col slds-size_6-of-12 slds-m-top_small">
+                                
+                            </div>
+                            <div class="slds-col slds-size_6-of-12">
+                                
+                            </div>
+                            
+                            
+                            <div class="slds-col slds-size_5-of-12">
+                                <p class="panel-p">Mode of Payment</p>
+                                <select class="pos-cash form-control" name="modeOfPayment" onchange="{!c.setModeOfPayment}" value="{!v.modeOfPaymentSelected}">
+                                    <aura:iteration items="{!v.modeOfPaymentOptions}" var="item">
+                                        <option value="{!item}">{!item}</option>
+                                    </aura:iteration>
+                                </select>
+                                <p class="panel-p">Amount</p>
+                                <lightning:input type="number" class="pos-cash" name="amount" aura:id="amount" value="{!v.order.PaymentReceived}" onclick="{!c.amountTarget}"  variant="label-hidden" readonly="true" maxlength="4" />
+                                
+                                <aura:if isTrue="{!v.modeOfPaymentSelected == 'Gcash'}">
+                                    <p class="panel-p">Reference Number</p>
+                                    <lightning:input class="pos-cash" name="referenceNumber" aura:id="referenceNumber" value="{!v.order.ReferenceNumber}" onclick="{!c.refTarget}"  readonly="true"   variant="label-hidden"  />
+                                </aura:if>
+                            </div>
+                            <div class="slds-col slds-size_7-of-12">
+                                
+                                
+                                <aura:if isTrue="{!v.isAmountCalcButtons}">
+                                    <!--THIS IS BUTTONS FOR AMOUNT-->
+                                    <div class="slds-grid slds-wrap">
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="7" onclick="{!c.calculateChange}">7</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="8" onclick="{!c.calculateChange}">8</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="9" onclick="{!c.calculateChange}">9</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="4" onclick="{!c.calculateChange}">4</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="5" onclick="{!c.calculateChange}">5</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="6" onclick="{!c.calculateChange}">6</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="1" onclick="{!c.calculateChange}">1</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="2" onclick="{!c.calculateChange}">2</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="3" onclick="{!c.calculateChange}">3</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="0" onclick="{!c.calculateChange}">0</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc slds-m-bottom_small" value="00" onclick="{!c.calculateChange}">00</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            <button class="btn-calc btn-clr slds-m-bottom_small"  onclick="{!c.clear}">clr</button>
+                                        </div>
+                                        <div class="slds-col slds-size_4-of-12">
+                                            
+                                        </div>
+                                    </div>
+                                    <aura:set attribute="else"> 
+                                        <!--**************************** THIS IS BUTTONS FOR REFERENCE ******************************-->
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="7" onclick="{!c.inputReference}">7</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="8" onclick="{!c.inputReference}">8</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="9" onclick="{!c.inputReference}">9</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="4" onclick="{!c.inputReference}">4</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="5" onclick="{!c.inputReference}">5</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="6" onclick="{!c.inputReference}">6</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="1" onclick="{!c.inputReference}">1</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="2" onclick="{!c.inputReference}">2</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="3" onclick="{!c.inputReference}">3</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc slds-m-bottom_small" value="0" onclick="{!c.inputReference}">0</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc text-destructive slds-m-bottom_small" onclick="{!c.backspace}"><i class="fa fa-backspace"></i></button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                <button class="btn-calc btn-clr slds-m-bottom_small"  onclick="{!c.clearInputReference}">clr</button>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12">
+                                                
+                                            </div>
+                                        </div>
+                                    </aura:set>
+                                </aura:if>
+                                
+                                
+                            </div>
+                            <aura:if isTrue="{!AND(v.order != null, v.order.PaymentReceived >= v.order.Total)}">   
+                                <div class="slds-col slds-size_5-of-12 slds-m-top_small">
+                                    <!--lightning:button variant="success" class="btn-pos btn-pos-new-order" onclick="{!c.handlePrintClick}" label="New Order" title="New Order"  /-->
+                                </div>
+                                
+                                <div class="slds-col slds-size_7-of-12 slds-m-top_small">
+                                    <aura:if isTrue="{!AND(v.orderTypeOptionSelected != 'Delivery', v.modeOfPaymentSelected == 'Cash', v.order.PaymentReceived >= v.order.Total)}">
+                                        <lightning:button variant="brand" class="btn-pos btn-pos-complete-order" label="Complete &amp; Print" title="Complete Order" onclick="{!c.completeOrder}"  /> 
+                                        
+                                        <aura:set attribute="else">
+                                            
+                                            <aura:if isTrue="{!AND(
+                                                             v.referenceNumberLength == 13, 
+                                                             v.orderTypeOptionSelected != 'Delivery',
+                                                             v.modeOfPaymentSelected == 'Gcash',
+                                                             v.order.PaymentReceived >= v.order.Total)}">
+                                                <lightning:button variant="brand" class="btn-pos btn-pos-complete-order" label="Complete &amp; Print" title="Complete Order" onclick="{!c.completeOrder}"  /> 
+                                                
+                                            </aura:if>
+                                            
+                                        </aura:set>
+                                        
+                                    </aura:if>
+                                    
+                                    
+                                    
+                                    <aura:if isTrue="{!v.orderTypeOptionSelected == 'Delivery'}">
+                                        <lightning:button variant="brand" class="btn-pos btn-pos-complete-order" label="Enter Customer Details" title="Enter Customer Details" onclick="{!c.showCustomerDetails}"  />
+                                    </aura:if>
+                                  
+                                    
+                                </div>
+                            </aura:if>
+                                 
+                            <div class="slds-hide" id="printModal">
+                                <c:POSPrint opp="{!v.opp}" order="{!v.order}" />
+                            </div>
+                            
+                            <div class="slds-hide" id="cashDrawerItemModal">
+                                <c:POSCashDrawerNewItem cashDrawerId="{!v.cashDrawer.Id}" type="Ending Count" />
+                            </div>
+                            
+                             <div class="slds-hide" id="cashFloatItemModal">
+                                <c:POSCashDrawerNewItem cashDrawerId="{!v.cashDrawer.Id}" type="Float"  />
+                            </div>
+                            
+                            <div class="slds-hide" id="deliveryModal">
+                                <c:POSDelivery order="{!v.order}" modeOfPaymentSelected="{!v.modeOfPaymentSelected}" employee="{!v.employee}"
+                                               cashDrawer="{!v.cashDrawer}" riderOptions="{!v.riderOptions}" existingCustomers="{!v.existingCustomers}" />
+                            </div>
+                            
+                            <div class="slds-hide" id="varietyModal">
+                                <c:POSProductVarietyModal selectedProduct="{!v.selectedProduct}" products="{!v.products}" productImg="{!v.productImg}"
+                                                          cashDrawer="{!v.cashDrawer}" />
+                            </div>
+                            
+                            
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <aura:set attribute="else">
+            <div class="pos-main-login ">
+                <div class="slds-grid slds-wrap slds-gutters slds-p-left_large slds-p-right_large slds-p-bottom_small  slds-p-top_small slds-m-bottom_small">
+                    <div class="slds-col slds-size_12-of-12 slds-large-size_4-of-12">
+                    </div>
+                    <div class="slds-col slds-size_12-of-12 slds-large-size_4-of-12 pos-container slds-p-around_large">
+                        <p class="slds-text-align_center"><img src="{!$Resource.FarmGrillLogo}" class="img-fluid" style="width: 40%;" /></p>
+                        <p class="error-msg">{!v.error}</p>
+                        <lightning:input name="username" type="text" class="slds-m-bottom_x-small" value="{!v.username}" label="Username" placeholder="Enter Username"/>
+                        <span onkeypress="{!c.loginViaEnter}">
+                            <lightning:input name="passcode" type="password" class="slds-m-bottom_x-small" value="{!v.passcode}" label="Passcode" placeholder="Enter Passcode"/>
+                        </span>
+                        <lightning:button variant="brand" class="btn-pos btn-pos-new-order" onclick="{!c.login}" label="LOGIN" title="LOGIN"  />
+                    </div>
+                    <div class="slds-col slds-size_12-of-12 slds-large-size_4-of-12">
+                    </div>
+                </div>
+            </div>
+        </aura:set>
+    </aura:if>    
+    
+    
+    
+</aura:component>

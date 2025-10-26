@@ -1,0 +1,63 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" 
+                controller="POSPendingRemittanceController" access="global">
+    
+    <aura:attribute name="cashDrawerSessionId" type="String" />
+    <aura:attribute name="opptyName" type="String" />
+    <aura:attribute name="cashDrawerItems" type="List" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="opportunityId" type="String" />
+    <aura:attribute name="totalAmount" type="Integer" />
+    <aura:attribute name="mydata" type="Object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:handler name="compEvent" event="c:POSEvent" action="{! c.handleEvent }"/>
+    
+    <div class="slds-grid slds-wrap slds-gutters pos-main pos-container slds-p-left_medium slds-p-right_medium slds-p-bottom_small  slds-p-top_small">
+        <div class="slds-col slds-size_6-of-12 slds-p-left_none">
+            
+            <i class="fa fa-bars" data-bs-toggle="collapse" href="#headerMenu" role="button" aria-expanded="false" aria-controls="headerMenu"></i>
+            
+            <span class="header-menu-title"> 
+                Delivery Orders
+            </span>
+            <i class="fa fa-truck slds-p-left_xx-small"></i>
+            
+        </div>
+        
+        <div class="slds-col slds-size_6-of-12 slds-text-align_right slds-p-top_xx-small">
+            
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="slds-grid slds-wrap slds-gutters pos-main pos-container slds-p-left_medium slds-p-right_medium slds-p-bottom_small slds-p-top_small slds-m-top_small">
+        <div class="slds-col slds-size_12-of-12 slds-p-left_none">
+            
+            
+            <aura:if isTrue="{!v.mydata != null}">
+                <lightning:datatable data="{! v.mydata }"
+                                     columns="{! v.mycolumns }"
+                                     keyField="Id"
+                                     onrowaction="{! c.handleRowAction }"
+                                     hideCheckboxColumn="true"
+                                     showRowNumberColumn="false"
+                                     />
+                
+                <aura:set attribute="else">
+                    <h3 class="slds-text-align_center slds-p-around_large">No records found.</h3>
+                </aura:set>
+            </aura:if>
+            
+        </div>
+        
+        
+    </div>
+    
+    <div class="slds-hide" id="remittanceModal">
+        <c:POSRemittanceModal cashDrawerSessionId="{!v.cashDrawerSessionId}" opportunityId="{!v.opportunityId}" totalAmount="{!v.totalAmount}"
+                              opptyName="{!v.opptyName}" />
+    </div>
+    
+</aura:component>

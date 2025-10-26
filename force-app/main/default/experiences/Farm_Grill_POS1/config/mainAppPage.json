@@ -1,0 +1,11 @@
+{
+  "cmsSettings" : { },
+  "currentThemeId" : "c5f6620f-6d33-48f9-89ad-f05135e5b5e1",
+  "headMarkup" : "<link rel=\"shortcut icon\" href=\"/resource/1759419456000/FarmGrillFavicon\" type=\"image/x-icon\" />",
+  "id" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "isLockerServiceEnabled" : true,
+  "isRelaxedCSPLevel" : false,
+  "label" : "main",
+  "templateName" : "Starter Template",
+  "type" : "appPage"
+}

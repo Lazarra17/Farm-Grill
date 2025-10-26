@@ -1,0 +1,159 @@
+<apex:page standardController="Opportunity"   extensions="ReceiptCustomerVfpExtension" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" >
+    <html>
+        <head>
+            <style type="text/css">
+                
+                @media print {
+                html,body {
+                height: auto;
+                }
+                }
+                
+                @page {
+                size: 58mm 60mm;
+                margin: 0;
+                }
+                
+
+                body {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+                width: 215px;
+                margin:0px;
+                padding:0px;
+                }
+                
+                table{
+                	width: 100%;
+                }
+                
+                h3, p, h1{
+                margin: 0px;
+                margin-bottom: 1px;
+                padding:0px;
+                }
+                
+            </style>
+            
+            <script type="text/javascript">
+            function autoPrint() {
+                window.onafterprint = function() {
+                    window.close();
+                    };
+                window.print();
+               
+            }
+            </script>
+            
+        </head>
+        <body onload="autoPrint()">
+            <table class="Company Information">
+                <tr style="text-align:center;">
+                    <td style="padding-bottom: 30px;">
+                        <h1 style="font-size: 35px">{!Opportunity.Queue_Number__c}</h1>
+                        <apex:image value="{!$Resource.FarmGrillLogo}" width="80" height="80"/>
+                        <h3>Farm Grill</h3>
+                        <p>#1 Chicken Inasal in town</p>
+                        <p>Brgy 4, Dolores Eastern Samar</p>
+                        <p>09208072857</p>
+                        <p style="border-bottom: 1px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;">
+                            <apex:outputText value="{!formattedTimestamp}"/>
+                        </p>
+                    </td>
+                    
+                </tr>
+            </table>
+            
+            <table class="items">
+                <thead>
+                    <tr>
+                        <th style="width: 80%; text-align: left">QTY ITEM</th>
+                        <th style="text-align: right; width: 20%;">AMOUNT</th>
+                    </tr>
+                </thead>
+                <tbody>
+               
+                    <apex:repeat value="{!opportunityLineItems}" var="item">
+                        <tr>
+                            <td>
+                                <apex:outputText value="{0,number,0}" >
+                                    <apex:param value="{!item.Quantity}" />
+                                </apex:outputText>
+                                {!item.Product2.Name}</td>
+                            <td style="text-align: right; "> 
+                                <apex:outputText value="{0,number,0.00}" >
+                                <apex:param value="{!item.TotalPrice}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                    
+                </tbody>
+                
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr >
+                        <td style="border-bottom: 1px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;">Total</td>
+                        <td style="text-align: right; border-bottom: 1px solid #ccc;">{!Opportunity.Amount}</td>
+                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td  style="padding-top: 15px" colspan="2"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Cash Tendered</td>
+                        <td style="text-align: right; ">
+                            <apex:outputText value="{0,number,0.00}" >
+                                <apex:param value="{!Opportunity.Cash_Tendered__c}" />
+                                </apex:outputText>
+                            </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Change</td>
+                        <td style="text-align: right; ">
+                            <apex:outputText value="{0,number,0.00}" >
+                                <apex:param value="{!Opportunity.Change__c}" />
+                                </apex:outputText>
+                            </td>
+                        
+                    </tr>
+                    
+
+                     <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                         <td></td>
+                         <td></td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2" style="text-align: center">Thank you.  Please come again!</td>
+                        <td></td>
+                    </tr>
+                    
+                     <tr>
+                         <td coslpan="2"  style="height: 50px; border-bottom: 1px solid #ccc"></td>
+                         <td style="height: 50px; border-bottom: 1px solid #ccc"></td>
+                    </tr>
+                    
+                </tfoot>
+            </table>
+            
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,90 @@
+<aura:component >
+    <aura:attribute name="order" type="Object"  />
+    <aura:registerEvent name="compEvent" type="c:POSEvent"/>
+
+    <div class="slds-col slds-size_1-of-1 slds-p-around_large pos-container pos-summary">
+        <div class="slds-text-align_center slds-border_bottom slds-p-bottom_x-small">
+            <h4>Farm Grill BBQ</h4>
+            <!--p>Brgy 4, Dolores Eastern Samar</p>
+                            <p>09208072857</p-->
+        </div>
+    
+        <aura:if isTrue="{!AND(v.order != null, v.order.OrderItems.length != 0)}">
+            <div class="slds-grid slds-wrap receipt">
+                <div class="slds-col slds-size_6-of-12">
+                    <p>Item</p>
+                </div>
+                <div class="slds-col slds-size_2-of-12 slds-text-align_center">
+                    <p>Qty</p>
+                </div>
+                <div class="slds-col slds-size_3-of-12 slds-text-align_center">
+                    <p>Price</p>
+                </div>
+                <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap receipt slds-border_bottom slds-p-bottom_medium">
+                <aura:iteration items="{!v.order.OrderItems}" var="item" indexVar="index">
+                    <div class="slds-col slds-size_6-of-12">
+                        <p>{!item.ProductName}</p>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12 slds-text-align_center">
+                        <p>{!item.Quantity}</p>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12 slds-text-align_center">
+                        <p><lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!item.UnitPrice}" minimumFractionDigits="2" /></p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                        <span><i class="fa fa-window-close" aria-hidden="true" id="{!index}" onclick="{!c.removeItem}"></i></span>
+                    </div>
+                </aura:iteration>
+            </div>
+            
+            
+            <div class="slds-grid slds-wrap receipt">
+                <div class="slds-col slds-size_8-of-12">
+                    <p>Total: </p>
+                </div>
+                <div class="slds-col slds-size_3-of-12 slds-text-align_center">
+                    <p><lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.order.Total}" minimumFractionDigits="2" /></p>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                </div>
+                
+                
+                <aura:if isTrue="{! v.order.PaymentReceived != null}">
+                    <div class="slds-col slds-size_8-of-12">
+                        <p><strong>Cash Tendered: </strong></p>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12 slds-text-align_center">
+                        <p><lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.order.PaymentReceived}" /></p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                    </div>
+                </aura:if>
+                
+                <aura:if isTrue="{! v.order.Change != null}">
+                    <div class="slds-col slds-size_8-of-12">
+                        <p>Change: </p>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12 slds-text-align_center">
+                        <aura:if isTrue="{! lessthan(v.order.Change, 0)}">
+                            <p class="bg-red"><lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.order.Change}" minimumFractionDigits="2" /></p>
+                            <aura:set attribute="else">
+                                <p><lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.order.Change}" minimumFractionDigits="2" /></p>
+                            </aura:set>
+                        </aura:if>
+                        
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                    </div>
+                </aura:if>
+            </div>
+        </aura:if>
+        
+    </div>
+    
+    
+</aura:component>

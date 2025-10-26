@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "ac9e45f2-f335-4e77-8972-4b0948ca5ff8",
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "configurationTags" : [ ],
+  "devName" : "Pending_Remittance__c",
+  "id" : "9cc177d3-f8d5-41d8-a651-a08623eb86f2",
+  "label" : "Pending Remittance",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-pending-remittance",
+  "type" : "route",
+  "urlPrefix" : "pending-remittance"
+}

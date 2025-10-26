@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "12246374-256b-43c4-9872-924ef2a84580",
+  "appPageId" : "9356371a-9128-4a1d-90c1-261a1e87c7ce",
+  "configurationTags" : [ ],
+  "devName" : "Receipt_Expense__c",
+  "id" : "6fcf0425-84e8-44d1-9fb3-602795bd1945",
+  "label" : "Receipt Expense",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-receipt-expense",
+  "type" : "route",
+  "urlPrefix" : "receipt-expense"
+}
