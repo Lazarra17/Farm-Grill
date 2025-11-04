@@ -17,14 +17,14 @@
                 console.log(res);
                 
                 component.set("v.receiptData", res);
-                
+              
                 setTimeout($A.getCallback(function() {
                     window.onafterprint = function() {
                         window.close();
                     };
                     window.print();
                 }), 500);
-                
+              
                 
                 
             } else if (state === "INCOMPLETE") {

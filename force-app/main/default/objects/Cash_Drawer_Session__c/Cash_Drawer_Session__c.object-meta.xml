@@ -169,6 +169,7 @@
     <pluralLabel>Cash Drawer Sessions</pluralLabel>
     <searchLayouts>
         <searchResultsAdditionalFields>Account__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Contact__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>End_Date__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Start_Date__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Difference__c</searchResultsAdditionalFields>

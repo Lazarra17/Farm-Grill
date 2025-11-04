@@ -29,7 +29,7 @@
     </div>
     
 	<div class="slds-hide" id="cashDrawerItemModal">
-        <c:POSCashDrawerNewItem cashDrawerId="{!v.recordId}" type="" />
+        <c:POSCashDrawerNewItem cashDrawerId="{!v.recordId}" type="Expense" />
     </div>
     
 </aura:component>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <excludeButtons>OpenSlackRecordChannel</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -57,7 +58,7 @@
         <fields>NAME</fields>
         <fields>Category__c</fields>
         <fields>Product__c</fields>
-        <fields>Product_Family__c</fields>
+        <fields>Product_Group__c</fields>
         <fields>Priority__c</fields>
         <fields>Row_Priority__c</fields>
         <relatedList>Product_Catalog_Item__c.Product_Catalog__c</relatedList>

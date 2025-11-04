@@ -18,6 +18,7 @@ public without sharing class POSMainController {
     public Contact Customer;
     public Integer PendingRemittance;
     public String RiderId;
+    public String CashierId;
     public String Notes;
     
     
@@ -25,7 +26,7 @@ public without sharing class POSMainController {
     public static Contact signIn(String username, String passcode){
         
         if(username != '' && passcode != ''){
-            List<Contact> conList = [SELECT Id, AccountId, FirstName FROM Contact WHERE Username__c =: username AND Passcode__c =: passcode LIMIT 1];
+            List<Contact> conList = [SELECT Id, AccountId, FirstName, Role__c FROM Contact WHERE Username__c =: username AND Passcode__c =: passcode LIMIT 1];
             if(conList.size() > 0){
                 return conList[0];
             }else{
@@ -41,7 +42,7 @@ public without sharing class POSMainController {
     public static Contact getContact(String contactId){
         
         if(contactId != ''){
-            List<Contact> conList = [SELECT Id, AccountId, FirstName, Username__c, Passcode__c FROM Contact WHERE Id =: contactId LIMIT 1];
+            List<Contact> conList = [SELECT Id, AccountId, FirstName, Username__c, Passcode__c, Role__c FROM Contact WHERE Id =: contactId LIMIT 1];
             if(conList.size() > 0){
                 return conList[0];
             }else{
@@ -51,6 +52,17 @@ public without sharing class POSMainController {
         }
         //return null if there is no account found
         return null;
+    }
+    
+    @auraEnabled
+    public static Integer getPendingRemittances(String cashDrawerId){
+        Integer count = 0;
+        if(cashDrawerId != ''){
+            count = [SELECT Id FROM Opportunity WHERE Cash_Drawer_Session__c = :cashDrawerId AND Payment_Status__c = 'Pending Remittance'].size();
+                
+                }
+    
+        return count;
     }
     
     @auraEnabled
@@ -84,12 +96,12 @@ public without sharing class POSMainController {
     
     
     @auraEnabled
-    public static Cash_Drawer_Session__c getCashDrawer(String employeeId){
+    public static Cash_Drawer_Session__c getCashDrawer(String employeeId, String accountId){
         
         Cash_Drawer_Session__c cd = new Cash_Drawer_Session__c();
         List<Cash_Drawer_Session__c> activeCashDrawer = [SELECT Id, Status__c, Total_Sales_Cash__c, Total_Count_Orders__c,Total_Sales_Gcash__c, TECH_Start_Time__c, Start_Date__c,
                                                          Expected_Count__c, End_Date__c, Number_of_Pending_Remittances__c	
-                                                         FROM Cash_Drawer_Session__c WHERE Contact__c =: employeeId ORDER BY CreatedDate DESC LIMIT 1];
+                                                         FROM Cash_Drawer_Session__c WHERE Contact__c =: employeeId AND Account__c =: accountId ORDER BY CreatedDate DESC LIMIT 1];
         if(activeCashDrawer.size() > 0){
             cd = activeCashDrawer[0];
             
@@ -146,7 +158,7 @@ public without sharing class POSMainController {
         cd.Contact__c = employeeId;
         insert cd;
         
-        cd = getCashDrawer(employeeId);
+        cd = getCashDrawer(employeeId, accountId);
         
         //return null if there is no account found
         return cd;
@@ -165,7 +177,7 @@ public without sharing class POSMainController {
         cd.Status__c = 'Reconciling';
         update cd;
         
-        cd = getCashDrawer(cd.Contact__c);
+       // cd = getCashDrawer(cd.Contact__c, accountId);
         
         //return null if there is no account found
         return cd;
@@ -228,6 +240,7 @@ public without sharing class POSMainController {
         opp.Cash_Drawer_Session__c = cashDrawerId;
         opp.Reference_Number__c = payload.ReferenceNumber;
         opp.Payment_Status__c = 'Paid';
+        opp.ContactId = payload.ContactId;
         insert opp;
         
         //Create Opportunity Contact Roles for customer
@@ -279,16 +292,14 @@ public without sharing class POSMainController {
         
         //Create Cash Drawer Item
         List<Cash_Drawer_Item__c> cdItems = new List<Cash_Drawer_Item__c>();
-        for(OpportunityLineItem opptyLine : orderLines){
-            
-            Cash_Drawer_Item__c cdi = new Cash_Drawer_Item__c();
-            cdi.Cash_Drawer_Session__c = cashDrawerId;
-            cdi.Type__c = cashDrawerMOP;
-            cdi.Custom__c = pbeMap.get(opptyLine.PricebookEntryId).UnitPrice;
-            cdi.Opportunity__c = opp.Id;
-            cdi.Reference_Number__c = payload.ReferenceNumber;
-            cdItems.add(cdi);
-        }
+        Cash_Drawer_Item__c cdi = new Cash_Drawer_Item__c();
+        cdi.Cash_Drawer_Session__c = cashDrawerId;
+        cdi.Type__c = cashDrawerMOP;
+        cdi.Custom__c = payload.Total;
+        cdi.Opportunity__c = opp.Id;
+        cdi.Reference_Number__c = payload.ReferenceNumber;
+        cdItems.add(cdi);
+        
         
         
         if(cdItems.size() > 0){
@@ -326,9 +337,15 @@ public without sharing class POSMainController {
         }
         
         Contact customer = new Contact(); 
-        List<Contact> conList = [SELECT Id FROM Contact WHERE AccountId =: payload.AccountId AND MobilePhone =: payload.Customer.MobilePhone LIMIT 1];
+        List<Contact> conList = [SELECT Id, LastName, FirstName, MobilePhone, Complete_Address__c
+                                 FROM Contact WHERE AccountId =: payload.AccountId AND MobilePhone =: payload.Customer.MobilePhone LIMIT 1];
         if(conList.size() > 0){
             customer = conList[0];
+            customer.LastName = payload.Customer.LastName;
+            customer.FirstName = payload.Customer.FirstName;
+            customer.MobilePhone = payload.Customer.MobilePhone;
+            customer.Complete_Address__c = payload.Customer.Complete_Address__c;
+            update customer;
         }else{
             customer.LastName = payload.Customer.LastName;
             customer.FirstName = payload.Customer.FirstName;
@@ -339,8 +356,6 @@ public without sharing class POSMainController {
             insert customer;
         }
         
-    
-        
         Opportunity opp = new Opportunity();
         opp.AccountId = payload.AccountId;
         
@@ -348,39 +363,92 @@ public without sharing class POSMainController {
         opp.Name = 'DE-';        
         opp.StageName = 'New';
         opp.CloseDate = system.today();
-        opp.Type = payload.OrderType;
+        opp.Type = 'Delivery';
         opp.Cash_Tendered__c = payload.PaymentReceived;
         opp.Amount = payload.Total;
         opp.Queue_Number__c = queue;
-        opp.Mode_of_Payment__c = payload.ModeOfPayment;
+     
+        
         opp.Reference_Number__c = payload.ReferenceNumber;
         opp.Cash_Drawer_Session__c = cashDrawerId;
-        opp.Payment_Status__c = 'Pending Remittance';
+        
         opp.Notes__c = payload.Notes;
+      
+        opp.Mode_of_Payment__c = payload.ModeOfPayment;
+        if(payload.ModeOfPayment == 'COD'){
+            
+            opp.Payment_Status__c = 'Pending Remittance';
+        }else{ 
+            opp.Payment_Status__c = 'Paid';
+        }
+        
+        
+        
+        
+        
         insert opp;
         
         //Create Opportunity Contact Roles for customer
         List<OpportunityContactRole> opptyRoles = new List<OpportunityContactRole>();
-        OpportunityContactRole customerRole = new OpportunityContactRole();
-        customerRole.OpportunityId = opp.Id;
-        customerRole.ContactId = customer.Id;
-        customerRole.Role = 'Online Customer';
-        opptyRoles.add(customerRole);
-        
-        //Create Opportunity Contact Roles for cashier
-        OpportunityContactRole cashierRole = new OpportunityContactRole();
-        cashierRole.OpportunityId = opp.Id;
-        cashierRole.ContactId = payload.ContactId;
-        cashierRole.Role = 'Cashier';
-        opptyRoles.add(cashierRole);
+        system.debug('payload.customer: ' + customer);
+        system.debug('payload.RiderId: ' + payload.RiderId);
+        system.debug('payload.CashierId: ' + payload.CashierId);
+        system.debug('payload.ContactId: ' + payload.ContactId);
         
         
+        if(customer != null){
+            OpportunityContactRole customerRole = new OpportunityContactRole();
+            customerRole.OpportunityId = opp.Id;
+            customerRole.ContactId = customer.Id;
+            customerRole.Role = 'Online Customer';
+            opptyRoles.add(customerRole);
+        }
+        
+        
+               
         //Create Opportunity Contact Roles for Delivery Rider
-        OpportunityContactRole riderRole = new OpportunityContactRole();
-        riderRole.OpportunityId = opp.Id;
-        riderRole.ContactId = payload.RiderId;
-        riderRole.Role = 'Delivery Rider';
-        opptyRoles.add(riderRole);
+        if(payload?.RiderId != ''){
+            OpportunityContactRole riderRole = new OpportunityContactRole();
+            riderRole.OpportunityId = opp.Id;
+            riderRole.ContactId = payload.RiderId;
+            riderRole.Role = 'Delivery Rider';
+            opptyRoles.add(riderRole);
+        }
+        
+        
+        //This condition is for CSR Only
+        if(payload?.CashierId != '' && payload?.CashierId != null){
+            //Create Opportunity Contact Roles for Customer Service Representative
+            OpportunityContactRole CSRRole = new OpportunityContactRole();
+            CSRRole.OpportunityId = opp.Id;
+            CSRRole.ContactId = payload.ContactId;
+            CSRRole.Role = 'Customer Service Representative';
+            opptyRoles.add(CSRRole);
+            
+            
+            //Create Opportunity Contact Roles for cashier
+            OpportunityContactRole cashierRole = new OpportunityContactRole();
+            cashierRole.OpportunityId = opp.Id;
+            cashierRole.ContactId = payload.CashierId;
+            cashierRole.Role = 'Cashier';
+            opptyRoles.add(cashierRole);
+            
+            
+        }else if(payload?.ContactId != ''){
+            //Create Opportunity Contact Roles for cashier
+            OpportunityContactRole cashierRole = new OpportunityContactRole();
+            cashierRole.OpportunityId = opp.Id;
+            cashierRole.ContactId = payload.ContactId;
+            cashierRole.Role = 'Cashier';
+            opptyRoles.add(cashierRole);
+        }
+        
+        
+        
+        
+        
+        
+        
         
         if(opptyRoles.size() > 0){
             insert opptyRoles;
@@ -413,33 +481,50 @@ public without sharing class POSMainController {
             insert orderLines;
         }
         
-        if(mOP == 'COD'){
+        //Select Mode of Payment for Cash Drawer Item
+        if(mOP == 'Cash'){
+            cashDrawerMOP = 'Sales'; 
+        }else if(mOP == 'Gcash'){
+            cashDrawerMOP = 'Sales Gcash'; 
+        }else if(mOP == 'COD'){
             cashDrawerMOP = 'Pending Remittance'; 
         }
         
-        /*
-        //Create Cash Drawer Item
-        List<Cash_Drawer_Item__c> cdItems = new List<Cash_Drawer_Item__c>();
-        for(OpportunityLineItem opptyLine : orderLines){
-            
-            Cash_Drawer_Item__c cdi = new Cash_Drawer_Item__c();
-            cdi.Cash_Drawer_Session__c = cashDrawerId;
-            cdi.Type__c = cashDrawerMOP;
-            cdi.Custom__c = pbeMap.get(opptyLine.PricebookEntryId).UnitPrice;
-            cdi.Opportunity__c = opp.Id;
-            cdi.Reference_Number__c = payload.ReferenceNumber;
-            cdItems.add(cdi);
-        }
-        
-        
-        if(cdItems.size() > 0){
-            insert cdItems;
-        }
-        */
+       
         
         Opportunity oppToUpdate = [SELECT Id, Name, Opportunity_Number__c FROM Opportunity WHERE Id =: opp.Id]; 
         oppToUpdate.Name = oppToUpdate.Name	 + oppToUpdate.Opportunity_Number__c;
-        oppToUpdate.StageName = 'Out for Delivery';
+        
+        if(payload.ModeOfPayment == 'COD'){
+            
+            oppToUpdate.StageName = 'Out for Delivery';
+        }else{ 
+            oppToUpdate.StageName = 'Closed Won - Delivered';
+            
+            
+            //Create Cash Drawer Item
+            List<Cash_Drawer_Item__c> cdItems = new List<Cash_Drawer_Item__c>();
+                
+                Cash_Drawer_Item__c cdi = new Cash_Drawer_Item__c();
+                cdi.Cash_Drawer_Session__c = cashDrawerId;
+                cdi.Type__c = cashDrawerMOP;
+                cdi.Custom__c = cdi.Custom__c = payload.Total;
+                cdi.Opportunity__c = opp.Id;
+                cdi.Reference_Number__c = payload.ReferenceNumber;
+                cdItems.add(cdi);
+      
+            
+            
+            if(cdItems.size() > 0){
+                insert cdItems;
+            }
+            
+            
+            
+        }
+        
+        
+        
         
         
         update oppToUpdate;
@@ -452,7 +537,7 @@ public without sharing class POSMainController {
         
 		Map<String, List<Product_Catalog_Item__c>> prodMap = new Map<String, List<Product_Catalog_Item__c>>();
         List<Product_Catalog_Item__c> products = [SELECT Id, Category__c, Product__r.Sub_Family__c, Product__c, Product_Group__c, Product_Group__r.Name, Product_Group__r.Product_Image_Url__c, Product__r.ProductCode, Product__r.Name, Product__r.Product_Image_Url__c FROM Product_Catalog_Item__c 
-                                              WHERE Product_Catalog__r.Active__c = TRUE ORDER BY Priority__c ASC, Row_Priority__c ASC];
+                                              WHERE Product_Catalog__r.Active__c = TRUE ORDER BY Priority__c ASC, Row_Priority__c ASC, Product__r.Sub_Family__c ASC];
         
         Map<String, PriceBookEntry> sPriceBookEntryMap = new Map<String, PriceBookEntry>();
         for(PriceBookEntry pb : [SELECT Id, Product2Id, UnitPrice FROM PriceBookEntry WHERE PriceBook2.Name = 'Standard Price Book']){
@@ -540,6 +625,20 @@ public without sharing class POSMainController {
         // Replace with your desired objectName and fieldName
         // 
         for(Contact con : [SELECT Id, Name FROM Contact WHERE Role__c = 'Delivery Rider' AND AccountId =: accountId]){
+             picklistValues.put(con.Name, con.Id); 
+        }
+      
+        return picklistValues;
+    }
+    
+    
+    @AuraEnabled
+    public static Map<String, String> getCashiers(String accountId) {
+        Map<String, String>  picklistValues = new Map<String, String> ();
+        // Example for Account.Industry
+        // Replace with your desired objectName and fieldName
+        // 
+        for(Contact con : [SELECT Id, Name FROM Contact WHERE Role__c = 'Cashier' AND AccountId =: accountId]){
              picklistValues.put(con.Name, con.Id); 
         }
       

@@ -23,6 +23,10 @@
                 <behavior>Edit</behavior>
                 <field>Notes__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Queue_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

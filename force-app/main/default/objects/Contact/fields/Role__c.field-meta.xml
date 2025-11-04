@@ -35,9 +35,29 @@
                 <label>Customer</label>
             </value>
             <value>
+                <fullName>Cashier</fullName>
+                <default>false</default>
+                <label>Cashier</label>
+            </value>
+            <value>
+                <fullName>Cook</fullName>
+                <default>false</default>
+                <label>Cook</label>
+            </value>
+            <value>
+                <fullName>Server</fullName>
+                <default>false</default>
+                <label>Server</label>
+            </value>
+            <value>
                 <fullName>Other</fullName>
                 <default>false</default>
                 <label>Other</label>
+            </value>
+            <value>
+                <fullName>Customer Service Representative</fullName>
+                <default>false</default>
+                <label>Customer Service Representative</label>
             </value>
         </valueSetDefinition>
     </valueSet>

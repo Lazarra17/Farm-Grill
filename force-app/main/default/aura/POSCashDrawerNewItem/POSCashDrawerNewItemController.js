@@ -1,5 +1,6 @@
 ({
     save : function(component, event, helper) {
+        var total = component.get('v.total');
         var type = component.get('v.type');
         var allValid = component.find('newItem').reduce(function (validSoFar, inputCmp) {
             inputCmp.reportValidity();
@@ -16,6 +17,11 @@
             selectElement.showHelpMessageIfInvalid();
         }
         
+        if(total == null || total == 0){
+            component.set('v.errMessage', 'Amount cannot be blank or 0.');
+            allValid = false;
+        }
+        
         if (allValid) {
             
             
@@ -26,7 +32,8 @@
     
     
     hideModal : function(component, event, helper) {
-        var cashDrawerItemModal = document.getElementById('cashDrawerItemModal');
+        var modalId = component.get('v.modalId');
+        var cashDrawerItemModal = document.getElementById(modalId);
         $A.util.addClass(cashDrawerItemModal, 'slds-hide');
     },
     

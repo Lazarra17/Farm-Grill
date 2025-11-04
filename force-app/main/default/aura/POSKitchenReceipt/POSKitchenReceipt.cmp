@@ -7,13 +7,13 @@
     
     <table class="Company Information">
         <tr style="">
-            <td style="padding-bottom: 25px; text-align:center;"> 
+            <td style="text-align:center; padding-top: 20px;"> 
                 <h1 style="font-size: 35px">{!v.receiptData.oppty.Queue_Number__c}</h1>
-                <h3>Farm Grill</h3>
+                <!--h3>Farm Grill</h3>
                 <p>#1 Chicken Inasal in town</p>
                 <p style="border-bottom: 1px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;">
                     
-                </p>
+                </p-->
             </td>
             
         </tr>
@@ -27,16 +27,16 @@
                 <th></th>
             </tr>
             <tr>
-                <th style="width: 80%; text-align: left">QTY ITEM</th>
-                <th style="text-align: right; width: 20%;">AMOUNT</th>
+                <th style="width: 10%; text-align: left">QTY </th>
+                <th style="width: 90%; padding-left: 10px">ITEM</th>
             </tr>
         </thead>
         <tbody>
             
             <aura:iteration items="{!v.receiptData.opptyLines}" var="item">
                 <tr>
-                    <td>{!item.Quantity} {!item.Product2.Name}</td>
-                    <td style="text-align: center;"> <lightning:formattedNumber value="{!item.TotalPrice}" style="currency" currencyCode="PHP"/></td>
+                    <td>{!item.Quantity}</td>
+                    <td style="padding-left: 10px"> {!item.Product2.Name}</td>
                 </tr>
             </aura:iteration>
             
@@ -52,53 +52,10 @@
                 <td></td>
                 <td></td>
             </tr>
-            <tr >
-                <td style="border-bottom: 1px solid #ccc; margin-bottom: 3px; padding-bottom: 5px; padding-top: 15px;">Total</td>
-                <td style="text-align: center; border-bottom: 1px solid #ccc;">
-                    <lightning:formattedNumber value="{!v.receiptData.oppty.Amount}" style="currency" currencyCode="PHP"/>
-                </td>
-                
-            </tr>
-            <tr>
-                <td></td>
+             <tr>
+                <td colspan="2"  style="height: 30px; border-bottom: 1px solid #ccc; text-align:center; padding-top: 30px; padding-bottom: 20px"><strong>KITCHEN NOTE</strong></td>
                 <td></td>
             </tr>
-            <tr>
-                <td  style="padding-top: 15px" colspan="2"></td>
-            </tr>
-            
-            <tr>
-                <td>Cash Tendered</td>
-                <td style="text-align: right; ">
-                    
-                </td>
-                
-            </tr>
-            <tr>
-                <td>Change</td>
-                <td style="text-align: right; ">
-                    
-                </td>
-                
-            </tr>
-            
-            
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-            
-        
-            
-            <tr>
-                <td coslpan="2"  style="height: 50px; border-bottom: 1px solid #ccc"></td>
-                <td style="height: 50px; border-bottom: 1px solid #ccc"></td>
-            </tr>
-            
         </tfoot>
     </table>
     

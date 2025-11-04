@@ -1,3 +1,9 @@
 .THIS h1, .THIS p{
     margin:0px;
 }
+
+.THIS .error-msg{
+    margin:0px;
+    font-size: 12px;
+    color: red;
+}

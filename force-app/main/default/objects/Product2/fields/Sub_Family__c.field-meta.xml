@@ -135,6 +135,66 @@
                 <default>false</default>
                 <label>Free</label>
             </value>
+            <value>
+                <fullName>Extra Rice</fullName>
+                <default>false</default>
+                <label>Extra Rice</label>
+            </value>
+            <value>
+                <fullName>Chicken Oil</fullName>
+                <default>false</default>
+                <label>Chicken Oil</label>
+            </value>
+            <value>
+                <fullName>Spice Vinegar</fullName>
+                <default>false</default>
+                <label>Spice Vinegar</label>
+            </value>
+            <value>
+                <fullName>230ML</fullName>
+                <default>false</default>
+                <label>230ML</label>
+            </value>
+            <value>
+                <fullName>220ML</fullName>
+                <default>false</default>
+                <label>220ML</label>
+            </value>
+            <value>
+                <fullName>220ML Pineapple</fullName>
+                <default>false</default>
+                <label>220ML Pineapple</label>
+            </value>
+            <value>
+                <fullName>Japitan</fullName>
+                <default>false</default>
+                <label>Japitan</label>
+            </value>
+            <value>
+                <fullName>Bonghon</fullName>
+                <default>false</default>
+                <label>Bonghon</label>
+            </value>
+            <value>
+                <fullName>250G</fullName>
+                <default>false</default>
+                <label>250G</label>
+            </value>
+            <value>
+                <fullName>5pc Paa w/ Rice</fullName>
+                <default>false</default>
+                <label>5pc Paa w/ Rice</label>
+            </value>
+            <value>
+                <fullName>5pc Pecho w/ Rice</fullName>
+                <default>false</default>
+                <label>5pc Pecho w/ Rice</label>
+            </value>
+            <value>
+                <fullName>10pc Pork BBQ</fullName>
+                <default>false</default>
+                <label>10pc Pork BBQ</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Beverages</controllingFieldValue>
@@ -161,20 +221,35 @@
             <valueName>1L</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>230ML</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>220ML</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>220ML Pineapple</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Pork</controllingFieldValue>
             <controllingFieldValue>Chicken</controllingFieldValue>
             <controllingFieldValue>Veggies</controllingFieldValue>
+            <controllingFieldValue>Hotdog</controllingFieldValue>
             <valueName>Solo</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Pork</controllingFieldValue>
             <controllingFieldValue>Chicken</controllingFieldValue>
             <controllingFieldValue>Veggies</controllingFieldValue>
+            <controllingFieldValue>Hotdog</controllingFieldValue>
             <valueName>With Rice</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Pork</controllingFieldValue>
             <controllingFieldValue>Chicken</controllingFieldValue>
+            <controllingFieldValue>Hotdog</controllingFieldValue>
             <valueName>Unli Rice</valueName>
         </valueSettings>
         <valueSettings>
@@ -198,6 +273,14 @@
             <valueName>1KG</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <valueName>250G</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pork</controllingFieldValue>
+            <valueName>10pc Pork BBQ</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Chicken</controllingFieldValue>
             <valueName>Paa</valueName>
         </valueSettings>
@@ -212,6 +295,14 @@
         <valueSettings>
             <controllingFieldValue>Chicken</controllingFieldValue>
             <valueName>Paa - Unli</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chicken</controllingFieldValue>
+            <valueName>5pc Paa w/ Rice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chicken</controllingFieldValue>
+            <valueName>5pc Pecho w/ Rice</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Delivery Fee</controllingFieldValue>
@@ -240,6 +331,26 @@
         <valueSettings>
             <controllingFieldValue>Delivery Fee</controllingFieldValue>
             <valueName>Free</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>Japitan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>Bonghon</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add ons</controllingFieldValue>
+            <valueName>Extra Rice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add ons</controllingFieldValue>
+            <valueName>Chicken Oil</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add ons</controllingFieldValue>
+            <valueName>Spice Vinegar</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

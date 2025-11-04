@@ -30,6 +30,10 @@
                 <behavior>Edit</behavior>
                 <field>Contact_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Role_Priority_Order__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

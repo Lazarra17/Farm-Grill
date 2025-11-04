@@ -6,11 +6,6 @@
         var opportunityId = component.get('v.opportunityId');
         var action = component.get("c.updateDeliveryOpportunity");   
         
-        
-        
-        console.log('##');
-        console.log(opportunityId);
-        console.log(cashDrawerItem);
         cashDrawerItem.Opportunity__c = opportunityId;
         cashDrawerItem.Cash_Drawer_Session__c = cashDrawerSessionId;
         
@@ -40,7 +35,7 @@
                 compEvent.setParams({ "pendingOpportunities" : res});
                 compEvent.fire();
                 
-                
+                component.set('v.showSpinner', false);
                 
                 var remittanceModal = document.getElementById('remittanceModal');
                 $A.util.addClass(remittanceModal, 'slds-hide');

@@ -40,9 +40,9 @@
                 <label>Snacks</label>
             </value>
             <value>
-                <fullName>Drinks</fullName>
+                <fullName>Beverages</fullName>
                 <default>false</default>
-                <label>Drinks</label>
+                <label>Beverages</label>
             </value>
             <value>
                 <fullName>Delivery</fullName>
@@ -60,9 +60,14 @@
                 <label>Inasal</label>
             </value>
             <value>
-                <fullName>Barbeque</fullName>
+                <fullName>BBQ/Grill/Lechon</fullName>
                 <default>false</default>
-                <label>Barbeque</label>
+                <label>BBQ/Grill/Lechon</label>
+            </value>
+            <value>
+                <fullName>Add ons</fullName>
+                <default>false</default>
+                <label>Add ons</label>
             </value>
         </valueSetDefinition>
     </valueSet>

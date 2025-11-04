@@ -31,7 +31,7 @@
                         <div class="slds-grid slds-wrap">
                             
                             <div class="slds-col slds-size_6-of-12">
-                                <p class="panel-p">Quantity</p>
+                                <p class="panel-p">Quantity</p> 
                             </div>
                             <div class="slds-col slds-size_6-of-12">
                                 
@@ -43,11 +43,14 @@
                                     <button type="button" class="btn gc-btn-minus" onclick="{!c.minusOne}"><i class="fa fa-minus-circle gc-icon-minus" aria-hidden="true"></i></button>
                                     <button type="button" class="btn gc-btn-router">{!v.qty}</button>
                                     <button type="button" class="btn gc-btn-plus" onclick="{!c.addOne}"><i class="fa fa-plus-circle gc-icon-plus" aria-hidden="true"></i></button>
+                                	
                                 </div>
+                                 <p class="error-msg">{!v.error}</p>
                             </div>
                        
                             
                             <div class="slds-col slds-size_12-of-12">
+                               
                                 <aura:iteration items="{!v.products}" var="item" indexVar="prodIndex">
                                     
                                     <aura:iteration items="{!item.value}" var="prod" indexVar="prodIndex">
@@ -78,5 +81,5 @@
             </div>
         </div>
     </section>
-    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation" ></div>
 </aura:component>

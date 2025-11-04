@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>None</fullName>
+        <default>false</default>
+        <label>None</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Beverages</fullName>
+        <default>false</default>
+        <label>Beverages</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Pork</fullName>
+        <default>false</default>
+        <label>Pork</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Chicken</fullName>
+        <default>false</default>
+        <label>Chicken</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Delivery Fee</fullName>
+        <default>false</default>
+        <label>Delivery Fee</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Veggies</fullName>
+        <default>false</default>
+        <label>Veggies</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Hotdog</fullName>
+        <default>false</default>
+        <label>Hotdog</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Add ons</fullName>
+        <default>false</default>
+        <label>Add ons</label>
+    </standardValue>
+</StandardValueSet>

@@ -4,13 +4,13 @@
     <aura:attribute name="productCategories" type="List" />
     <aura:attribute name="productImg" type="String" />
     <aura:attribute name="selectedProduct" type="String" />
+    <aura:attribute name="pendingRemittances" type="Integer" default="0" />
     <aura:attribute name="existingCustomers" type="Object" />
     <aura:attribute name="riderOptions" type="List" />
+    <aura:attribute name="cashierOptions" type="List" />
     <aura:attribute name="order" type="Object"  />
-    <aura:attribute name="posSettings" type="POS_Setting__mdt" default="{'Account_Name__c': '', 'VFP_Url__c': ''}"  />
     <aura:attribute name="opp" type="Opportunity"  />
     <aura:attribute name="orderItem" type="Object" /> 
-    <aura:attribute name="qty" type="Integer" default="1" />
     <aura:attribute name="referenceNumberLength" type="Integer" default="0" />
     <aura:attribute name="cashDrawer" type="Cash_Drawer_Session__c" />
     <aura:attribute name="employeeCode" type="String" />
@@ -69,7 +69,7 @@
             <div class="slds-col slds-size_2-of-12">
                 <p class="header-title slds-text-align_center">Pending Remittance</p>
                 <h5 class="header-content slds-text-align_center" >
-                    {!v.cashDrawer.Number_of_Pending_Remittances__c}
+                    {!v.pendingRemittances}
                 </h5>
             </div>
             <div class="slds-col slds-size_1-of-12">
@@ -138,40 +138,7 @@
                             </div>
                         </aura:iteration>
                         
-                        
-                        
-                        
-                        
-                            
-                        
-                        <!--aura:iteration items="{!item.value}" var="product" indexVar="prodIndex">
-                            <div class="slds-col slds-size_2-of-12">
-                                <aura:if isTrue="{!v.selectedProduct == itemIndex + '_' + prodIndex}">
-                                    <button id="{!itemIndex + '_' + prodIndex}" 
-                                            data-pbe="{!product.TECH_PriceBookEntryId__c}" 
-                                            data-product-id="{!product.Product__c}" 
-                                            data-product-name="{!product.Product__r.Name}" 
-                                            data-unit-price="{!product.TECH_Unit_Price__c}" 
-                                            class="product-tile selected" 
-                                            onclick="{!c.selectProduct}">
-                                        {!product.Product__r.ProductCode}
-                                    </button>
-                                    <aura:set attribute="else">
-                                        <button id="{!itemIndex + '_' + prodIndex}" 
-                                                data-pbe="{!product.TECH_PriceBookEntryId__c}" 
-                                                data-product-id="{!product.Product__c}" 
-                                                data-product-name="{!product.Product__r.Name}" 
-                                                data-unit-price="{!product.TECH_Unit_Price__c}"   
-                                                class="product-tile" onclick="{!c.selectProduct}"
-                                                style="{!'background-image: url(\'' + product.Product__r.Product_Image_Url__c + '\')'}"
-                                                >
-                                            <p class="btn-label">{!product.Product__r.ProductCode}</p>
-                                            
-                                        </button>
-                                    </aura:set>
-                                </aura:if>
-                            </div>
-                        </aura:iteration-->
+
                         
                     </div>
                     
@@ -189,31 +156,6 @@
                         
                         <div class="slds-grid slds-wrap">
                             
-                            <!--div class="slds-col slds-size_6-of-12">
-                                <p class="panel-p">Quantity</p>
-                            </div>
-                            <div class="slds-col slds-size_6-of-12">
-                                
-                            </div>
-                            
-                            
-                            <div class="slds-col slds-size_5-of-12">
-                                <div class="btn-group gc-btn-group" role="group">
-                                    <button type="button" class="btn gc-btn-minus" onclick="{!c.minusOne}"><i class="fa fa-minus-circle gc-icon-minus" aria-hidden="true"></i></button>
-                                    <button type="button" class="btn gc-btn-router">{!v.qty}</button>
-                                    <button type="button" class="btn gc-btn-plus" onclick="{!c.addOne}"><i class="fa fa-plus-circle gc-icon-plus" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                            <div class="slds-col slds-size_7-of-12">
-                                <lightning:button variant="brand" class="btn-pos" label="Add to Cart" title="Add to Cart" onclick="{!c.addToCart}"  />
-                                <aura:if isTrue="{!v.error != null}">
-                                    <p class="error-msg">{!v.error}</p>
-                                </aura:if>
-                                
-                            </div-->
-                            
-                            
-                            
                             <div class="slds-col slds-size_6-of-12 slds-m-top_small">
                                 
                             </div>
@@ -222,7 +164,7 @@
                             </div>
                             
                             
-                            <div class="slds-col slds-size_5-of-12">
+                            <div class="slds-col slds-size_4-of-12">
                                 <p class="panel-p">Mode of Payment</p>
                                 <select class="pos-cash form-control" name="modeOfPayment" onchange="{!c.setModeOfPayment}" value="{!v.modeOfPaymentSelected}">
                                     <aura:iteration items="{!v.modeOfPaymentOptions}" var="item">
@@ -232,12 +174,9 @@
                                 <p class="panel-p">Amount</p>
                                 <lightning:input type="number" class="pos-cash" name="amount" aura:id="amount" value="{!v.order.PaymentReceived}" onclick="{!c.amountTarget}"  variant="label-hidden" readonly="true" maxlength="4" />
                                 
-                                <aura:if isTrue="{!v.modeOfPaymentSelected == 'Gcash'}">
-                                    <p class="panel-p">Reference Number</p>
-                                    <lightning:input class="pos-cash" name="referenceNumber" aura:id="referenceNumber" value="{!v.order.ReferenceNumber}" onclick="{!c.refTarget}"  readonly="true"   variant="label-hidden"  />
-                                </aura:if>
+                               
                             </div>
-                            <div class="slds-col slds-size_7-of-12">
+                            <div class="slds-col slds-size_8-of-12">
                                 
                                 
                                 <aura:if isTrue="{!v.isAmountCalcButtons}">
@@ -331,12 +270,17 @@
                                 
                                 
                             </div>
+                            
+                            <div class="slds-col slds-size_12-of-12">
+                                <aura:if isTrue="{!v.modeOfPaymentSelected == 'Gcash'}">
+                                    <p class="panel-p">Reference Number</p>
+                                    <lightning:input class="pos-cash" name="referenceNumber" aura:id="referenceNumber" value="{!v.order.ReferenceNumber}" onclick="{!c.refTarget}"  readonly="true"   variant="label-hidden"  />
+                                </aura:if>
+                            </div>
                             <aura:if isTrue="{!AND(v.order != null, v.order.PaymentReceived >= v.order.Total)}">   
-                                <div class="slds-col slds-size_5-of-12 slds-m-top_small">
-                                    <!--lightning:button variant="success" class="btn-pos btn-pos-new-order" onclick="{!c.handlePrintClick}" label="New Order" title="New Order"  /-->
-                                </div>
                                 
-                                <div class="slds-col slds-size_7-of-12 slds-m-top_small">
+                                
+                                <div class="slds-col slds-size_12-of-12 slds-m-top_small">
                                     <aura:if isTrue="{!AND(v.orderTypeOptionSelected != 'Delivery', v.modeOfPaymentSelected == 'Cash', v.order.PaymentReceived >= v.order.Total)}">
                                         <lightning:button variant="brand" class="btn-pos btn-pos-complete-order" label="Complete &amp; Print" title="Complete Order" onclick="{!c.completeOrder}"  /> 
                                         
@@ -357,9 +301,20 @@
                                     
                                     
                                     
-                                    <aura:if isTrue="{!v.orderTypeOptionSelected == 'Delivery'}">
+                                    
+                                    <aura:if isTrue="{!OR(AND(
+                                                     v.orderTypeOptionSelected == 'Delivery', 
+                                                     not(equals(v.modeOfPaymentSelected, 'Gcash'))),
+                                                     
+                                                     AND(
+                                                      v.referenceNumberLength == 13,
+                                                      v.orderTypeOptionSelected == 'Delivery', 
+                                                     v.modeOfPaymentSelected == 'Gcash'
+                                                     )
+                                                     )}">
                                         <lightning:button variant="brand" class="btn-pos btn-pos-complete-order" label="Enter Customer Details" title="Enter Customer Details" onclick="{!c.showCustomerDetails}"  />
                                     </aura:if>
+                          
                                   
                                     
                                 </div>
@@ -370,16 +325,19 @@
                             </div>
                             
                             <div class="slds-hide" id="cashDrawerItemModal">
-                                <c:POSCashDrawerNewItem cashDrawerId="{!v.cashDrawer.Id}" type="Ending Count" />
+                                <c:POSCashDrawerNewItem cashDrawerId="{!v.cashDrawer.Id}" modalId="cashDrawerItemModal" type="Ending Count" />
                             </div>
                             
-                             <div class="slds-hide" id="cashFloatItemModal">
-                                <c:POSCashDrawerNewItem cashDrawerId="{!v.cashDrawer.Id}" type="Float"  />
+                             <div class="slds-hide" id="cashDrawerItemFloatModal">
+                                <c:POSCashDrawerNewItem cashDrawerId="{!v.cashDrawer.Id}" modalId="cashDrawerItemFloatModal" type="Float"  />
                             </div>
                             
                             <div class="slds-hide" id="deliveryModal">
-                                <c:POSDelivery order="{!v.order}" modeOfPaymentSelected="{!v.modeOfPaymentSelected}" employee="{!v.employee}"
-                                               cashDrawer="{!v.cashDrawer}" riderOptions="{!v.riderOptions}" existingCustomers="{!v.existingCustomers}" />
+                                <c:POSDelivery order="{!v.order}" modeOfPaymentSelected="{!v.modeOfPaymentSelected}" 
+                                               employee="{!v.employee}" cashDrawer="{!v.cashDrawer}" 
+                                               riderOptions="{!v.riderOptions}" existingCustomers="{!v.existingCustomers}"
+                                               cashierOptions="{!v.cashierOptions}"
+                                               />
                             </div>
                             
                             <div class="slds-hide" id="varietyModal">
@@ -389,8 +347,7 @@
                             
                             
                         </div>
-                        
-                        
+
                         
                         
                         

@@ -25,6 +25,12 @@
                 <default>false</default>
                 <label>COD</label>
             </value>
+            <value>
+                <fullName>COP</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>COP</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

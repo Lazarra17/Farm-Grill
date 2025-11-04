@@ -9,11 +9,13 @@
     <aura:attribute name="totalAmount" type="Integer" />
     <aura:attribute name="mydata" type="Object"/>
     <aura:attribute name="mycolumns" type="List"/>
+    <aura:attribute name="cashDrawer" type="Cash_Drawer_Session__c" />
+    <aura:attribute name="pendingRemittances" type="Integer" default="0" />
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
     <aura:handler name="compEvent" event="c:POSEvent" action="{! c.handleEvent }"/>
     
     <div class="slds-grid slds-wrap slds-gutters pos-main pos-container slds-p-left_medium slds-p-right_medium slds-p-bottom_small  slds-p-top_small">
-        <div class="slds-col slds-size_6-of-12 slds-p-left_none">
+        <div class="slds-col slds-size_3-of-12 slds-p-left_none">
             
             <i class="fa fa-bars" data-bs-toggle="collapse" href="#headerMenu" role="button" aria-expanded="false" aria-controls="headerMenu"></i>
             
@@ -24,10 +26,24 @@
             
         </div>
         
-        <div class="slds-col slds-size_6-of-12 slds-text-align_right slds-p-top_xx-small">
-            
-            
-        </div>
+        <div class="slds-col slds-size_3-of-12">
+                <p class="header-title">GCash</p>
+                <h5 class="header-content">
+                    <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Total_Sales_Gcash__c}" minimumFractionDigits="2" />
+                </h5> 
+            </div>
+            <div class="slds-col slds-size_3-of-12">
+                <p class="header-title">Cash in Drawer</p>
+                <h5 class="header-content">
+                    <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" />
+                </h5>
+            </div>
+            <div class="slds-col slds-size_3-of-12">
+                <p class="header-title slds-text-align_center">Pending Remittance</p>
+                <h5 class="header-content slds-text-align_center" >
+                    {!v.pendingRemittances}
+                </h5>
+            </div>
         
     </div>
     

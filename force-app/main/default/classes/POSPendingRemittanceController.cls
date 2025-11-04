@@ -17,10 +17,21 @@ public without sharing class POSPendingRemittanceController {
         } 
         
     }
-    
+     
     @auraEnabled
-    public static List<Opportunity> getPendingOpportunity(string cashDrawerItemId){
-        List<Opportunity> oppties = [SELECT Id, Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE Cash_Drawer_Session__c =: cashDrawerItemId AND  Payment_Status__c = 'Pending Remittance'];
+    public static List<Opportunity> getPendingOpportunity(string cashDrawerItemId, string cashierId){
+        
+        Set<Id> opptySetId = new Set<Id>();
+        for (OpportunityContactRole opptyRole : [SELECT Id, OpportunityId FROM OpportunityContactRole 
+                                                 WHERE ContactId =: cashierId AND Opportunity.Cash_Drawer_Session__c =: cashDrawerItemId]){
+                                                     
+                                                     opptySetId.add(opptyRole.OpportunityId);
+                                                     
+                                                 }
+             
+        List<Opportunity> oppties = [SELECT Id, Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
+                                     Id IN: opptySetId AND
+                                     Payment_Status__c = 'Pending Remittance'];
         if(oppties.size() > 0){
             return oppties;
         }else{
@@ -43,11 +54,14 @@ public without sharing class POSPendingRemittanceController {
             cashDrawerItem.Type__c = 'Sales Gcash';
         }
         
-        Opportunity opp = [SELECT Id, Payment_Status__c, StageName, Cashier_Notes__c FROM Opportunity WHERE Id =: cashDrawerItem.Opportunity__c];
+        Opportunity opp = [SELECT Id, Payment_Status__c, StageName, Cashier_Notes__c, Amount FROM Opportunity WHERE Id =: cashDrawerItem.Opportunity__c];
         opp.Payment_Status__c = 'Paid';
         opp.StageName = 'Closed Won - Delivered';
         opp.Cashier_Notes__c = cashDrawerItem.Notes__c;
         update opp;
+        
+        //Query the Cahier of this opportunity
+        OpportunityContactRole cashier = [SELECT Id, OpportunityId, ContactId FROM OpportunityContactRole WHERE OpportunityId =: opp.Id AND Role = 'Cashier' LIMIT 1];
         
         for(OpportunityLineItem opptyLine : [SELECT Id, PricebookEntryId FROM OpportunityLineItem WHERE OpportunityId =: cashDrawerItem.Opportunity__c]){
             pbEntrySet.add(opptyLine.PricebookEntryId);
@@ -61,24 +75,22 @@ public without sharing class POSPendingRemittanceController {
         
         
         //Create Cash Drawer Item
-        List<Cash_Drawer_Item__c> cdItems = new List<Cash_Drawer_Item__c>();
-        for(OpportunityLineItem opptyLine : [SELECT Id, PricebookEntryId FROM OpportunityLineItem WHERE OpportunityId =: cashDrawerItem.Opportunity__c]){
-            
-            Cash_Drawer_Item__c cdi = new Cash_Drawer_Item__c();
-            cdi.Cash_Drawer_Session__c = cashDrawerItem.Cash_Drawer_Session__c;
-            cdi.Type__c = cashDrawerItem.Type__c;
-            cdi.Custom__c = pbeMap.get(opptyLine.PricebookEntryId).UnitPrice;
-            cdi.Opportunity__c = opp.Id;
-            cdi.Reference_Number__c = cashDrawerItem.Reference_Number__c;
-            cdi.Notes__c = cashDrawerItem.Notes__c;
-            cdItems.add(cdi);
-        }
+        List<Cash_Drawer_Item__c> cdItems = new List<Cash_Drawer_Item__c>();        
+        Cash_Drawer_Item__c cdi = new Cash_Drawer_Item__c();
+        cdi.Cash_Drawer_Session__c = cashDrawerItem.Cash_Drawer_Session__c;
+        cdi.Type__c = cashDrawerItem.Type__c;
+        cdi.Custom__c = opp.Amount;
+        cdi.Opportunity__c = opp.Id;
+        cdi.Reference_Number__c = cashDrawerItem.Reference_Number__c;
+        cdi.Notes__c = cashDrawerItem.Notes__c;
+        cdItems.add(cdi);
+        
         
         if(cdItems.size() > 0){
             insert cdItems;
         }
         
-        List<Opportunity> oppties=  getPendingOpportunity(cashDrawerItem.Cash_Drawer_Session__c);
+        List<Opportunity> oppties=  getPendingOpportunity(cashDrawerItem.Cash_Drawer_Session__c, cashier.ContactId);
         
         return oppties;
         
@@ -110,6 +122,24 @@ public without sharing class POSPendingRemittanceController {
         }
       
         
+    }
+    
+    @auraEnabled
+    public static Cash_Drawer_Session__c getCashDrawer(String employeeId, String accountId){
+        
+        Cash_Drawer_Session__c cd = new Cash_Drawer_Session__c();
+        List<Cash_Drawer_Session__c> activeCashDrawer = [SELECT Id, Status__c, Total_Sales_Cash__c, Total_Count_Orders__c,Total_Sales_Gcash__c, TECH_Start_Time__c, Start_Date__c,
+                                                         Expected_Count__c, End_Date__c, Number_of_Pending_Remittances__c	
+                                                         FROM Cash_Drawer_Session__c WHERE Contact__c =: employeeId AND Account__c =: accountId ORDER BY CreatedDate DESC LIMIT 1];
+        if(activeCashDrawer.size() > 0){
+            cd = activeCashDrawer[0];
+            
+        }else{
+            return null;
+        }
+        
+        //return null if there is no account found
+        return cd;
     }
     
  

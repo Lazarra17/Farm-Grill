@@ -6,28 +6,45 @@
     },
     
     placeOrder : function(component, event, helper) {
-      
+        var employee = component.get('v.employee');
+    
         var allValid = component.find('contact').reduce(function (validSoFar, inputCmp) {
             inputCmp.reportValidity();
             return validSoFar && inputCmp.checkValidity();
         }, true);
         
-        var selectElement = component.find("customer");
-        var selectedValue = selectElement.get("v.value");
+        var customerType = component.get('v.customerType');
         
-        if (selectedValue === "" || selectedValue === null) {
-            // Display error message
-            selectElement.showHelpMessageIfInvalid();
-            allValid = false;
+        if(customerType == 'Existing Customer'){
+            
+            var selectElement = component.find("customer");
+            var selectedValue = selectElement.get("v.value");
+            if (selectedValue === "" || selectedValue === null) {
+                
+                // Display error message
+                selectElement.showHelpMessageIfInvalid();
+                allValid = false;
+            }
         }
         
         var riderElement = component.find("rider");
         var riderValue = riderElement.get("v.value");
-        
         if (riderValue === "" || riderValue === null) {
             // Display error message
             riderElement.showHelpMessageIfInvalid();
             allValid = false;
+        }
+        
+        
+        if(employee.Role__c == 'Customer Service Representative'){
+            
+            var cashierElement = component.find("cashier");
+            var cashierValue = riderElement.get("v.value");
+            if (cashierValue === "" || cashierValue === null) {
+                // Display error message
+                cashierElement.showHelpMessageIfInvalid();
+                allValid = false;
+            }
         }
         
         if (allValid) {
@@ -43,6 +60,13 @@
         
         var selectedValue = event.target.value;
         component.set("v.riderSelected", selectedValue);
+        
+    }, 
+    
+    handleCashierChange : function(component, event, helper) {
+        
+        var selectedValue = event.target.value;
+        component.set("v.cashierSelected", selectedValue);
         
     }, 
     
@@ -79,6 +103,19 @@
         var selectedValue = event.getParam("value");
         component.set('v.customerType', selectedValue);
        
+        //reset values
+        var conOjb = new Object();
+        conOjb.FirstName = '';
+        conOjb.LastName = '';
+        conOjb.MobilePhone = ''; 
+        conOjb.Complete_Address__c = '';
+        
+        component.set('v.contact', conOjb);
+        component.set('v.notes', '');
+        component.set('v.riderSelected', '');
+        component.set('v.cashierSelected', '');
+        component.set('v.customerSelected', '');
+        
         
     },  
     

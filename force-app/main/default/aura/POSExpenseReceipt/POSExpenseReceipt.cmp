@@ -12,7 +12,7 @@
                 <p>{!v.receiptSettings.Tagline__c}</p>
                 <p>{!v.receiptSettings.Address__c}</p>
                 <p>{!v.receiptSettings.Contact_Number__c}</p>
-                <p style="border-bottom: 1px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;">
+                <p style="border-bottom: 3px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;">
                     
                 </p>
             </td>
@@ -160,8 +160,8 @@
           
             
             <tr>
-                <td coslpan="2"  style="height: 20px; border-bottom: 1px solid #ccc"></td>
-                <td style="height: 50px; border-bottom: 1px solid #ccc"></td>
+                <td coslpan="2"  style="height: 20px; border-bottom: 3px solid #ccc"></td>
+                <td style="height: 50px; border-bottom: 3px solid #ccc"></td>
             </tr>
             
         </tfoot>

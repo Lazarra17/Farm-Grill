@@ -3,6 +3,7 @@
     <aura:attribute name="errMessage" type="String"  />
     <aura:attribute name="total" type="currency"  />
     <aura:attribute name="type" type="String" />
+    <aura:attribute name="modalId" type="String" default="cashDrawerItemModal" />
     <aura:attribute name="posSettings" type="POS_Setting__mdt" default="{'Account_Name__c': '', 'VFP_Url__c': ''}"  />
     <aura:attribute name="cashDrawerItem" type="Cash_Drawer_Item__c" default="{
                                                                               'X1000__c' : '', 'X500__c' : '', 'X200__c' : '', 'X100__c' : '', 
@@ -23,31 +24,34 @@
             <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
                 <div class="slds-grid slds-wrap slds-gutters">
                     <div class="slds-col slds-size_12-of-12">
-                        <aura:if isTrue="{!v.type != ''}">
-                            <lightning:select name="type" label="Type" required="true" value="{!v.type}" aura:id="type" >
+                        <aura:if isTrue="{!v.type != 'Expense'}">
+                            <lightning:select name="type" label="Type" required="true" value="{!v.type}" aura:id="type">
                                 <option value="{!v.type}">{!v.type}</option>
                             </lightning:select>
-                            <aura:set attribute="else">
-                                <lightning:select name="type" label="Type" required="true" value="{!v.type}" aura:id="type" >
-                                    <option value="Expense">Expense</option>
-                                    <option value="Withdrawal">Withdrawal</option>
-                                    <option value="Additional Cash">Additional Cash</option>
-                                </lightning:select>
-                            </aura:set>
+                            
                         </aura:if>
                         
+                        <aura:if isTrue="{!v.type == 'Expense'}"> 
+                            
+                            <lightning:select name="type" label="Type" required="true" aura:id="type" onchange="{!c.setType}">
+                                <option value="Expense">Expense</option>
+                                <option value="Withdrawal">Withdrawal</option>
+                                <option value="Additional Cash">Additional Cash</option>
+                            </lightning:select>
+                            
+                        </aura:if>
                         
                     </div>
                     
                     <div class="slds-col slds-size_12-of-12 slds-m-top_medium">
-                        <p>Denomination</p>
+                        <p class="slds">Denomination</p>
                         
                     </div>
                     
-                    <div class="slds-col slds-size_12-of-12 slds-m-top_medium">
-                        <span>{!v.errMessage}</span>
-                        
+                    <div class="slds-col slds-size_12-of-12">
+                        <p class="error-msg">{!v.errMessage}</p>
                     </div>
+                    
                     <div class="slds-col slds-size_6-of-12">
                      	<lightning:input type="number" name="X1000" label="1000" value="{!v.cashDrawerItem.X1000__c}" maxlength="3" onchange="{!c.calculateTotal}" />
                         <lightning:input type="number" name="X500" label="500" value="{!v.cashDrawerItem.X500__c}" maxlength="3" onchange="{!c.calculateTotal}" />

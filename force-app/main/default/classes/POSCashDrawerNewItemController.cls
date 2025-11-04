@@ -24,7 +24,7 @@ public without sharing class POSCashDrawerNewItemController {
         return cdi;
     }
     
-    
+     
     @auraEnabled
     public static Cash_Drawer_Session__c endCashDrawer(String cashDrawerId){
         system.debug('cashDrawerId: ' + cashDrawerId);

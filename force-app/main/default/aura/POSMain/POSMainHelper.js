@@ -52,16 +52,12 @@
             //console.log('state: ' + state);
             if (state === "SUCCESS") {
                 var res = response.getReturnValue();  
-                console.log('PRODUCTS');
-                console.log(res);
                 
                 var products = [];
                 for(var key in res){
                     products.push({value:res[key], key:key});
                 }
                 
-                console.log('PRODUCT CATEGORIES');
-                console.log(JSON.stringify(products));
                 component.set("v.productCategories", products);
                 
             } else if (state === "INCOMPLETE") {
@@ -94,8 +90,6 @@
             //console.log('state: ' + state);
             if (state === "SUCCESS") {
                 var res = response.getReturnValue();  
-                console.log('EXISTING CUSTOMERS');
-                console.log(res);
                 
                 component.set('v.existingCustomers', res);
             
@@ -119,7 +113,7 @@
 
     
     getOrderType : function(component, event) {
-        
+        var employee = component.get('v.employee');
         var action = component.get("c.getPicklistValues");    
         action.setParams({       
             objectName : 'Opportunity',
@@ -136,10 +130,22 @@
                 
                 
                 for(var key in res){
-                    if(key == 'Dine-in'){
+                    if(key == 'Dine-in' && employee.Role__c != 'Customer Service Representative'){
+                        component.set('v.orderTypeOptionSelected', res[key]);
+                        
+                    }else if(key == 'Delivery' && employee.Role__c == 'Customer Service Representative'){
                         component.set('v.orderTypeOptionSelected', res[key]);
                     }
-                    picklistObj.push({value:res[key], label:key});
+                    
+                    if(employee.Role__c == 'Customer Service Representative'){
+                        if(key == 'Delivery'){
+                            picklistObj.push({value:res[key], label:key});
+                        } 
+                        
+                    }else{
+                        picklistObj.push({value:res[key], label:key});
+                    }
+                   
                 }
 
                 component.set("v.orderTypeOptions", picklistObj);
@@ -203,8 +209,49 @@
     },
     
     
-    getModeOfPayment : function(component, event) {
+    getCashiers : function(component, event) {
+       
+     	var employee = component.get('v.employee');
+        var action = component.get("c.getCashiers");    
+        action.setParams({       
+            accountId : employee.AccountId
+        });   
         
+        action.setCallback(this, function(response) {            
+            
+            var state = response.getState();    
+            if (state === "SUCCESS") {
+                
+                var res = response.getReturnValue();
+                var picklistObj = [];
+                
+                for(var key in res){
+                    picklistObj.push({value:res[key], label:key});
+                }
+                console.log(picklistObj);
+                component.set('v.cashierOptions', picklistObj);
+                               
+            } else if (state === "INCOMPLETE") {
+                console.log("No response from server or client is offline.");
+                
+                // Show offline error
+            }
+                else if (state === "ERROR") {
+                    var errors = response.getError();  
+                    console.log("Error: " + errors[0].message);
+                    
+                    // Show error message
+                }        
+        });               
+        
+        $A.enqueueAction(action);     
+        
+        
+    },
+    
+    
+    getModeOfPayment : function(component, event) {
+        var employee = component.get('v.employee');
         var action = component.get("c.getPicklistValues");    
         action.setParams({       
             objectName : 'Opportunity',
@@ -222,9 +269,16 @@
                 
                 for(var key in res){
                     
+                   
+                     
                     picklistObj.push(key);
                 }
                 component.set("v.modeOfPaymentOptions", picklistObj);
+                if(employee.Role__c == 'Customer Service Representative'){
+                    component.set('v.modeOfPaymentSelected', 'COD');
+                }
+                
+                
                 
             } else if (state === "INCOMPLETE") {
                 console.log("No response from server or client is offline.");
@@ -361,8 +415,11 @@
                     
                 }
                 
-                this.getCashDrawer(component, res.Id);
+                this.getModeOfPayment(component, event);
+                this.getOrderType(component, event);
+                this.getCashDrawer(component, res.Id, res.AccountId);
                 this.getRiders(component, event);
+                this.getCashiers(component, event);
                 var appEvent = $A.get("e.c:POSAppEvent");
                 appEvent.setParams({"employee": res});
                 appEvent.fire();
@@ -412,9 +469,12 @@
                     this.setCookie("ContactId", res.Id);
                     this.setCookie("AccountId", res.AccountId);
                     
-                    this.getCashDrawer(component, res.Id);
+                    this.getModeOfPayment(component, event);
+                    this.getOrderType(component, event);
+                    this.getCashDrawer(component, res.Id, res.AccountId);
                     this.getExistingCustomers(component, res.AccountId);
                  	this.getRiders(component, event);
+                    this.getCashiers(component, event);
                     
                 }else{
                     this.setCookie("FirstName", "");
@@ -446,11 +506,12 @@
         
     },
     
-    getCashDrawer : function(component, employeeId) {
+    getCashDrawer : function(component, employeeId, accountId) {
         var action = component.get("c.getCashDrawer");   
         
         action.setParams({       
-            employeeId : employeeId
+            employeeId : employeeId,
+            accountId : accountId
         });   
         
         action.setCallback(this, function(response) {            
@@ -461,8 +522,7 @@
                 var res = response.getReturnValue();
                 component.set('v.cashDrawer', res);
               	
-                console.log("Cash Drawer");
-                console.log(res);
+                this.getPendingRemittances(component, res.Id);
                 this.setCookie('CashDrawer', res.Id);    
                 
                 var employee = component.get('v.employee');
@@ -470,6 +530,42 @@
                 appEvent.setParams({"employee": employee});
                 appEvent.fire();
                 
+                
+                
+            } else if (state === "INCOMPLETE") {
+                console.log("No response from server or client is offline.");
+         
+                // Show offline error
+            }
+                else if (state === "ERROR") {
+                    var errors = response.getError();  
+                    console.log("Error: " + errors[0].message);
+            
+                    // Show error message
+                }        
+        });               
+        
+        $A.enqueueAction(action);     
+        
+        
+    },
+    
+    getPendingRemittances : function(component, cashDrawerId) {
+        var action = component.get("c.getPendingRemittances");   
+        
+        action.setParams({       
+            cashDrawerId : cashDrawerId
+        });   
+        
+        action.setCallback(this, function(response) {            
+            
+            var state = response.getState();    
+            if (state === "SUCCESS") {
+                
+                var res = response.getReturnValue();
+                component.set('v.pendingRemittances', res);
+              	
+            
                 
                 
             } else if (state === "INCOMPLETE") {
@@ -508,7 +604,13 @@
                 var res = response.getReturnValue();
                 component.set('v.cashDrawer', res);
                 
-                var cashFloat = document.getElementById('cashFloatItemModal');
+                var appEvent = $A.get("e.c:POSAppEvent");
+                appEvent.setParams({"employee": employee});
+                appEvent.fire();
+                
+                
+                
+                var cashFloat = document.getElementById('cashDrawerItemFloatModal');
                 $A.util.removeClass(cashFloat, 'slds-hide');
                 
                 
@@ -540,7 +642,6 @@
         var qty = component.get('v.qty');
         var order = component.get('v.order');
         var orderItem = component.get('v.orderItem');
-        var amount = orderItem.UnitPrice * qty;
         var orderType = component.get('v.orderTypeOptionSelected');
         var modeOfPayment = component.get('v.modeOfPaymentSelected');
         
@@ -560,10 +661,8 @@
         order.AccountId = employee.AccountId;
         order.ContactId = employee.Id;
         order.OrderType = orderType;
-        order.Total = order.Total + amount;
+        order.Total = order.Total + orderItem.UnitPrice;
         order.ModeOfPayment = modeOfPayment;
-        //orderItem.Quantity = qty;
-        //orderItem.UnitPrice = amount;
         
         //recalculate the Change
         if(order.PaymentReceived != null && order.PaymentReceived != '0'){
@@ -579,7 +678,6 @@
         component.set('v.orderItem', null);
         component.set("v.selectedProduct", null);
         component.set("v.order", order);
-        component.set("v.qty", 1);
         console.log('Add to Cart');
         console.log(JSON.stringify(order));
         

@@ -3,8 +3,8 @@
         
         helper.getProducts(component, event);
         helper.getProductCategories(component, event);
-        helper.getOrderType(component, event);
-        helper.getModeOfPayment(component, event);
+        
+        
         
         console.log('cookie: ' + document.cookie);   
         
@@ -17,7 +17,7 @@
             helper.getExistingCustomers(component, accountId);
            
         }
-        
+     
         
         var username = helper.getCookie('username');
         if(username != null){
@@ -26,6 +26,7 @@
        
     },
     
+    /*
     selectProduct : function(component, event, helper) {
         var orderItem = component.get('v.orderItem');
         
@@ -65,6 +66,9 @@
         
     },
     
+    
+
+    
     addToCart : function(component, event, helper) {
         var orderItem = component.get('v.orderItem');
         var cashDrawer = component.get('v.cashDrawer');
@@ -82,6 +86,8 @@
         }            
     },
     
+    */
+    
     handleApplicationEvent : function(component, event, helper) {
         
         
@@ -89,6 +95,7 @@
         var action = event.getParam("action");
         
         var employee = component.get('v.employee');
+        
         console.log('EVENT ORDER:');
         console.log(action);
         
@@ -101,10 +108,11 @@
             helper.getCashDrawer(component, employee.Id);
             
         }else if(action == 'ordersComplete'){
+            var cashDrawer = component.get('v.cashDrawer');
             var order = event.getParam("order");
             component.set('v.order', order);
+            helper.getCashDrawer(component, employee.Id, employee.AccountId);
             
-            helper.getCashDrawer(component, employee.Id);
         }else if(action == 'ADD_ORDER_ITEM'){
             var orderItem = event.getParam("orderItem");
             component.set('v.orderItem', orderItem);
@@ -192,6 +200,7 @@
     setModeOfPayment : function(component, event, helper) {
         
         var selectedValue = event.target.value;
+        console.log('SET MODE OF PAYMENT');
         console.log(selectedValue);
         component.set("v.modeOfPaymentSelected", selectedValue);
         

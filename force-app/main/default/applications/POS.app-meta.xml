@@ -17,6 +17,7 @@
     <tabs>standard-Opportunity</tabs>
     <tabs>Cash_Drawer_Session__c</tabs>
     <tabs>Product_Group__c</tabs>
+    <tabs>Product_Catalog__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>POS_UtilityBar</utilityBar>
 </CustomApplication>

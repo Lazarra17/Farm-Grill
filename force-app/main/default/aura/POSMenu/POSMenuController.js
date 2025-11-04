@@ -40,13 +40,14 @@
     
     handleApplicationEvent : function(component, event, helper) {
         var employee = event.getParam("employee");
-        console.log('employee: ' );
-        console.log(employee);
-        component.set("v.employee", employee);
         
-        var cashDrawer = helper.getCookie('CashDrawer');
-        console.log('cookie cash drawer:' + cashDrawer);
-        component.set('v.cashDrawer', cashDrawer);
+        if(employee != null){
+            component.set("v.employee", employee);
+            
+            var cashDrawer = helper.getCookie('CashDrawer');
+            component.set('v.cashDrawer', cashDrawer);
+        }
+        
     },
     
     onClick : function(component, event, helper) {

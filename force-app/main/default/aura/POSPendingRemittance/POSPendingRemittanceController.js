@@ -30,6 +30,14 @@
         component.set('v.cashDrawerSessionId', component.get('v.recordId'));
         
         helper.getPendingRemittances(component, event);
+        
+        var contactId = helper.getCookie('ContactId');
+        var accountId = helper.getCookie('AccountId');
+        
+        if(contactId != '' && accountId != ''){
+             helper.getCashDrawer(component, contactId, accountId);
+        }
+       
     },
     
     
@@ -55,6 +63,39 @@
         console.log(pendingOpportunities);
         
         component.set("v.mydata", pendingOpportunities);
+        
+        if(pendingOpportunities != null){
+            component.set('v.pendingRemittances', pendingOpportunities.length);
+        }else{
+            component.set('v.pendingRemittances', 0);
+        }
+        
+        
+        var contactId = helper.getCookie('ContactId');
+        var accountId = helper.getCookie('AccountId');
+        
+        if(contactId != '' && accountId != ''){
+            helper.getCashDrawer(component, contactId, accountId);
+        }
+        
+        
+    },
+    
+    getCookie : function(queryParam) {
+        
+        let name = queryParam + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     },
     
     
