@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <excludeButtons>OpenSlackRecordChannel</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -76,10 +77,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Total_Sales_Cash__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>Total_Expenses__c</field>
             </layoutItems>
             <layoutItems>
@@ -139,11 +136,19 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Opportunity__c</fields>
-        <fields>Queue_Number__c</fields>
+        <fields>Customer__c</fields>
         <fields>Reference_Number__c</fields>
         <fields>Type__c</fields>
         <fields>Total_Amount__c</fields>
+        <fields>Notes__c</fields>
         <relatedList>Cash_Drawer_Item__c.Cash_Drawer_Session__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>OPPORTUNITY.NAME</fields>
+        <fields>OPPORTUNITY.CLOSE_DATE</fields>
+        <fields>Payment_Status__c</fields>
+        <fields>OPPORTUNITY.AMOUNT</fields>
+        <relatedList>Opportunity.Cash_Drawer_Session__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

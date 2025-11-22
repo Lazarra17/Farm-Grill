@@ -7,7 +7,6 @@
     <type>Picklist</type>
     <valueSet>
         <controllingField>Family</controllingField>
-        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -195,6 +194,101 @@
                 <default>false</default>
                 <label>10pc Pork BBQ</label>
             </value>
+            <value>
+                <fullName>Mango Float</fullName>
+                <default>false</default>
+                <label>Mango Float</label>
+            </value>
+            <value>
+                <fullName>500ML Ice Tea</fullName>
+                <default>false</default>
+                <label>500ML Ice Tea</label>
+            </value>
+            <value>
+                <fullName>Mango Classic</fullName>
+                <default>false</default>
+                <label>Mango Classic</label>
+            </value>
+            <value>
+                <fullName>Mango-Banana</fullName>
+                <default>false</default>
+                <label>Mango-Banana</label>
+            </value>
+            <value>
+                <fullName>Mango-Cheese</fullName>
+                <default>false</default>
+                <label>Mango-Cheese</label>
+            </value>
+            <value>
+                <fullName>Mango-Oreo</fullName>
+                <default>false</default>
+                <label>Mango-Oreo</label>
+            </value>
+            <value>
+                <fullName>Buko Classic</fullName>
+                <default>false</default>
+                <label>Buko Classic</label>
+            </value>
+            <value>
+                <fullName>Buko-Pandan</fullName>
+                <default>false</default>
+                <label>Buko-Pandan</label>
+            </value>
+            <value>
+                <fullName>Glass C. Lemonade</fullName>
+                <default>false</default>
+                <label>Glass C. Lemonade</label>
+            </value>
+            <value>
+                <fullName>Pitcher C. Lemonade</fullName>
+                <default>false</default>
+                <label>Pitcher C. Lemonade</label>
+            </value>
+            <value>
+                <fullName>Pitcher Iced Tea</fullName>
+                <default>false</default>
+                <label>Pitcher Iced Tea</label>
+            </value>
+            <value>
+                <fullName>Buko-Cheese</fullName>
+                <default>false</default>
+                <label>Buko-Cheese</label>
+            </value>
+            <value>
+                <fullName>Oreo Classic</fullName>
+                <default>false</default>
+                <label>Oreo Classic</label>
+            </value>
+            <value>
+                <fullName>Oreo-Banana</fullName>
+                <default>false</default>
+                <label>Oreo-Banana</label>
+            </value>
+            <value>
+                <fullName>Oreo-Cheese</fullName>
+                <default>false</default>
+                <label>Oreo-Cheese</label>
+            </value>
+            <value>
+                <fullName>Scoop of Ice Cream</fullName>
+                <default>false</default>
+                <label>Scoop of Ice Cream</label>
+            </value>
+            <value>
+                <fullName>-10Php</fullName>
+                <default>false</default>
+                <label>-10Php</label>
+            </value>
+            <value>
+                <fullName>-15Php</fullName>
+                <default>false</default>
+                <label>-15Php</label>
+            </value>
+            <value>
+                <fullName>-20Php</fullName>
+                <default>false</default>
+                <label>-20Php</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Beverages</controllingFieldValue>
@@ -231,6 +325,22 @@
         <valueSettings>
             <controllingFieldValue>Beverages</controllingFieldValue>
             <valueName>220ML Pineapple</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>500ML Ice Tea</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>Glass C. Lemonade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>Pitcher C. Lemonade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Beverages</controllingFieldValue>
+            <valueName>Pitcher Iced Tea</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Pork</controllingFieldValue>
@@ -351,6 +461,66 @@
         <valueSettings>
             <controllingFieldValue>Add ons</controllingFieldValue>
             <valueName>Spice Vinegar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add ons</controllingFieldValue>
+            <valueName>Scoop of Ice Cream</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Mango Float</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Mango Classic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Mango-Banana</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Mango-Cheese</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Mango-Oreo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Buko Classic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Buko-Pandan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Buko-Cheese</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Oreo Classic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Oreo-Banana</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dessert</controllingFieldValue>
+            <valueName>Oreo-Cheese</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Discount</controllingFieldValue>
+            <valueName>-10Php</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Discount</controllingFieldValue>
+            <valueName>-15Php</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Discount</controllingFieldValue>
+            <valueName>-20Php</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

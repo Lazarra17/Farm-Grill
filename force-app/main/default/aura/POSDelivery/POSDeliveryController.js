@@ -7,7 +7,9 @@
     
     placeOrder : function(component, event, helper) {
         var employee = component.get('v.employee');
-    
+    	var order = component.get('v.order');
+        var orderType = component.get('v.orderType');
+        
         var allValid = component.find('contact').reduce(function (validSoFar, inputCmp) {
             inputCmp.reportValidity();
             return validSoFar && inputCmp.checkValidity();
@@ -27,19 +29,21 @@
             }
         }
         
-        var riderElement = component.find("rider");
-        var riderValue = riderElement.get("v.value");
-        if (riderValue === "" || riderValue === null) {
-            // Display error message
-            riderElement.showHelpMessageIfInvalid();
-            allValid = false;
+        if(orderType == 'Delivery'){
+            var riderElement = component.find("rider");
+            var riderValue = riderElement.get("v.value");
+            if (riderValue === "" || riderValue === null) {
+                // Display error message
+                riderElement.showHelpMessageIfInvalid();
+                allValid = false;
+            }
+            
         }
         
         
         if(employee.Role__c == 'Customer Service Representative'){
-            
             var cashierElement = component.find("cashier");
-            var cashierValue = riderElement.get("v.value");
+            var cashierValue = cashierElement.get("v.value");
             if (cashierValue === "" || cashierValue === null) {
                 // Display error message
                 cashierElement.showHelpMessageIfInvalid();
@@ -48,10 +52,29 @@
         }
         
         if (allValid) {
+            console.log('VALID' + orderType);
             
-            helper.createOpportunity(component, event);
-            
-            
+            if(orderType == 'Delivery'){
+                var hasDeliveryProduct = false;
+                order.OrderItems.forEach(function(item) {
+                    
+                    if(item.ProductName.includes('Delivery') ){
+                        hasDeliveryProduct = true;
+                    }
+                });
+                
+                if(hasDeliveryProduct){
+                    component.set('v.errMessage', '');
+                    helper.createOpportunity(component, event);
+                }else{
+                    console.log('VALID FALSE');
+                    component.set('v.errMessage', 'Missing Delivery Fee.');
+                }
+            }else if(orderType == 'Pickup'){
+                
+                helper.createOpportunity(component, event);
+                
+            }
         }
         
     },

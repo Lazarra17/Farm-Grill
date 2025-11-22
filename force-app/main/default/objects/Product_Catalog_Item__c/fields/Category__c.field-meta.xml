@@ -69,6 +69,11 @@
                 <default>false</default>
                 <label>Add ons</label>
             </value>
+            <value>
+                <fullName>Dessert</fullName>
+                <default>false</default>
+                <label>Dessert</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

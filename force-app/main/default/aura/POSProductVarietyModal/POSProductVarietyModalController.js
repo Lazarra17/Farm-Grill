@@ -28,7 +28,7 @@
         if(cashdrawer == null){
             component.set('v.error', 'No active cash drawer session.');
         }else{
-            
+            component.set('v.error', '');
             // Loop through the Map in JavaScript
             for (let key in products) {
                 if (products.hasOwnProperty(key)) {

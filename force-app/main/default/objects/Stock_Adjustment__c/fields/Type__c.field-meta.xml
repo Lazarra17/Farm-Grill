@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <label>Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Initial Inventory</fullName>
+                <default>false</default>
+                <label>Initial Inventory</label>
+            </value>
+            <value>
+                <fullName>Stock Take Adjustment</fullName>
+                <default>false</default>
+                <label>Stock Take Adjustment</label>
+            </value>
+            <value>
+                <fullName>Transfer Created</fullName>
+                <default>false</default>
+                <label>Transfer Created</label>
+            </value>
+            <value>
+                <fullName>Transfer Received</fullName>
+                <default>false</default>
+                <label>Transfer Received</label>
+            </value>
+            <value>
+                <fullName>Received From Supplier</fullName>
+                <default>false</default>
+                <label>Received From Supplier</label>
+            </value>
+            <value>
+                <fullName>Returned To Supplier</fullName>
+                <default>false</default>
+                <label>Returned To Supplier</label>
+            </value>
+            <value>
+                <fullName>Inventory Added</fullName>
+                <default>false</default>
+                <label>Inventory Added</label>
+            </value>
+            <value>
+                <fullName>Inventory Removed</fullName>
+                <default>false</default>
+                <label>Inventory Removed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

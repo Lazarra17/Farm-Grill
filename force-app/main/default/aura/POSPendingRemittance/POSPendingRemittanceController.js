@@ -7,6 +7,18 @@
         
         component.set('v.mycolumns', [
             { label: 'Name', fieldName: 'Name', type: 'text'},
+            { label: 'Customer', fieldName: 'Customer', type: 'text'},
+            {
+                label: 'Order Time',
+                fieldName: 'Order_Time__c', // our formatted field
+                type: 'date',
+                typeAttributes: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                    timeZone: $A.get("$Locale.timezone") // or a fixed 'Asia/Manila'
+                }
+            },
             { label: 'Stage', fieldName: 'StageName', type: 'text'},
             { label: 'Payment Status', fieldName: 'Payment_Status__c', type: 'text'},
             {

@@ -11,7 +11,7 @@ public without sharing class POSMainController {
     public Decimal Total;
     public Decimal PaymentReceived;
     public String OrderType;
-    public String ModeOfPayment;
+    //public String ModeOfPayment;
     public String AccountId;
     public String ContactId;
     public String ReferenceNumber;
@@ -55,14 +55,24 @@ public without sharing class POSMainController {
     }
     
     @auraEnabled
-    public static Integer getPendingRemittances(String cashDrawerId){
-        Integer count = 0;
-        if(cashDrawerId != ''){
-            count = [SELECT Id FROM Opportunity WHERE Cash_Drawer_Session__c = :cashDrawerId AND Payment_Status__c = 'Pending Remittance'].size();
-                
-                }
-    
-        return count;
+    public static Integer getPendingRemittances(String employeeId){
+        
+        Set<Id> opptySetId = new Set<Id>();
+        for (OpportunityContactRole opptyRole : [SELECT Id, OpportunityId FROM OpportunityContactRole 
+                                                 WHERE ContactId =: employeeId AND Opportunity.Payment_Status__c = 'Pending Remittance' AND Role = 'Cashier']){
+                                                     
+                                                     opptySetId.add(opptyRole.OpportunityId);
+                                                     
+                                                 }
+             
+        List<Opportunity> oppties = [SELECT Id, Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
+                                     Id IN: opptySetId AND
+                                     Payment_Status__c = 'Pending Remittance'];
+        if(oppties.size() > 0){
+            return oppties.size();
+        }else{
+            return 0;
+        }
     }
     
     @auraEnabled
@@ -215,7 +225,7 @@ public without sharing class POSMainController {
             cashDrawerMOP = 'Sales'; 
         }else if(mOP == 'Gcash'){
             cashDrawerMOP = 'Sales Gcash'; 
-        }else if(mOP == 'COD'){
+        }else if(mOP == 'COD' || mOP == 'COP'){
             cashDrawerMOP = 'Pending Remittance'; 
         }
         
@@ -229,6 +239,11 @@ public without sharing class POSMainController {
             opp.Name = 'TO-';
         }else if(payload.OrderType == 'Delivery'){
             opp.Name = 'DE-';
+        }else if(payload.OrderType == 'Pickup'){
+            opp.Name = 'PU-';
+            opp.Payment_Status__c = 'Pending Remittance';
+        }else{
+            opp.Payment_Status__c = 'Paid';
         }
         opp.StageName = 'New';
         opp.CloseDate = system.today();
@@ -236,11 +251,11 @@ public without sharing class POSMainController {
         opp.Cash_Tendered__c = payload.PaymentReceived;
         opp.Amount = payload.Total;
         opp.Queue_Number__c = queue;
-        opp.Mode_of_Payment__c = payload.ModeOfPayment;
+        opp.Mode_of_Payment__c = mOP;
         opp.Cash_Drawer_Session__c = cashDrawerId;
         opp.Reference_Number__c = payload.ReferenceNumber;
-        opp.Payment_Status__c = 'Paid';
-        opp.ContactId = payload.ContactId;
+        opp.Order_Time__c = system.now().time();
+        opp.Customer__c = customer.Id;
         insert opp;
         
         //Create Opportunity Contact Roles for customer
@@ -297,6 +312,7 @@ public without sharing class POSMainController {
         cdi.Type__c = cashDrawerMOP;
         cdi.Custom__c = payload.Total;
         cdi.Opportunity__c = opp.Id;
+        cdi.customer__c = customer.Id;
         cdi.Reference_Number__c = payload.ReferenceNumber;
         cdItems.add(cdi);
         
@@ -336,15 +352,30 @@ public without sharing class POSMainController {
             queue = Integer.valueOf(latestQueue[0].Queue_Number__c) + 1;
         }
         
+        
+        //Select Mode of Payment for Cash Drawer Item
+        if(mOP == 'Cash'){
+            cashDrawerMOP = 'Sales'; 
+        }else if(mOP == 'Gcash'){
+            cashDrawerMOP = 'Sales Gcash'; 
+        }else if(mOP == 'COD' || mOP == 'COP'){
+            cashDrawerMOP = 'Pending Remittance'; 
+        }
+        
+        
         Contact customer = new Contact(); 
         List<Contact> conList = [SELECT Id, LastName, FirstName, MobilePhone, Complete_Address__c
-                                 FROM Contact WHERE AccountId =: payload.AccountId AND MobilePhone =: payload.Customer.MobilePhone LIMIT 1];
+                                 FROM Contact WHERE AccountId =: payload.AccountId AND MobilePhone =: payload.Customer.MobilePhone
+                                 AND FirstName =: payload.Customer.FirstName AND LastName =: payload.Customer.LastName LIMIT 1];
         if(conList.size() > 0){
             customer = conList[0];
             customer.LastName = payload.Customer.LastName;
             customer.FirstName = payload.Customer.FirstName;
             customer.MobilePhone = payload.Customer.MobilePhone;
-            customer.Complete_Address__c = payload.Customer.Complete_Address__c;
+            if(payload.Customer.Complete_Address__c != ''){
+                customer.Complete_Address__c = payload.Customer.Complete_Address__c;
+            }
+            
             update customer;
         }else{
             customer.LastName = payload.Customer.LastName;
@@ -363,19 +394,24 @@ public without sharing class POSMainController {
         opp.Name = 'DE-';        
         opp.StageName = 'New';
         opp.CloseDate = system.today();
-        opp.Type = 'Delivery';
+        
         opp.Cash_Tendered__c = payload.PaymentReceived;
         opp.Amount = payload.Total;
         opp.Queue_Number__c = queue;
-     
-        
         opp.Reference_Number__c = payload.ReferenceNumber;
         opp.Cash_Drawer_Session__c = cashDrawerId;
-        
         opp.Notes__c = payload.Notes;
-      
-        opp.Mode_of_Payment__c = payload.ModeOfPayment;
-        if(payload.ModeOfPayment == 'COD'){
+        opp.Mode_of_Payment__c = mOP;
+        opp.Order_Time__c = system.now().time();
+        opp.Customer__c = customer.Id;
+        
+        if(payload.OrderType == 'Delivery'){
+            opp.Type = 'Delivery';
+        }else if(payload.OrderType == 'Pickup'){
+            opp.Type = 'Pickup';
+        }
+        
+        if(mOP == 'COD' || mOP == 'COP'){
             
             opp.Payment_Status__c = 'Pending Remittance';
         }else{ 
@@ -407,7 +443,7 @@ public without sharing class POSMainController {
         
                
         //Create Opportunity Contact Roles for Delivery Rider
-        if(payload?.RiderId != ''){
+        if(payload?.RiderId != '' && payload?.RiderId != null){
             OpportunityContactRole riderRole = new OpportunityContactRole();
             riderRole.OpportunityId = opp.Id;
             riderRole.ContactId = payload.RiderId;
@@ -481,38 +517,35 @@ public without sharing class POSMainController {
             insert orderLines;
         }
         
-        //Select Mode of Payment for Cash Drawer Item
-        if(mOP == 'Cash'){
-            cashDrawerMOP = 'Sales'; 
-        }else if(mOP == 'Gcash'){
-            cashDrawerMOP = 'Sales Gcash'; 
-        }else if(mOP == 'COD'){
-            cashDrawerMOP = 'Pending Remittance'; 
-        }
+      
         
        
         
         Opportunity oppToUpdate = [SELECT Id, Name, Opportunity_Number__c FROM Opportunity WHERE Id =: opp.Id]; 
         oppToUpdate.Name = oppToUpdate.Name	 + oppToUpdate.Opportunity_Number__c;
         
-        if(payload.ModeOfPayment == 'COD'){
+        if(mOP == 'COD'){
             
             oppToUpdate.StageName = 'Out for Delivery';
+        }else if(mOP == 'COP'){
+            
+            oppToUpdate.StageName = 'For Pickup';
         }else{ 
-            oppToUpdate.StageName = 'Closed Won - Delivered';
+            oppToUpdate.StageName = 'Closed Won';
             
             
             //Create Cash Drawer Item
             List<Cash_Drawer_Item__c> cdItems = new List<Cash_Drawer_Item__c>();
-                
-                Cash_Drawer_Item__c cdi = new Cash_Drawer_Item__c();
-                cdi.Cash_Drawer_Session__c = cashDrawerId;
-                cdi.Type__c = cashDrawerMOP;
-                cdi.Custom__c = cdi.Custom__c = payload.Total;
-                cdi.Opportunity__c = opp.Id;
-                cdi.Reference_Number__c = payload.ReferenceNumber;
-                cdItems.add(cdi);
-      
+            
+            Cash_Drawer_Item__c cdi = new Cash_Drawer_Item__c();
+            cdi.Cash_Drawer_Session__c = cashDrawerId;
+            cdi.Type__c = cashDrawerMOP;
+            cdi.Custom__c =  payload.Total;
+            cdi.Opportunity__c = opp.Id;
+            cdi.customer__c = customer.Id;
+            cdi.Reference_Number__c = payload.ReferenceNumber;
+            cdItems.add(cdi);
+            
             
             
             if(cdItems.size() > 0){
@@ -641,6 +674,18 @@ public without sharing class POSMainController {
         for(Contact con : [SELECT Id, Name FROM Contact WHERE Role__c = 'Cashier' AND AccountId =: accountId]){
              picklistValues.put(con.Name, con.Id); 
         }
+      
+        return picklistValues;
+    }
+    
+    @AuraEnabled
+    public static Map<String, List<String>> getModeOfPayments() {
+        Map<String, List<String>>  picklistValues = new Map<String, List<String>> ();
+        
+        for(POS_Mode_of_Payment__mdt mop : [SELECT Id, Order_Type__c, Mode_of_Payment_Options__c FROM POS_Mode_of_Payment__mdt]){
+            picklistValues.put(mop.Order_Type__c, mop.Mode_of_Payment_Options__c.split(',')); 
+        }
+        
       
         return picklistValues;
     }

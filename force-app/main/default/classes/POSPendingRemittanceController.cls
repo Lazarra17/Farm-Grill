@@ -2,7 +2,7 @@
 @Author: Chad Lazarra (shagilazarra@gmail.com)
 @Date:
 @Desc:
-@History
+@History 
 
 */
 public without sharing class POSPendingRemittanceController {
@@ -23,13 +23,13 @@ public without sharing class POSPendingRemittanceController {
         
         Set<Id> opptySetId = new Set<Id>();
         for (OpportunityContactRole opptyRole : [SELECT Id, OpportunityId FROM OpportunityContactRole 
-                                                 WHERE ContactId =: cashierId AND Opportunity.Cash_Drawer_Session__c =: cashDrawerItemId]){
+                                                 WHERE ContactId =: cashierId AND Opportunity.Payment_Status__c = 'Pending Remittance' AND Role = 'Cashier']){
                                                      
                                                      opptySetId.add(opptyRole.OpportunityId);
                                                      
                                                  }
              
-        List<Opportunity> oppties = [SELECT Id, Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
+        List<Opportunity> oppties = [SELECT Id, Name, Order_DateTime__c, Order_Time__c, Customer__r.Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
                                      Id IN: opptySetId AND
                                      Payment_Status__c = 'Pending Remittance'];
         if(oppties.size() > 0){
@@ -54,10 +54,11 @@ public without sharing class POSPendingRemittanceController {
             cashDrawerItem.Type__c = 'Sales Gcash';
         }
         
-        Opportunity opp = [SELECT Id, Payment_Status__c, StageName, Cashier_Notes__c, Amount FROM Opportunity WHERE Id =: cashDrawerItem.Opportunity__c];
+        Opportunity opp = [SELECT Id, Payment_Status__c, StageName, Cashier_Notes__c, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE Id =: cashDrawerItem.Opportunity__c];
         opp.Payment_Status__c = 'Paid';
         opp.StageName = 'Closed Won - Delivered';
         opp.Cashier_Notes__c = cashDrawerItem.Notes__c;
+        opp.Cash_Drawer_Session__c = cashDrawerItem.Cash_Drawer_Session__c;
         update opp;
         
         //Query the Cahier of this opportunity

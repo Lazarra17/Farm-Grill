@@ -4,6 +4,7 @@
     <label>Mode of Payment</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -28,7 +29,6 @@
             <value>
                 <fullName>COP</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>COP</label>
             </value>
         </valueSetDefinition>

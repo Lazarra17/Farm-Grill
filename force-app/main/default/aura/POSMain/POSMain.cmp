@@ -63,7 +63,8 @@
             <div class="slds-col slds-size_1-of-12">
                 <p class="header-title">Cash in Drawer</p>
                 <h5 class="header-content">
-                    <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" />
+                    <!--lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" /-->
+                    ******
                 </h5>
             </div>
             <div class="slds-col slds-size_2-of-12">
@@ -107,7 +108,7 @@
                                               label="Order Type"
                                               options="{! v.orderTypeOptions }"
                                               value="{! v.orderTypeOptionSelected }"
-                                              onchange="{!c.changeMOP}"
+                                              onchange="{!c.changeOrderType}"
                                               type="button"/>
                     </div>
                 </div>
@@ -168,8 +169,20 @@
                                 <p class="panel-p">Mode of Payment</p>
                                 <select class="pos-cash form-control" name="modeOfPayment" onchange="{!c.setModeOfPayment}" value="{!v.modeOfPaymentSelected}">
                                     <aura:iteration items="{!v.modeOfPaymentOptions}" var="item">
-                                        <option value="{!item}">{!item}</option>
+                                        
+                                        <aura:if isTrue="{!item.label == v.orderTypeOptionSelected}">
+                                            <aura:iteration items="{!item.value}" var="mop">
+                                                
+                                                <option value="{!mop}">{!mop}</option>
+                                                
+                                            </aura:iteration>
+                                        </aura:if>
+                                        
                                     </aura:iteration>
+                                    
+                                    
+                                    
+                                    
                                 </select>
                                 <p class="panel-p">Amount</p>
                                 <lightning:input type="number" class="pos-cash" name="amount" aura:id="amount" value="{!v.order.PaymentReceived}" onclick="{!c.amountTarget}"  variant="label-hidden" readonly="true" maxlength="4" />
@@ -281,16 +294,22 @@
                                 
                                 
                                 <div class="slds-col slds-size_12-of-12 slds-m-top_small">
-                                    <aura:if isTrue="{!AND(v.orderTypeOptionSelected != 'Delivery', v.modeOfPaymentSelected == 'Cash', v.order.PaymentReceived >= v.order.Total)}">
+                                    <aura:if isTrue="{!AND(
+                                                     v.orderTypeOptionSelected != 'Delivery', 
+                                                     v.modeOfPaymentSelected == 'Cash', 
+                                                     v.order.PaymentReceived >= v.order.Total)}">
                                         <lightning:button variant="brand" class="btn-pos btn-pos-complete-order" label="Complete &amp; Print" title="Complete Order" onclick="{!c.completeOrder}"  /> 
-                                        
+                                   
                                         <aura:set attribute="else">
-                                            
-                                            <aura:if isTrue="{!AND(
+                                            <aura:if isTrue="{!
+                                                             OR(
+                                                             v.orderTypeOptionSelected == 'Dine-in',
+                                                             v.orderTypeOptionSelected == 'Take Out',
+                                                             AND(
                                                              v.referenceNumberLength == 13, 
-                                                             v.orderTypeOptionSelected != 'Delivery',
                                                              v.modeOfPaymentSelected == 'Gcash',
-                                                             v.order.PaymentReceived >= v.order.Total)}">
+                                                             v.order.PaymentReceived >= v.order.Total
+                                                             ))}">
                                                 <lightning:button variant="brand" class="btn-pos btn-pos-complete-order" label="Complete &amp; Print" title="Complete Order" onclick="{!c.completeOrder}"  /> 
                                                 
                                             </aura:if>
@@ -303,13 +322,18 @@
                                     
                                     
                                     <aura:if isTrue="{!OR(AND(
-                                                     v.orderTypeOptionSelected == 'Delivery', 
+                                                     OR(
+                                                     v.orderTypeOptionSelected == 'Delivery',
+                                                     v.orderTypeOptionSelected == 'Pickup'), 
                                                      not(equals(v.modeOfPaymentSelected, 'Gcash'))),
                                                      
                                                      AND(
-                                                      v.referenceNumberLength == 13,
-                                                      v.orderTypeOptionSelected == 'Delivery', 
-                                                     v.modeOfPaymentSelected == 'Gcash'
+                                                     v.referenceNumberLength == 13,
+                                                     v.modeOfPaymentSelected == 'Gcash',
+                                                     OR(
+                                                     v.orderTypeOptionSelected == 'Delivery',
+                                                     v.orderTypeOptionSelected == 'Pickup'
+                                                     )
                                                      )
                                                      )}">
                                         <lightning:button variant="brand" class="btn-pos btn-pos-complete-order" label="Enter Customer Details" title="Enter Customer Details" onclick="{!c.showCustomerDetails}"  />
@@ -336,7 +360,8 @@
                                 <c:POSDelivery order="{!v.order}" modeOfPaymentSelected="{!v.modeOfPaymentSelected}" 
                                                employee="{!v.employee}" cashDrawer="{!v.cashDrawer}" 
                                                riderOptions="{!v.riderOptions}" existingCustomers="{!v.existingCustomers}"
-                                               cashierOptions="{!v.cashierOptions}"
+                                               cashierOptions="{!v.cashierOptions}" 
+                                               orderType="{!v.orderTypeOptionSelected}"
                                                />
                             </div>
                             

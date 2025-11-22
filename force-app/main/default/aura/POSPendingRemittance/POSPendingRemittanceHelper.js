@@ -19,6 +19,21 @@
                 console.log('menu: ');
                 console.log(res);
                 
+                
+                res.forEach(function(row, index) {
+                    if(row.hasOwnProperty('Customer__r')){
+                        console.log('TRUE');
+                        console.log('oppties' + row.Customer__r.Name);
+                        row.Customer = row.Customer__r.Name;//Customer__r.Name;
+                        
+                    }
+                });
+                
+                
+                console.log('oppties');
+                console.log(res);
+                
+                
                 if(res != null){
                     component.set('v.pendingRemittances', res.length);
                 }else{

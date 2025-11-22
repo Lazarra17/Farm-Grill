@@ -13,15 +13,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Parent_Product__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>ProductCode</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Product_Image_Url__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>Sub_Family__c</field>
+                <field>Display_Name__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -30,8 +30,20 @@
                 <field>IsActive</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Track_Inventory__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Bundled__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Family</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sub_Family__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -79,13 +91,26 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <relatedList>RelatedStandardPriceList</relatedList>
-    </relatedLists>
-    <relatedLists>
         <relatedList>RelatedPricebookEntryList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Component_Product__c</fields>
+        <fields>Quantity__c</fields>
+        <relatedList>Bundle_Component__c.Bundled_Product__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Available_to_Sell__c</fields>
+        <fields>Count_on_Hand__c</fields>
+        <fields>Stock_Location__c</fields>
+        <relatedList>Stock_Level__c.Product__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Product_Group__c</fields>
+        <fields>Category__c</fields>
+        <fields>Product_Catalog__c</fields>
         <relatedList>Product_Catalog_Item__c.Product__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>

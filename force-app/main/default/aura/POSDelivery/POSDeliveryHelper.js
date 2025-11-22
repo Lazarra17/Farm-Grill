@@ -2,24 +2,21 @@
     createOpportunity : function(component, event) {
         var order = component.get('v.order');
         var contact = component.get('v.contact');
-        var selectElement = component.find("rider");
-        var selectedValue = selectElement.get("v.value");
-        
-        var cashierElement = component.find("cashier");
-        var cashierValue = selectElement.get("v.value");
+        var orderType = component.get('v.orderType');
         var modeOfPayment = component.get('v.modeOfPaymentSelected');
-        
         var notes = component.get('v.notes');
-        console.log('contact');
-        console.log(JSON.stringify(contact));
+        var employee = component.get('v.employee');
         
+   
+        
+        order.RiderId = component.get('v.riderSelected');
         order.CashierId = component.get('v.cashierSelected');
-        order.RiderId = selectedValue;
+        order.OrderType = orderType;
         order.Customer = contact;
         order.Notes = notes;
         order.ModeOfPayment = modeOfPayment;
         var cashDrawer = component.get('v.cashDrawer');
-        var employee = component.get('v.employee');
+        
         var action = component.get("c.createDeliveryOpportunity");  
         
         

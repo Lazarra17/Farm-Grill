@@ -14,6 +14,8 @@
     <aura:attribute name="existingCustomers" type="Object" />
     <aura:attribute name="riderSelected" type="String" />
     <aura:attribute name="cashierSelected" type="String" />
+    <aura:attribute name="orderType" type="String" />
+    <aura:attribute name="errMessage" type="String" />
     <aura:attribute name="showSpinner" type="Boolean" />
     <aura:attribute name="customerSelected" type="String" />
     <aura:attribute name="customerType" type="String" default="New Customer" />
@@ -43,7 +45,7 @@
                 <span class="slds-assistive-text">Cancel and close</span>
             </button>
             <div class="slds-modal__header">
-                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">ENTER CUSTOMER DETAILS - COD - {!v.modeOfPaymentSelected}</h1>
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">ENTER CUSTOMER DETAILS - {!v.modeOfPaymentSelected}</h1>
             </div>
             <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
                 
@@ -67,8 +69,8 @@
                     
                     
                    
-                        <div class="slds-col slds-size_12-of-12 slds-m-top_medium">
-                            <span>{!v.errMessage}</span>
+                        <div class="slds-col slds-size_12-of-12 slds-p-top_small">
+                            <p class="error-msg slds-text-align_center">{!v.errMessage}</p>
                             
                         </div>
                     <div class="slds-col slds-size_12-of-12">
@@ -93,7 +95,21 @@
                         </aura:if>   
                         
                         <lightning:input type="phone" name="contactNumber" aura:id="contact" required="true" label="Contact Number" value="{!v.contact.MobilePhone}" />
+                        
+                        <aura:if isTrue="{!v.orderType == 'Delivery'}">
                         <lightning:input name="address" label="Address" aura:id="contact" required="true" value="{!v.contact.Complete_Address__c}" />
+                        
+                            <lightning:select name="deliveryRider" label="Delivery Rider" 
+                                              required="true" value="{!v.riderSelected}" aura:id="rider" 
+                                              onchange="{!c.handleRiderChange}">
+                                
+                                <option value="">--Select Rider--</option>
+                                <aura:iteration items="{!v.riderOptions}" var="item">
+                                    <option value="{!item.value}">{!item.label}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                            
+                        </aura:if>
                         
                         <aura:if isTrue="{!v.employee.Role__c == 'Customer Service Representative'}">
                             <lightning:select name="cashier" label="Cashier" 
@@ -106,21 +122,6 @@
                                 </aura:iteration>
                             </lightning:select>
                         </aura:if>
-                        
-                        
-                        <lightning:select name="deliveryRider" label="Delivery Rider" 
-                                          required="true" value="{!v.riderSelected}" aura:id="rider" 
-                                          onchange="{!c.handleRiderChange}">
-                          
-                            <option value="">--Select Rider--</option>
-                            <aura:iteration items="{!v.riderOptions}" var="item">
-                                <option value="{!item.value}">{!item.label}</option>
-                            </aura:iteration>
-                        </lightning:select>
-                        
-                        
-                        
-                        
                             
                             <lightning:textarea name="Notes" label="Notes" aura:id="newItem" value="{!v.notes}" />
                             

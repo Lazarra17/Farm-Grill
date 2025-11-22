@@ -4,8 +4,6 @@
         helper.getProducts(component, event);
         helper.getProductCategories(component, event);
         
-        
-        
         console.log('cookie: ' + document.cookie);   
         
         var contactId = helper.getCookie('ContactId');
@@ -191,9 +189,18 @@
     
     
     completeOrder : function(component, event, helper) {
-        var printModal = document.getElementById('printModal');
-        $A.util.removeClass(printModal, 'slds-hide');
-        helper.createOpportunity(component, event);
+        var order = component.get('v.order');
+        
+        if(order.PaymentReceived >= order.Total){
+            component.set('v.error', '');
+            var printModal = document.getElementById('printModal');
+            $A.util.removeClass(printModal, 'slds-hide');
+            helper.createOpportunity(component, event);
+        }else{
+            component.set('v.error', 'Insufficient payments.');
+        }
+        
+        
         
     },   
     
@@ -249,16 +256,21 @@
     },
     
     
-    changeMOP : function(component, event, helper) {
+    changeOrderType : function(component, event, helper) {
         var selectedValue = event.getParam("value");
+        console.log('selectedValue: ' + selectedValue);
+     
         if(selectedValue == 'Delivery'){
             component.set('v.modeOfPaymentSelected', 'COD');
+        }else if(selectedValue == 'Pickup'){
+            component.set('v.modeOfPaymentSelected', 'COP');
         }else{
             component.set('v.modeOfPaymentSelected', 'Cash');
         }
-        
+     
         var order = component.get('v.order');
         order.ReferenceNumber = '';
+        order.OrderType = selectedValue;
         component.set('v.order', order);
         component.set('v.referenceNumberLength', 0);   //this is to hide the button
         

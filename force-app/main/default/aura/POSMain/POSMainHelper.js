@@ -140,6 +140,8 @@
                     if(employee.Role__c == 'Customer Service Representative'){
                         if(key == 'Delivery'){
                             picklistObj.push({value:res[key], label:key});
+                        } else  if(key == 'Pickup'){
+                            picklistObj.push({value:res[key], label:key});
                         } 
                         
                     }else{
@@ -147,7 +149,8 @@
                     }
                    
                 }
-
+				console.log('#ORDER TYPE');
+                console.log(JSON.stringify(picklistObj));
                 component.set("v.orderTypeOptions", picklistObj);
                 
             } else if (state === "INCOMPLETE") {
@@ -251,11 +254,10 @@
     
     
     getModeOfPayment : function(component, event) {
-        var employee = component.get('v.employee');
-        var action = component.get("c.getPicklistValues");    
+        var employee = component.get("v.employee");   
+        var action = component.get("c.getModeOfPayments");    
         action.setParams({       
-            objectName : 'Opportunity',
-            fieldName : 'Mode_of_Payment__c'
+        
         });   
         
         action.setCallback(this, function(response) {            
@@ -269,11 +271,14 @@
                 
                 for(var key in res){
                     
-                   
+                    picklistObj.push({value:res[key], label:key});
                      
-                    picklistObj.push(key);
                 }
+                console.log('#MOP');
+                console.log(JSON.stringify(picklistObj));
                 component.set("v.modeOfPaymentOptions", picklistObj);
+                
+                
                 if(employee.Role__c == 'Customer Service Representative'){
                     component.set('v.modeOfPaymentSelected', 'COD');
                 }
@@ -339,7 +344,7 @@
         var cashDrawer = component.get('v.cashDrawer');
         var action = component.get("c.createOpportunity");  
         var modeOfPayment = component.get('v.modeOfPaymentSelected');
-    
+        console.log('modeOfPayment: ' + modeOfPayment);
         action.setParams({       
             posParams : JSON.stringify(order),
             cashDrawerId : cashDrawer.Id,
@@ -415,9 +420,12 @@
                     
                 }
                 
-                this.getModeOfPayment(component, event);
+                
                 this.getOrderType(component, event);
+                this.getModeOfPayment(component, event);
                 this.getCashDrawer(component, res.Id, res.AccountId);
+                
+                
                 this.getRiders(component, event);
                 this.getCashiers(component, event);
                 var appEvent = $A.get("e.c:POSAppEvent");
@@ -522,7 +530,7 @@
                 var res = response.getReturnValue();
                 component.set('v.cashDrawer', res);
               	
-                this.getPendingRemittances(component, res.Id);
+                this.getPendingRemittances(component, employeeId);
                 this.setCookie('CashDrawer', res.Id);    
                 
                 var employee = component.get('v.employee');
@@ -550,11 +558,11 @@
         
     },
     
-    getPendingRemittances : function(component, cashDrawerId) {
+    getPendingRemittances : function(component, employeeId) {
         var action = component.get("c.getPendingRemittances");   
         
         action.setParams({       
-            cashDrawerId : cashDrawerId
+            employeeId : employeeId
         });   
         
         action.setCallback(this, function(response) {            
@@ -662,7 +670,7 @@
         order.ContactId = employee.Id;
         order.OrderType = orderType;
         order.Total = order.Total + orderItem.UnitPrice;
-        order.ModeOfPayment = modeOfPayment;
+        //order.ModeOfPayment = modeOfPayment;
         
         //recalculate the Change
         if(order.PaymentReceived != null && order.PaymentReceived != '0'){
