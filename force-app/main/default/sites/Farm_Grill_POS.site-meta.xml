@@ -23,7 +23,7 @@
     <redirectToCustomDomain>false</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
     <selfRegPage>CommunitiesSelfReg</selfRegPage>
-    <siteAdmin>clazarra@forcepos.com</siteAdmin>
-    <siteGuestRecordDefaultOwner>clazarra@forcepos.com</siteGuestRecordDefaultOwner>
+    <siteAdmin>fgrill@forcepos.com</siteAdmin>
+    <siteGuestRecordDefaultOwner>fgrill@forcepos.com</siteGuestRecordDefaultOwner>
     <siteType>ChatterNetwork</siteType>
 </CustomSite>

@@ -2,28 +2,63 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
-        <fullName>Web</fullName>
+        <fullName>B2B</fullName>
         <default>false</default>
-        <label>Web</label>
+        <label>B2B</label>
     </standardValue>
     <standardValue>
-        <fullName>Phone Inquiry</fullName>
+        <fullName>Signage</fullName>
         <default>false</default>
-        <label>Phone Inquiry</label>
+        <label>Signage</label>
     </standardValue>
     <standardValue>
-        <fullName>Partner Referral</fullName>
+        <fullName>Radio</fullName>
         <default>false</default>
-        <label>Partner Referral</label>
+        <label>Radio</label>
     </standardValue>
     <standardValue>
-        <fullName>Purchased List</fullName>
+        <fullName>Newspaper</fullName>
         <default>false</default>
-        <label>Purchased List</label>
+        <label>Newspaper</label>
     </standardValue>
     <standardValue>
-        <fullName>Other</fullName>
+        <fullName>Corporate</fullName>
         <default>false</default>
-        <label>Other</label>
+        <label>Corporate</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Flyer</fullName>
+        <default>false</default>
+        <label>Flyer</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Google</fullName>
+        <default>false</default>
+        <label>Google</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Instagram</fullName>
+        <default>false</default>
+        <label>Instagram</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Facebook</fullName>
+        <default>false</default>
+        <label>Facebook</label>
+    </standardValue>
+    <standardValue>
+        <fullName>LinkedIn</fullName>
+        <default>false</default>
+        <label>LinkedIn</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Tiktok</fullName>
+        <default>false</default>
+        <label>Tiktok</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Social Media</fullName>
+        <default>false</default>
+        <label>Social media</label>
     </standardValue>
 </StandardValueSet>

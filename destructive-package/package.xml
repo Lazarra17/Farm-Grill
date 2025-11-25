@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-  <types>
-        <members>OpportunityStage</members> 
-        <members>Product2Family</members> 
-        <members>LeadSource</members>
-        <members>OpportunityType</members>
-        <members>LeadSource</members>
-        <name>StandardValueSet</name>
-    </types>
-
-  <types>
+  <!--types>
     <members>OpportunityTriggerHandler</members>
     <members>POSCashDrawerNewItemController</members>
     <members>POSCustomerReceiptController</members>
@@ -26,6 +17,8 @@
     <name>ApexTrigger</name>
   </types>
   <types>
+    <members>forgotPassword</members>
+    <members>loginForm</members>
     <members>POSApp</members>
     <members>POSAppEvent</members>
     <members>POSCashDrawer</members>
@@ -49,6 +42,9 @@
     <members>POSSearchCustomer</members>
     <members>POSSummary</members>
     <members>POSTheme</members>
+    <members>selfRegister</members>
+    <members>setExpId</members>
+    <members>setStartUrl</members>
     <name>AuraDefinitionBundle</name>
   </types>
   <types>
@@ -316,7 +312,6 @@
     <members>Stock_Transfer__c</members>
     <members>Stock_Transfer_Item__c</members>
     <members>Trigger_Setting__mdt</members>
-    <members>Opportunity</members>
     <name>CustomObject</name>
   </types>
   <types>
@@ -544,6 +539,6 @@
     <members>Cash_Drawer_Session__c.CDS_Invalid_End_Date</members>
     <members>Stock_Level__c.STCK_LVL_Last_Inventory_Date_Required</members>
     <name>ValidationRule</name>
-  </types>
+  </types-->
   <version>61.0</version>
 </Package>

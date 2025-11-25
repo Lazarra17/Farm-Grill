@@ -32,6 +32,11 @@
         <label>Veggies</label>
     </standardValue>
     <standardValue>
+        <fullName>Dessert</fullName>
+        <default>false</default>
+        <label>Dessert</label>
+    </standardValue>
+    <standardValue>
         <fullName>Hotdog</fullName>
         <default>false</default>
         <label>Hotdog</label>
@@ -40,5 +45,10 @@
         <fullName>Add ons</fullName>
         <default>false</default>
         <label>Add ons</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Discount</fullName>
+        <default>false</default>
+        <label>Discount</label>
     </standardValue>
 </StandardValueSet>

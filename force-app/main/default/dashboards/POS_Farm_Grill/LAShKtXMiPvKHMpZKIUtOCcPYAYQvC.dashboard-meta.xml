@@ -150,8 +150,8 @@
     </dashboardGridLayout>
     <dashboardType>SpecifiedUser</dashboardType>
     <isGridLayout>true</isGridLayout>
-    <owner>clazarra@forcepos.com</owner>
-    <runningUser>clazarra@forcepos.com</runningUser>
+    <owner>fgrill@forcepos.com</owner>
+    <runningUser>fgrill@forcepos.com</runningUser>
     <textColor>#000000</textColor>
     <title>Farm Grill Dashboard</title>
     <titleColor>#000000</titleColor>
