@@ -35,7 +35,7 @@
     <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
     <headlessRegistrationTemplate>unfiled$public/CommunityHeadlessRegistrationTemplate</headlessRegistrationTemplate>
     <networkMemberGroups>
-        <profile>Admin</profile>
+        <profile>admin</profile>
     </networkMemberGroups>
     <networkPageOverrides>
         <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
@@ -49,10 +49,11 @@
     <sendWelcomeEmail>true</sendWelcomeEmail>
     <site>Farm_Grill_POS</site>
     <siteArchiveStatus>NotArchived</siteArchiveStatus>
-    <status>UnderConstruction</status>
+    <status>Live</status>
     <tabs>
         <defaultTab>home</defaultTab>
         <standardTab>Chatter</standardTab>
     </tabs>
+    <urlPathPrefix>forcepos</urlPathPrefix>
     <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
 </Network>

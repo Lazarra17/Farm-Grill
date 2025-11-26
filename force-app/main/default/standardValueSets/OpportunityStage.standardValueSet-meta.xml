@@ -2,50 +2,63 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
-        <fullName>Qualification</fullName>
+        <fullName>New</fullName>
         <default>false</default>
-        <description>You&apos;ve contacted the prospect and they&apos;re interested.</description>
-        <label>Qualification</label>
+        <label>New</label>
         <closed>false</closed>
         <forecastCategory>Pipeline</forecastCategory>
         <probability>10</probability>
         <won>false</won>
     </standardValue>
     <standardValue>
-        <fullName>Needs Analysis</fullName>
+        <fullName>Orders Reviewed</fullName>
         <default>false</default>
-        <description>You&apos;re defining the prospect&apos;s needs.</description>
-        <label>Needs Analysis</label>
+        <label>Orders Reviewed</label>
         <closed>false</closed>
         <forecastCategory>Pipeline</forecastCategory>
-        <probability>35</probability>
+        <probability>80</probability>
         <won>false</won>
     </standardValue>
     <standardValue>
-        <fullName>Proposal</fullName>
+        <fullName>Preparing</fullName>
         <default>false</default>
-        <description>You&apos;re developing a sales proposal for the prospect.</description>
-        <label>Proposal</label>
+        <label>Preparing</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>90</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>For Pickup</fullName>
+        <default>false</default>
+        <label>For Pickup</label>
         <closed>false</closed>
         <forecastCategory>BestCase</forecastCategory>
-        <probability>75</probability>
+        <probability>90</probability>
         <won>false</won>
     </standardValue>
     <standardValue>
-        <fullName>Negotiation</fullName>
+        <fullName>Out for Delivery</fullName>
         <default>false</default>
-        <description>You&apos;re working with the prospect on the proposal you delivered.</description>
-        <label>Negotiation</label>
+        <label>Out for Delivery</label>
         <closed>false</closed>
-        <forecastCategory>Forecast</forecastCategory>
+        <forecastCategory>Pipeline</forecastCategory>
         <probability>90</probability>
         <won>false</won>
     </standardValue>
     <standardValue>
         <fullName>Closed Won</fullName>
         <default>false</default>
-        <description>Sold!</description>
         <label>Closed Won</label>
+        <closed>true</closed>
+        <forecastCategory>Closed</forecastCategory>
+        <probability>100</probability>
+        <won>true</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed Won - Delivered</fullName>
+        <default>false</default>
+        <label>Closed Won - Delivered</label>
         <closed>true</closed>
         <forecastCategory>Closed</forecastCategory>
         <probability>100</probability>
@@ -54,8 +67,25 @@
     <standardValue>
         <fullName>Closed Lost</fullName>
         <default>false</default>
-        <description>No sale.</description>
         <label>Closed Lost</label>
+        <closed>true</closed>
+        <forecastCategory>Omitted</forecastCategory>
+        <probability>0</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed Lost - Refunded</fullName>
+        <default>false</default>
+        <label>Closed Lost - Refunded</label>
+        <closed>true</closed>
+        <forecastCategory>Omitted</forecastCategory>
+        <probability>0</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed Lost - Cancelled</fullName>
+        <default>false</default>
+        <label>Closed Lost - Cancelled</label>
         <closed>true</closed>
         <forecastCategory>Omitted</forecastCategory>
         <probability>0</probability>

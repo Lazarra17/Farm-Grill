@@ -26,4 +26,5 @@
     <siteAdmin>fgrill@forcepos.com</siteAdmin>
     <siteGuestRecordDefaultOwner>fgrill@forcepos.com</siteGuestRecordDefaultOwner>
     <siteType>ChatterNetwork</siteType>
+    <urlPathPrefix>forcepos</urlPathPrefix>
 </CustomSite>

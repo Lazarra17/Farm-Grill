@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+ <types>
+    <members>Farm_Grill_POS</members>
+    <name>CustomSite</name>
+  </types>
+  <types>
+    <members>Farm_Grill_POS1</members>
+    <name>ExperienceBundle</name>
+  </types>
+
+    <types>
+    <members>Farm Grill POS.Banned</members>
+    <name>KeywordList</name>
+  </types>
+
+   <types>
+    <members>SFDC_Default_Navigation_Farm_Grill_POS</members>
+    <name>NavigationMenu</name>
+  </types>
+  <types>
+    <members>Farm Grill POS</members>
+    <name>Network</name>
+  </types>
+  <types>
+    <members>cbFarm_Grill_POS</members>
+    <name>NetworkBranding</name>
+  </types>
+  <types>
+    <members>Farm_Grill_POS1</members>
+    <name>SiteDotCom</name>
+  </types>
+
+
+
+  <types>
+    <members>CommunitiesLanding</members>
+    <name>ApexPage</name>
+  </types>
+
   <types>
         <members>OpportunityStage</members> 
         <members>Product2Family</members> 
@@ -10,6 +48,9 @@
     </types>
 
   <types>
+
+  
+    <members>CommunitiesLandingController</members>
     <members>OpportunityTriggerHandler</members>
     <members>POSCashDrawerNewItemController</members>
     <members>POSCustomerReceiptController</members>
@@ -21,6 +62,10 @@
     <members>TriggerHandler_Test</members>
     <name>ApexClass</name>
   </types>
+
+
+
+   
   <types>
     <members>OpportunityTrigger</members>
     <name>ApexTrigger</name>
@@ -319,10 +364,7 @@
     <members>Opportunity</members>
     <name>CustomObject</name>
   </types>
-  <types>
-    <members>Farm_Grill_POS</members>
-    <name>CustomSite</name>
-  </types>
+ 
   <types>
     <members>Attendance__c</members>
     <members>Bundle_Component__c</members>
@@ -350,10 +392,7 @@
     <members>POS_Farm_Grill/LAShKtXMiPvKHMpZKIUtOCcPYAYQvC</members>
     <name>Dashboard</name>
   </types>
-  <types>
-    <members>Farm_Grill_POS1</members>
-    <name>ExperienceBundle</name>
-  </types>
+
   <types>
     <members>Account_Record_Page</members>
     <members>Cash_Drawer_Item_Lightning_Page</members>
@@ -380,10 +419,7 @@
     <members>POS_STCK_LVL_StockTake_Adjustment</members>
     <name>Flow</name>
   </types>
-  <types>
-    <members>Farm Grill POS.Banned</members>
-    <name>KeywordList</name>
-  </types>
+
   <types>
     <members>Account-Account Layout</members>
     <members>Account-POS Layout</members>
@@ -448,18 +484,7 @@
     <members>Stock_Transfer_Item__c.All</members>
     <name>ListView</name>
   </types>
-  <types>
-    <members>SFDC_Default_Navigation_Farm_Grill_POS</members>
-    <name>NavigationMenu</name>
-  </types>
-  <types>
-    <members>Farm Grill POS</members>
-    <name>Network</name>
-  </types>
-  <types>
-    <members>cbFarm_Grill_POS</members>
-    <name>NetworkBranding</name>
-  </types>
+ 
   <types>
     <members>Opportunity_Stage_Path</members>
     <name>PathAssistant</name>
@@ -490,10 +515,7 @@
     <members>FarmGrillPOS/Year_Sales_lQL</members>
     <name>Report</name>
   </types>
-  <types>
-    <members>Farm_Grill_POS1</members>
-    <name>SiteDotCom</name>
-  </types>
+
   <types>
     <members>BootstrapCss</members>
     <members>BootstrapJS</members>
