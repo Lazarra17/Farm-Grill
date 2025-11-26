@@ -134,10 +134,6 @@
     <members>Bundle_Component__c.Bundled_Product__c</members>
     <members>Bundle_Component__c.Component_Product__c</members>
     <members>Bundle_Component__c.Quantity__c</members>
-    <members>Case.EngineeringReqNumber__c</members>
-    <members>Case.PotentialLiability__c</members>
-    <members>Case.Product__c</members>
-    <members>Case.SLAViolation__c</members>
     <members>Cash_Drawer_Item__c.Cash_Drawer_Session__c</members>
     <members>Cash_Drawer_Item__c.Custom__c</members>
     <members>Cash_Drawer_Item__c.Customer__c</members>
@@ -205,11 +201,6 @@
     <members>Designation__c.Shift_Schedule_End__c</members>
     <members>Designation__c.Shift_Schedule_Start__c</members>
     <members>Designation__c.Work_Schedule__c</members>
-    <members>Lead.CurrentGenerators__c</members>
-    <members>Lead.NumberofLocations__c</members>
-    <members>Lead.Primary__c</members>
-    <members>Lead.ProductInterest__c</members>
-    <members>Lead.SICCode__c</members>
     <members>Leave__c.Approval_Status__c</members>
     <members>Leave__c.Contract__c</members>
     <members>Leave__c.End_Date__c</members>
