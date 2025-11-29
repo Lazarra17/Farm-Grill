@@ -175,6 +175,150 @@
     </table>
     
     
+    <!--DELIVERY RIDER NOTE-->
+    <aura:if isTrue="{!v.receiptData.oppty.Type == 'Delivery'}">
+        <table class="Company Information">
+            <tr style="">
+                <td style="padding-top: 10px; text-align:center;"> 
+                    <h1 style="font-size: 35px">{!v.receiptData.oppty.Queue_Number__c}</h1>
+                    <h3>RIDER'S COPY</h3>
+                    
+                </td>
+                
+            </tr>
+        </table>
+        
+        <table class="customer-information" style="margin-bottom: 10px;">
+            <tr>
+                <td style="">Receipt #: {!v.receiptData.oppty.Name}</td>
+            </tr>
+            <tr>
+                <td style="">DateTime: {!v.dateTimeStamp} </td>
+            </tr>
+            
+            <aura:iteration items="{!v.receiptData.opptyRoles}" var="item">
+                
+                <aura:if isTrue="{!OR(item.Role == 'Walk-in Customer', item.Role == 'Online Customer')}">
+                    <tr>
+                        <td style="">Sold to: {!item.Contact.Name}</td>
+                    </tr>
+                </aura:if>
+                
+                <aura:if isTrue="{!OR(item.Role == 'Cashier')}">
+                    <tr>
+                        <td style="">Cashier: {!item.Contact.FirstName}</td>
+                    </tr>
+                </aura:if>
+                
+                <aura:if isTrue="{!OR(item.Role == 'Delivery Rider')}">
+                    <tr>
+                        <td style="">Delivery Rider: {!item.Contact.FirstName}</td>
+                    </tr>
+                </aura:if>
+                
+            </aura:iteration>
+            
+            <aura:if isTrue="{!v.receiptData.oppty.Notes__c != null}">
+                <tr>
+                    <td style="">Notes: {!v.receiptData.oppty.Notes__c}</td>
+                </tr>
+            </aura:if>
+            <tr>
+                <td style="">Mode of Payment: {!v.receiptData.oppty.Mode_of_Payment__c}</td>
+            </tr>  
+            <tr>
+                <td colspan="2">
+                    <p style="border-bottom: 3px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;">
+                        
+                    </p>
+                </td>
+            </tr>
+            
+            
+        </table>
+        
+        <table class="items">
+            <thead>
+                <tr>
+                    <th style="width: 80%; text-align: left">QTY ITEM</th>
+                    <th style="text-align: right; width: 20%;">AMOUNT</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <aura:iteration items="{!v.receiptData.opptyLines}" var="item">
+                    <tr>
+                        <td>{!item.Quantity} &nbsp; {!item.Product2.Name}</td>
+                        <td style="text-align: center;"> <lightning:formattedNumber value="{!item.TotalPrice}" style="currency" currencyCode="PHP"/></td>
+                    </tr>
+                </aura:iteration>
+                
+                
+            </tbody>
+            
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr >
+                    <td style="border-bottom: 3px solid #ccc; margin-bottom: 3px; padding-bottom: 5px; padding-top: 15px;">Total</td>
+                    <td style="text-align: center; border-bottom: 3px solid #ccc;">
+                        <lightning:formattedNumber value="{!v.receiptData.oppty.Amount}" style="currency" currencyCode="PHP"/>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td  style="padding-top: 15px" colspan="2"></td>
+                </tr>
+                
+                <tr>
+                    <td>Cash Tendered</td>
+                    <td style="text-align: right; ">
+                        <lightning:formattedNumber value="{!v.receiptData.oppty.Cash_Tendered__c}" style="currency" currencyCode="PHP"/>
+                        
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>Change</td>
+                    <td style="text-align: right; ">
+                        <lightning:formattedNumber value="{!v.receiptData.oppty.Change__c}" style="currency" currencyCode="PHP"/>
+                        
+                    </td>
+                    
+                </tr>
+                
+                
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                
+                <tr>
+                    <td coslpan="2"  style="height: 40px; border-bottom: 3px solid #ccc"></td>
+                    <td style="height: 30px; border-bottom: 3px solid #ccc"></td>
+                </tr>
+                
+            </tfoot>
+        </table>
+    </aura:if>
+    
+    
+    
     <!--CASHIER NOTE-->
     
     <table class="Company Information">

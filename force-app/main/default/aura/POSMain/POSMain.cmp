@@ -114,34 +114,78 @@
                 </div>
                 <aura:iteration items="{!v.productCategories}" var="item" indexVar="itemIndex">
                     
-                    <div class="slds-grid">
-                        <div class="slds-col slds-size_1-of-1">
-                            <h2 class="product-category-title">{!item.key}</h2>
-                        </div>
-                    </div>
-                    <div class="slds-grid product-category-container slds-gutters slds-gutters_x-small slds-m-bottom_small">
-                        
-                        
-                        <aura:iteration items="{!item.value}" var="prodGroup" indexVar="prodIndex">
-                            <div class="slds-col slds-size_2-of-12">
-                                
-                                <button id="{!itemIndex + '_' + prodIndex}" 
-                                        class="product-tile" 
-                                        data-group-name="{!prodGroup.Name}" 
-                                        data-product-img="{!prodGroup.Product_Image_Url__c}" 
-                                        
-                                        style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
-                                        onclick="{!c.showVariety}"
-                                        >
-                                    <p class="btn-label">{!prodGroup.Name} </p>
-                                    
-                                </button>
+                    <aura:if isTrue="{!AND(
+                                     v.orderTypeOptionSelected != 'Delivery',
+                                     item.key != 'Delivery'
+                                     ) }">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-1">
+                                <h2 class="product-category-title">{!item.key}</h2>
                             </div>
-                        </aura:iteration>
+                        </div>
+                        <div class="slds-grid product-category-container slds-gutters slds-gutters_x-small slds-m-bottom_small">
+                            
+                            
+                            <aura:iteration items="{!item.value}" var="prodGroup" indexVar="prodIndex">
+                                <div class="slds-col slds-size_2-of-12">
+                                    
+                                    <button id="{!itemIndex + '_' + prodIndex}" 
+                                            class="product-tile" 
+                                            data-group-name="{!prodGroup.Name}" 
+                                            data-product-img="{!prodGroup.Product_Image_Url__c}" 
+                                            
+                                            style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
+                                            onclick="{!c.showVariety}"
+                                            >
+                                        <p class="btn-label">{!prodGroup.Name} </p>
+                                        
+                                    </button>
+                                </div>
+                            </aura:iteration>
+                            
+                            
+                            
+                        </div>
                         
-
+                    </aura:if>
+                    
+                    
+                    <aura:if isTrue="{!AND(
+                                     v.orderTypeOptionSelected == 'Delivery'
+                                     ) }">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-1">
+                                <h2 class="product-category-title">{!item.key}</h2>
+                            </div>
+                        </div>
+                        <div class="slds-grid product-category-container slds-gutters slds-gutters_x-small slds-m-bottom_small">
+                            
+                            
+                            <aura:iteration items="{!item.value}" var="prodGroup" indexVar="prodIndex">
+                                <div class="slds-col slds-size_2-of-12">
+                                    
+                                    <button id="{!itemIndex + '_' + prodIndex}" 
+                                            class="product-tile" 
+                                            data-group-name="{!prodGroup.Name}" 
+                                            data-product-img="{!prodGroup.Product_Image_Url__c}" 
+                                            
+                                            style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
+                                            onclick="{!c.showVariety}"
+                                            >
+                                        <p class="btn-label">{!prodGroup.Name} </p>
+                                        
+                                    </button>
+                                </div>
+                            </aura:iteration>
+                            
+                            
+                            
+                        </div>
                         
-                    </div>
+                    </aura:if>
+                    
+                    
+                    
                     
                 </aura:iteration>
                 
