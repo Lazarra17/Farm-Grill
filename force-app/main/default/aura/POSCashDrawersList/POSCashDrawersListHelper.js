@@ -1,78 +1,8 @@
 ({
-    getPendingRemittances : function(component, event) {
-        var recordId = component.get('v.recordId');
-        var action = component.get("c.getPendingOpportunity");   
-        var contactId = this.getCookie('ContactId');
-        console.log('#' + contactId);
-        
-        action.setParams({       
-            cashDrawerItemId : recordId,
-            cashierId : contactId
-        });   
-        
-        action.setCallback(this, function(response) {            
-            
-            var state = response.getState();    
-            if (state === "SUCCESS") {
-                
-                var res = response.getReturnValue();
-                console.log('menu: ');
-                console.log(res);
-                
-                
-                res.forEach(function(row, index) {
-                    if(row.hasOwnProperty('Customer__r')){
-                        console.log('TRUE');
-                        console.log('oppties' + row.Customer__r.Name);
-                        row.Customer = row.Customer__r.Name;//Customer__r.Name;
-                        
-                    }
-                });
-                
-                
-                console.log('oppties');
-                console.log(res);
-                
-                
-                if(res != null){
-                    component.set('v.pendingRemittances', res.length);
-                }else{
-                    component.set('v.pendingRemittances', 0);
-                }
-                
-                /*
-                if(res == null){
-                    this.gotoURL('/s');
-                }
-             */   
-               
-                component.set('v.mydata', res);
-                
-                
-            } else if (state === "INCOMPLETE") {
-                console.log("No response from server or client is offline.");
-                
-                // Show offline error
-            }
-                else if (state === "ERROR") {
-                    var errors = response.getError();  
-                    console.log("Error: " + errors[0].message);
-                    
-                    // Show error message
-                }        
-        });               
-        
-        $A.enqueueAction(action);     
-        
-        
-        
-    },
     
-    getCashDrawer : function(component, employeeId, accountId) {
-        var action = component.get("c.getCashDrawer");   
-        
+    getCashDrawers : function(component, accountId) {
+        var action = component.get("c.getCashDrawers");   
         action.setParams({       
-            employeeId : employeeId,
             accountId : accountId
         });   
         
@@ -82,9 +12,14 @@
             if (state === "SUCCESS") {
                 
                 var res = response.getReturnValue();
-                component.set('v.cashDrawer', res);
-                console.log('cash Drawer: ');
-                console.log(res);
+                res.forEach(function(row, index) {
+                    if(row.hasOwnProperty('Contact__r')){
+                        row.Cashier = row.Contact__r.Name;//Customer__r.Name;
+                        
+                    }
+                });
+                
+                component.set('v.mydata', res);
                 
             } else if (state === "INCOMPLETE") {
                 console.log("No response from server or client is offline.");
@@ -104,6 +39,38 @@
         
     },
     
+    
+    getContact : function(component, contactId) {
+        var action = component.get("c.getContact");   
+        action.setParams({       
+            contactId : contactId
+        });   
+        
+        action.setCallback(this, function(response) {            
+            
+            var state = response.getState();    
+            if (state === "SUCCESS") {
+                
+                var res = response.getReturnValue();
+                component.set('v.contact', res);
+                
+            } else if (state === "INCOMPLETE") {
+                console.log("No response from server or client is offline.");
+                
+                // Show offline error
+            }
+                else if (state === "ERROR") {
+                    var errors = response.getError();  
+                    console.log("Error: " + errors[0].message);
+                    
+                    // Show error message
+                }        
+        });               
+        
+        $A.enqueueAction(action);     
+        
+        
+    },
     
     
     getCookie : function(queryParam) {
@@ -121,14 +88,5 @@
             }
         }
         return "";
-    },
-    
-    
-    gotoURL : function(url) {
-        var urlEvent = $A.get("e.force:navigateToURL");
-        urlEvent.setParams({
-            "url": url
-        });
-       // urlEvent.fire();
     },
 })

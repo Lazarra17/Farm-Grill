@@ -22,7 +22,7 @@
         urlEvent.setParams({
             "url": url
         });
-        urlEvent.fire();
+      //  urlEvent.fire();
     },
     
     getCashDrawer : function(component, cashDrawerId) {
