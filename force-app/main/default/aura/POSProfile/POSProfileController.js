@@ -1,6 +1,6 @@
 ({
 	doInit : function(component, event, helper) {
-		var contactId = helper.getCookie('contactId');
+		var contactId = helper.getCookie('ContactId');
         if(contactId != null){
             component.set('v.recordId', contactId);
             

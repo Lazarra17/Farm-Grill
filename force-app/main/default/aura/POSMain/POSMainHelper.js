@@ -409,14 +409,14 @@
                 if(res != null){
                     component.set('v.employee', res);
                     this.setCookie("username", res.Username__c);
-                    this.setCookie("firstName", res.FirstName);
-                    this.setCookie("contactId", res.Id);
-                    this.setCookie("accountId", res.AccountId);
+                    this.setCookie("FirstName", res.FirstName);
+                    this.setCookie("ContactId", res.Id);
+                    this.setCookie("AccountId", res.AccountId);
                     //document.cookie = "employeeCode=" + employeeCode; 
                 }else{
-                    this.setCookie("firstName", "");
-                    this.setCookie("contactId", "");
-                    this.setCookie("accountId", "");
+                    this.setCookie("FirstName", "");
+                    this.setCookie("ContactId", "");
+                    this.setCookie("AccountId", "");
                     
                 }
                 

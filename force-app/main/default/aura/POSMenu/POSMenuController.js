@@ -35,7 +35,7 @@
         document.getElementById('headerMenu').classList.remove('show');
         document.getElementById('headerMenu').classList.add('collapse');
         console.log('Cookie on Signout: ' + document.cookie);
-        helper.gotoURL(component, event, '/s/');
+        helper.gotoURL(component, event, '/');
     },
     
     handleApplicationEvent : function(component, event, helper) {

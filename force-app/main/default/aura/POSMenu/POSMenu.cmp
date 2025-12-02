@@ -86,7 +86,7 @@
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         <!--li><a class="dropdown-item" href="#">Settings</a></li-->
-                        <li><a class="dropdown-item" href="{!'/s/profile?recordId=' + v.employee.contactId}" onclick="{!c.hideModal}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{!'/s/profile?recordId=' + v.employee.ContactId}" onclick="{!c.hideModal}">Profile</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="#" onclick="{!c.signout}" >Sign out</a></li>
                     </ul>

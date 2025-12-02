@@ -50,7 +50,7 @@
         ]);
         
         var accountId = helper.getCookie('AccountId');
-        var contactId = helper.getCookie('contactId');
+        var contactId = helper.getCookie('ContactId');
         if(accountId != ''){
             helper.getCashDrawers(component, accountId);
         }
@@ -91,8 +91,6 @@
             cashDrawer.Expected_Count__c = row.Expected_Count__c;
             cashDrawer.Ending_Count__c = row.Ending_Count__c;
             cashDrawer.Difference__c = row.Difference__c;
-            console.log('reconcile 2');
-            console.log(JSON.stringify(cashDrawer));
             component.set('v.cashDrawer', cashDrawer);
             
             var remittanceModal = document.getElementById('cashDrawersModal');

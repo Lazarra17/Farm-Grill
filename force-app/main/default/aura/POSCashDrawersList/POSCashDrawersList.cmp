@@ -15,7 +15,6 @@
     <div class="slds-grid slds-wrap slds-gutters pos-main pos-cashdrawers-container slds-p-left_medium slds-p-right_medium slds-p-bottom_small slds-p-top_small slds-m-top_small">
         <div class="slds-col slds-size_12-of-12 slds-p-left_none">
             
-            
             <aura:if isTrue="{!v.contact.Manage_Cash_Drawers__c}">
                 <aura:if isTrue="{!v.mydata != null}">
                     <lightning:datatable data="{! v.mydata }"
