@@ -16,7 +16,7 @@
                     hour: '2-digit',
                     minute: '2-digit',
                     hour12: true,
-                    timeZone: $A.get("$Locale.timezone") // or a fixed 'Asia/Manila'
+                    timeZone: 'Etc/UTC' // or a fixed 'Asia/Manila'
                 }
             },
             { label: 'Stage', fieldName: 'StageName', type: 'text'},
