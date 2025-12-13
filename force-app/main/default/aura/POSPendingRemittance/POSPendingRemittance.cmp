@@ -35,7 +35,8 @@
             <div class="slds-col slds-size_3-of-12">
                 <p class="header-title">Cash in Drawer</p>
                 <h5 class="header-content">
-                    <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" />
+                    ******
+                    <!--lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" /-->
                 </h5>
             </div>
             <div class="slds-col slds-size_3-of-12">
