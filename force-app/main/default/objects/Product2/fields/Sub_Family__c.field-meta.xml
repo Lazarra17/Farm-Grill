@@ -289,6 +289,46 @@
                 <default>false</default>
                 <label>-20Php</label>
             </value>
+            <value>
+                <fullName>15</fullName>
+                <default>false</default>
+                <label>15</label>
+            </value>
+            <value>
+                <fullName>20</fullName>
+                <default>false</default>
+                <label>20</label>
+            </value>
+            <value>
+                <fullName>30</fullName>
+                <default>false</default>
+                <label>30</label>
+            </value>
+            <value>
+                <fullName>40</fullName>
+                <default>false</default>
+                <label>40</label>
+            </value>
+            <value>
+                <fullName>50</fullName>
+                <default>false</default>
+                <label>50</label>
+            </value>
+            <value>
+                <fullName>60</fullName>
+                <default>false</default>
+                <label>60</label>
+            </value>
+            <value>
+                <fullName>70</fullName>
+                <default>false</default>
+                <label>70</label>
+            </value>
+            <value>
+                <fullName>Soy Sauce</fullName>
+                <default>false</default>
+                <label>Soy Sauce</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Beverages</controllingFieldValue>
@@ -364,6 +404,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Pork</controllingFieldValue>
+            <controllingFieldValue>Add ons</controllingFieldValue>
             <valueName>Platter</valueName>
         </valueSettings>
         <valueSettings>
@@ -416,30 +457,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Delivery Fee</controllingFieldValue>
-            <valueName>Dolores Poblacion</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Delivery Fee</controllingFieldValue>
-            <valueName>Dapdap</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Delivery Fee</controllingFieldValue>
-            <valueName>Lunang</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Delivery Fee</controllingFieldValue>
-            <valueName>Salak</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Delivery Fee</controllingFieldValue>
-            <valueName>Malaintos</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Delivery Fee</controllingFieldValue>
-            <valueName>Malobago</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Delivery Fee</controllingFieldValue>
             <valueName>Free</valueName>
         </valueSettings>
         <valueSettings>
@@ -449,6 +466,34 @@
         <valueSettings>
             <controllingFieldValue>Delivery Fee</controllingFieldValue>
             <valueName>Bonghon</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>15</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>20</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>30</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>40</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>50</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>60</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Fee</controllingFieldValue>
+            <valueName>70</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Add ons</controllingFieldValue>
@@ -465,6 +510,10 @@
         <valueSettings>
             <controllingFieldValue>Add ons</controllingFieldValue>
             <valueName>Scoop of Ice Cream</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add ons</controllingFieldValue>
+            <valueName>Soy Sauce</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Dessert</controllingFieldValue>
