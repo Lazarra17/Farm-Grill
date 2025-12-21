@@ -302,6 +302,8 @@ public without sharing class POSMainController {
         
         if(orderLines.size() > 0){
             insert orderLines;
+            updateStockLevel(orderLines);
+            updateStockLevelOnBundled(orderLines);
         }
         
         
@@ -515,6 +517,10 @@ public without sharing class POSMainController {
         
         if(orderLines.size() > 0){
             insert orderLines;
+            
+            updateStockLevel(orderLines);
+            updateStockLevelOnBundled(orderLines);
+            
         }
         
       
@@ -689,5 +695,185 @@ public without sharing class POSMainController {
       
         return picklistValues;
     }
+    
+    
+    
+    public static void updateStockLevel(List<OpportunityLineItem> opptyProducts) {
+        Set<Id> prodStockLevelIds = new Set<Id>();
+        Set<Id> prodBunldeIds = new Set<Id>();
+       
+        
+        for(OpportunityLineItem oppLine : [SELECT Id, Product2.Track_Inventory__c, Product2Id, Product2.Parent_Product__c, Product2.Bundled__c FROM OpportunityLineItem WHERE Id IN : opptyProducts 
+                                           AND Product2.Track_Inventory__c = TRUE AND Product2.Bundled__c = FALSE]){
+                                               
+                                               if(oppLine.Product2.Parent_Product__c != null){
+                                                   prodStockLevelIds.add(oppLine.Product2.Parent_Product__c);
+                                               }else{
+                                                   prodStockLevelIds.add(oppLine.Product2Id);
+                                               }
+                                               
+                                           }
+        
+   
+        //Get the Stock Level records in Map
+        Map<Id, Stock_Level__c> stockLevelMap = new Map<Id, Stock_Level__c>(); 
+        for(Stock_Level__c sl : [SELECT Id, Product__c, Change_Quantity__c FROM Stock_Level__c WHERE Product__c IN : prodStockLevelIds]){
+            stockLevelMap.put(sl.Product__c, sl);
+        }
+        
+        system.debug('stockLevelMap: ' + stockLevelMap);
+        
+        if(stockLevelMap.size() > 0){
+            
+            Map<Id, Decimal> stockLevelVsQuantity = new Map<Id, Decimal>();
+            
+            for(OpportunityLineItem oppLine : [SELECT Id, Product2Id, Quantity, Product2.Parent_Product__c FROM OpportunityLineItem WHERE Id IN : opptyProducts 
+                                               AND Product2.Track_Inventory__c = TRUE AND Product2.Bundled__c = FALSE]){
+                                                   
+                                                   if(stockLevelVsQuantity.containsKey(oppLine.Product2Id)){
+                                                       
+                                                       Decimal totalQuantity = stockLevelVsQuantity.get(oppLine.Product2Id) + oppLine.Quantity;
+                                                       stockLevelVsQuantity.put(oppLine.Product2Id, totalQuantity); 
+                                                       
+                                                   }else{
+                                                       stockLevelVsQuantity.put(oppLine.Product2Id, oppLine.Quantity); 
+                                                       
+                                                   }
+                                                   
+                                                   if(stockLevelVsQuantity.containsKey(oppLine.Product2.Parent_Product__c)){
+                                                       
+                                                       Decimal totalQuantity = stockLevelVsQuantity.get(oppLine.Product2.Parent_Product__c) + oppLine.Quantity;
+                                                       stockLevelVsQuantity.put(oppLine.Product2.Parent_Product__c, totalQuantity); 
+                                                       
+                                                   }else{
+                                                       
+                                                       stockLevelVsQuantity.put(oppLine.Product2.Parent_Product__c, oppLine.Quantity); 
+                                                       
+                                                   }
+                                                   
+                                                   
+                                                   
+                                               }
+            
+            system.debug('stockLevelVsQuantity: ' + stockLevelVsQuantity);
+            
+            List<Stock_Level__c> stockLevelToUpdate = new List<Stock_Level__c>();
+            if(stockLevelVsQuantity.size() > 0){
+                
+                for(Stock_Level__c sl : stockLevelMap.values()){
+                    
+                    if(stockLevelVsQuantity.containsKey(sl.Product__c)){
+                        //Negative Values as it is a minus stock
+                        sl.Change_Quantity__c = -stockLevelVsQuantity.get(sl.Product__c);
+                        
+                    }
+                    stockLevelToUpdate.add(sl);
+                }
+                
+                system.debug('stockLevelToUpdate: ' + stockLevelToUpdate);
+				update stockLevelToUpdate;
+                
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    
+    
+    public static void updateStockLevelOnBundled(List<OpportunityLineItem> opptyProducts) {
+        Set<Id> prodStockLevelIds = new Set<Id>();
+        Set<Id> prodBunldeIds = new Set<Id>();
+       
+        
+        for(OpportunityLineItem oppLine : [SELECT Id, Product2.Track_Inventory__c, Product2Id, Product2.Parent_Product__c, Product2.Bundled__c FROM OpportunityLineItem WHERE Id IN : opptyProducts 
+                                           AND Product2.Track_Inventory__c = TRUE AND Product2.Bundled__c = TRUE]){
+                                               
+                                                   prodBunldeIds.add(oppLine.Product2Id);
+                                           
+                                               
+                                           }
+        
+        Map<Id, List<Bundle_Component__c>> bundleComponentMap = new Map<Id, List<Bundle_Component__c>>();
+        for(Bundle_Component__c component : [SELECT Id, Component_Product__c, Quantity__c, Bundled_Product__c FROM Bundle_Component__c WHERE Bundled_Product__c =: prodBunldeIds]){
+            prodStockLevelIds.add(component.Component_Product__c);
+            
+            if(bundleComponentMap.containsKey(component.Bundled_Product__c)){
+                bundleComponentMap.get(component.Bundled_Product__c).add(component);
+            }else{
+                bundleComponentMap.put(component.Bundled_Product__c, new List<Bundle_Component__c>{component});
+            }
+            
+        }
+        
+        //Get the Stock Level records in Map
+        Map<Id, Stock_Level__c> stockLevelMap = new Map<Id, Stock_Level__c>(); 
+        for(Stock_Level__c sl : [SELECT Id, Product__c, Change_Quantity__c FROM Stock_Level__c WHERE Product__c IN : prodStockLevelIds]){
+            stockLevelMap.put(sl.Product__c, sl);
+        }
+        
+        system.debug('stockLevelMap: ' + stockLevelMap);
+        
+        if(stockLevelMap.size() > 0){
+            
+            Map<Id, Decimal> stockLevelVsQuantity = new Map<Id, Decimal>();
+            List<Stock_Level__c> stockLevelToUpdate = new List<Stock_Level__c>();
+            
+            for(OpportunityLineItem oppLine : [SELECT Id, Product2Id, Quantity, Product2.Parent_Product__c FROM OpportunityLineItem WHERE Id IN : opptyProducts 
+                                               AND Product2.Track_Inventory__c = TRUE AND Product2.Bundled__c = TRUE]){
+                                                   
+                                           			
+                                                   //Compare the Bundle Component and Oppty Product to get the total of quantity
+                                                   if(bundleComponentMap.containsKey(oppLine.Product2Id)){
+                                                       
+                                                       for(Bundle_Component__c cb : BundleComponentMap.get(oppLine.Product2Id)){
+                                                           
+                                                           if(stockLevelMap.containsKey(cb.Component_Product__c)){
+                                                               
+                                                               Decimal qtySubTotal = cb.Quantity__c * oppLine.Quantity;
+                                                               
+                                                               if(stockLevelMap.get(cb.Component_Product__c).Change_Quantity__c != null){
+                                                                   
+                                                                   stockLevelMap.get(cb.Component_Product__c).Change_Quantity__c = stockLevelMap.get(cb.Component_Product__c).Change_Quantity__c + qtySubTotal;
+                                                               }else{
+                                                                
+                                                                   stockLevelMap.get(cb.Component_Product__c).Change_Quantity__c = qtySubTotal;
+                                                               }
+                                                               
+                                                           }
+                                                           
+                                                       }
+                                                       
+                                                       
+                                                   }
+                                                   
+                                                   
+                                               }
+            
+            
+            
+            for(Stock_Level__c sl : stockLevelMap.values()){
+                
+                sl.Change_Quantity__c = -sl.Change_Quantity__c;
+                stockLevelToUpdate.add(sl);
+                
+            }
+            
+            system.debug('stockLevelToUpdate: ' + stockLevelToUpdate);
+            
+            if(stockLevelToUpdate.size() > 0){
+				update stockLevelToUpdate;
+                
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    
 
 }
