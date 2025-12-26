@@ -7,7 +7,7 @@
         <value xsi:type="xsd:string">Farm Grill</value>
     </values>
     <values>
-        <field>VFP_Url__c</field>
-        <value xsi:type="xsd:string">https://forcepos-dev-ed.develop.lightning.force.com</value>
+        <field>Discount_Passcode__c</field>
+        <value xsi:type="xsd:string">213564</value>
     </values>
 </CustomMetadata>

@@ -129,17 +129,36 @@
                             <aura:iteration items="{!item.value}" var="prodGroup" indexVar="prodIndex">
                                 <div class="slds-col slds-size_2-of-12">
                                     
-                                    <button id="{!itemIndex + '_' + prodIndex}" 
-                                            class="product-tile" 
-                                            data-group-name="{!prodGroup.Name}" 
-                                            data-product-img="{!prodGroup.Product_Image_Url__c}" 
-                                            
-                                            style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
-                                            onclick="{!c.showVariety}"
-                                            >
-                                        <p class="btn-label">{!prodGroup.Name} </p>
+                                    <aura:if isTrue="{!prodGroup.Name != 'Discount'}">
                                         
-                                    </button>
+                                        <button id="{!itemIndex + '_' + prodIndex}" 
+                                                class="product-tile" 
+                                                data-group-name="{!prodGroup.Name}" 
+                                                data-product-img="{!prodGroup.Product_Image_Url__c}" 
+                                                
+                                                style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
+                                                onclick="{!c.showVariety}"
+                                                >
+                                            <p class="btn-label">{!prodGroup.Name} </p>
+                                            
+                                        </button>
+                                        
+                                        <aura:set attribute="else">
+                                            
+                                            <button id="{!itemIndex + '_' + prodIndex}" 
+                                                    class="product-tile" 
+                                                    data-group-name="{!prodGroup.Name}" 
+                                                    data-product-img="{!prodGroup.Product_Image_Url__c}" 
+                                                    
+                                                    style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
+                                                    onclick="{!c.showApprovalModal}"
+                                                    >
+                                                <p class="btn-label">{!prodGroup.Name}</p>
+                                                
+                                            </button>
+                                        </aura:set>
+                                        
+                                    </aura:if>
                                 </div>
                             </aura:iteration>
                             
@@ -412,6 +431,10 @@
                             <div class="slds-hide" id="varietyModal">
                                 <c:POSProductVarietyModal selectedProduct="{!v.selectedProduct}" products="{!v.products}" productImg="{!v.productImg}"
                                                           cashDrawer="{!v.cashDrawer}" />
+                            </div>
+                            
+                            <div class="slds-hide" id="approvalModal">
+                                <c:POSApprovalModal  />
                             </div>
                             
                             

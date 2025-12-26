@@ -321,5 +321,30 @@
     },
     
     
+    showApprovalModal : function(component, event, helper) {
+        var product = event.currentTarget.dataset.groupName;
+        var productImg = event.currentTarget.dataset.productImg;
+        
+        component.set('v.selectedProduct', product);
+        component.set('v.productImg', productImg);
+        var approvalModal = document.getElementById('approvalModal');
+        $A.util.removeClass(approvalModal, 'slds-hide');
+        
+        
+        var approvalModal = document.getElementById('approvalPasscode');
+        
+        if(approvalModal){
+            console.log('approval: ' + approvalModal);
+            approvalModal.focus();
+        }
+        
+        
+        
+        
+        
+    },
+    
+    
+    
     
 })
