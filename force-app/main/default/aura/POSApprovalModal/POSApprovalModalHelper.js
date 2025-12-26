@@ -12,10 +12,6 @@
             //console.log('state: ' + state);
             if (state === "SUCCESS") {
                 var res = response.getReturnValue();  
-                console.log('posSettings');
-                console.log(res);
-                
-           
                 
                 component.set("v.posSettings", res);
                 

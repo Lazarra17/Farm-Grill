@@ -24,7 +24,6 @@
         // var physicalKey = event.code; // Get the physical key pressed
        
         if(keyPressed == 'Enter'){
-            alert('test2');
             helper.approveDiscount(component, event);
         }
         

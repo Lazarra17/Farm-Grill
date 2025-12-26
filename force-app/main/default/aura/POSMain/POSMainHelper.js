@@ -149,8 +149,6 @@
                     }
                    
                 }
-				console.log('#ORDER TYPE');
-                console.log(JSON.stringify(picklistObj));
                 component.set("v.orderTypeOptions", picklistObj);
                 
             } else if (state === "INCOMPLETE") {
@@ -190,7 +188,6 @@
                 for(var key in res){
                     picklistObj.push({value:res[key], label:key});
                 }
-                console.log(picklistObj);
                 component.set('v.riderOptions', picklistObj);
                                
             } else if (state === "INCOMPLETE") {
@@ -231,7 +228,6 @@
                 for(var key in res){
                     picklistObj.push({value:res[key], label:key});
                 }
-                console.log(picklistObj);
                 component.set('v.cashierOptions', picklistObj);
                                
             } else if (state === "INCOMPLETE") {
@@ -274,8 +270,6 @@
                     picklistObj.push({value:res[key], label:key});
                      
                 }
-                console.log('#MOP');
-                console.log(JSON.stringify(picklistObj));
                 component.set("v.modeOfPaymentOptions", picklistObj);
                 
                 
