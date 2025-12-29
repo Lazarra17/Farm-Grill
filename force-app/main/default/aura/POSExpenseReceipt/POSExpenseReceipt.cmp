@@ -20,6 +20,24 @@
         </tr>
     </table>
     
+     <table class="customer-information" style="margin-bottom: 10px;">
+        <tr>
+            <td style="">Item Id: {!v.receiptData.Name}</td>
+        </tr>
+         <tr>
+            <td style="">Cashier: {!v.receiptData.Cash_Drawer_Session__r.Contact__r.Name} </td>
+            
+        </tr>
+        <tr>
+            <td style="">DateTime: {!v.dateTimeStamp} </td>
+            
+        </tr>
+         <tr>
+             <td><p style="border-bottom: 3px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;"></p></td>
+         </tr>
+         
+    </table>
+    
     <table class="items">
         <thead>
              <tr>

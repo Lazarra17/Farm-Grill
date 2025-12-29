@@ -32,7 +32,7 @@ public without sharing class POSReceiptController {
     @auraEnabled
     public static Cash_Drawer_Item__c getCashDrawerItem(String recordId){
         
-        Cash_Drawer_Item__c cdi = [SELECT Id, Cash_Drawer_Session__r.Name, Custom__c, Notes__c, Opportunity_Product__c, Type__c, 
+        Cash_Drawer_Item__c cdi = [SELECT Id, Name, Cash_Drawer_Session__r.Name, Cash_Drawer_Session__r.Contact__r.Name,  Custom__c, Notes__c, Opportunity_Product__c, Type__c, 
                                    X1000__c, X100__c, X10__c, X1__c, X200__c, X20__c, X500__c, X50__c, X5__c, 
                                    Total_Amount__c FROM Cash_Drawer_Item__c WHERE Id =: recordId];
         
