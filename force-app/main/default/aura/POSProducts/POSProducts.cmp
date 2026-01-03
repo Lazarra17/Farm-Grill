@@ -1,3 +1,42 @@
-<aura:component >
-	
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" 
+                controller="POSProductsController" access="global">
+    
+    <aura:attribute name="stockLevel" type="Stock_Level__c" default="{'ProductName' : ''}"  />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="contactId" type="String" />
+    <aura:attribute name="mydata" type="Object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:handler name="compEvent" event="c:POSEvent" action="{! c.handleEvent }"/>
+    
+    <c:POSNavigation title="Products" faIcon="fa-barcode" />
+    
+    
+    <div class="slds-grid slds-wrap slds-gutters pos-main pos-container slds-p-left_medium slds-p-right_medium slds-p-bottom_small slds-p-top_small slds-m-top_small">
+        <div class="slds-col slds-size_12-of-12 slds-p-left_none">
+            
+            
+            <aura:if isTrue="{!v.mydata != null}">
+                <lightning:datatable data="{! v.mydata }"
+                                     columns="{! v.mycolumns }"
+                                     keyField="Id"
+                                     onrowaction="{! c.handleRowAction }"
+                                     hideCheckboxColumn="true"
+                                     showRowNumberColumn="false"
+                                     />
+                
+                <aura:set attribute="else">
+                    <h3 class="slds-text-align_center slds-p-around_large">No records found.</h3>
+                </aura:set>
+            </aura:if>
+            
+        </div>
+        
+        
+    </div>
+    
+    <div class="slds-hide" id="productModal">
+        <c:POSProductsModal stockLevel="{!v.stockLevel}" contactId="{!v.contactId}"  />
+    </div>
+    
 </aura:component>

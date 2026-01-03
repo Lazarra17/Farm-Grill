@@ -53,12 +53,28 @@
                                             </li>
                                             
                                             <aura:set attribute="else">
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
-                                                        <i class="slds-p-right_x-small" aria-hidden="true"></i> 
-                                                        {!item.label}
-                                                    </a>
-                                                </li>
+                                                
+                                                
+                                                <aura:if isTrue="{!item.label == 'Products'}">
+                                                    <li class="nav-item">
+                                                        <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                                            <i class="fa fa-barcode slds-p-right_x-small" aria-hidden="true"></i> 
+                                                            {!item.label} 
+                                                        </a>
+                                                    </li>
+                                                    
+                                                    <aura:set attribute="else">
+                                                        <li class="nav-item">
+                                                            <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                                                <i class="slds-p-right_x-small" aria-hidden="true"></i> 
+                                                                {!item.label}
+                                                            </a>
+                                                        </li>
+                                                    </aura:set>
+                                                    
+                                                </aura:if> 
+                                                
+                                            
                                             </aura:set>
                                             
                                         </aura:if>

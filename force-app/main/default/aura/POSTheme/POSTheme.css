@@ -35,3 +35,9 @@
     color: #333;
     padding-left: 10px;
 }
+
+.THIS .error-msg{
+    color: red;
+    font-size: 13px;
+    padding-top:3px;
+}

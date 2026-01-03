@@ -1,3 +1,4 @@
 <aura:event type="COMPONENT" >
     <aura:attribute name="pendingOpportunities" type="object"/>
+    <aura:attribute name="productStocks" type="object"/>
 </aura:event>

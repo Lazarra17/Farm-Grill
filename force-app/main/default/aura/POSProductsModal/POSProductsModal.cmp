@@ -1,0 +1,55 @@
+<aura:component controller="POSProductsController">
+    <aura:attribute name="errMessage" type="String"  />
+    <aura:attribute name="isRequired" type="Boolean" default="false"  />
+    <aura:attribute name="showSpinner" type="Boolean" default="false"  />
+    <aura:attribute name="contactId" type="String"  />
+    <aura:attribute name="amount" type="Integer"  />
+    <aura:attribute name="stockLevel" type="Stock_Level__c"   />
+    <aura:registerEvent name="compEvent" type="c:POSEvent"/>
+    
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="pos-spinner">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close" onclick="{!c.hideModal}">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">UPDATE STOCK LEVEL</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-grid slds-wrap slds-gutters">
+                    
+                    <div class="slds-col slds-size_12-of-12 slds-m-top_medium"> 
+                        <p class="error-msg slds-text-align_center slds-m-bottom_none">{!v.errMessage}</p>
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12">
+                        <lightning:input type="text" name="ProductName" disabled="true" label="Product Name" value="{!v.stockLevel.ProductName}"/>
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12">
+                        <lightning:input type="number" name="amount" required="true" label="Add Quantity" aura:id="stockLevelAmount" 
+                                         value="{!v.amount}" onchange="{!c.handleOnChange}" />
+                    </div>
+                    
+                    <div class="slds-col slds-size_12-of-12 slds-text-align_right slds-m-top_small">
+                        
+                        <lightning:button variant="brand"  label="&nbsp;&nbsp;&nbsp;Save &nbsp;&nbsp;&nbsp;" title="Save" onclick="{!c.save }" />
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

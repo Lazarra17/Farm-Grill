@@ -5,6 +5,7 @@
         var cashDrawer = helper.getCookie('CashDrawer');
         component.set('v.cashDrawer', cashDrawer);
         
+        
         if(document.cookie != null){
             
             let obj = {};
@@ -24,8 +25,9 @@
         }
         
         
-     
+        
     },
+        
     
     signout : function(component, event, helper) {
         document.cookie = "FirstName=;";
