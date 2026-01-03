@@ -27,24 +27,24 @@
         </div>
         
         <div class="slds-col slds-size_3-of-12">
-                <p class="header-title">GCash</p>
-                <h5 class="header-content">
-                    <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Total_Sales_Gcash__c}" minimumFractionDigits="2" />
-                </h5> 
-            </div>
-            <div class="slds-col slds-size_3-of-12">
-                <p class="header-title">Cash in Drawer</p>
-                <h5 class="header-content">
-                    ******
-                    <!--lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" /-->
-                </h5>
-            </div>
-            <div class="slds-col slds-size_3-of-12">
-                <p class="header-title slds-text-align_center">Pending Remittance</p>
-                <h5 class="header-content slds-text-align_center" >
-                    {!v.pendingRemittances}
-                </h5>
-            </div>
+            <p class="header-title">GCash</p>
+            <h5 class="header-content">
+                <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Total_Sales_Gcash__c}" minimumFractionDigits="2" />
+            </h5> 
+        </div>
+        <div class="slds-col slds-size_3-of-12">
+            <p class="header-title">Cash in Drawer</p>
+            <h5 class="header-content">
+                ******
+                <!--lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" /-->
+            </h5>
+        </div>
+        <div class="slds-col slds-size_3-of-12">
+            <p class="header-title slds-text-align_center">Pending Remittance</p>
+            <h5 class="header-content slds-text-align_center" >
+                {!v.pendingRemittances}
+            </h5>
+        </div>
         
     </div>
     

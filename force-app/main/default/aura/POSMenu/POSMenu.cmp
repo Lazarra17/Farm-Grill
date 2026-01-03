@@ -1,5 +1,6 @@
 <aura:component extends="forceCommunity:navigationMenuBase">
-    <aura:attribute name="employee" type="Contact" />
+    <aura:attribute name="employee" type="Object" />
+    <aura:attribute name="manageInventory" type="Boolean" />
     <aura:attribute name="cashDrawer" type="String" />
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
     <aura:handler event="c:POSAppEvent" action="{!c.handleApplicationEvent}"/>
@@ -56,13 +57,14 @@
                                                 
                                                 
                                                 <aura:if isTrue="{!item.label == 'Products'}">
-                                                    <li class="nav-item">
-                                                        <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
-                                                            <i class="fa fa-barcode slds-p-right_x-small" aria-hidden="true"></i> 
-                                                            {!item.label} 
-                                                        </a>
-                                                    </li>
-                                                    
+                                                    <aura:if isTrue="{!v.manageInventory}">
+                                                        <li class="nav-item">
+                                                            <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                                                <i class="fa fa-barcode slds-p-right_x-small" aria-hidden="true"></i> 
+                                                                {!item.label}  
+                                                            </a>
+                                                        </li>
+                                                    </aura:if>
                                                     <aura:set attribute="else">
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
@@ -98,7 +100,7 @@
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">   
                         <i class="fa fa fa-user slds-p-right_small"></i>
-                        <strong>{!v.employee.FirstName}</strong>
+                        <strong>{!v.employee.FirstName} </strong>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         <!--li><a class="dropdown-item" href="#">Settings</a></li-->

@@ -19,9 +19,9 @@
                                                });
             
             
-            console.log('COOKIE' + obj);
-            console.log(JSON.stringify(obj));
             component.set('v.employee', obj);
+            component.set('v.manageInventory', obj.ManageInventory);
+            
         }
         
         

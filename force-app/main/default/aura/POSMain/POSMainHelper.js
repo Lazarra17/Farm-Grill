@@ -398,19 +398,21 @@
             if (state === "SUCCESS") {
               
                 var res = response.getReturnValue();
-                console.log('getContact');
-                console.log(res);
                 if(res != null){
                     component.set('v.employee', res);
                     this.setCookie("username", res.Username__c);
                     this.setCookie("FirstName", res.FirstName);
                     this.setCookie("ContactId", res.Id);
                     this.setCookie("AccountId", res.AccountId);
-                    //document.cookie = "employeeCode=" + employeeCode; 
+                    this.setCookie("ManageInventory", res.Manage_Inventory__c);
+                    this.setCookie("ManageCashDrawer", res.Manage_Cash_Drawers__c);
+                    
                 }else{
                     this.setCookie("FirstName", "");
                     this.setCookie("ContactId", "");
                     this.setCookie("AccountId", "");
+                    this.setCookie("ManageInventory", "");
+                    this.setCookie("ManageCashDrawer", "");
                     
                 }
                 
@@ -470,6 +472,8 @@
                     this.setCookie("FirstName", res.FirstName);
                     this.setCookie("ContactId", res.Id);
                     this.setCookie("AccountId", res.AccountId);
+                    this.setCookie("ManageInventory", res.Manage_Inventory__c);
+                    this.setCookie("ManageCashDrawer", res.Manage_Cash_Drawers__c);
                     
                     this.getModeOfPayment(component, event);
                     this.getOrderType(component, event);
@@ -482,7 +486,8 @@
                     this.setCookie("FirstName", "");
                     this.setCookie("ContactId", "");
                     this.setCookie("AccountId", "");
-                    
+                    this.setCookie("ManageInventory", "");
+                    this.setCookie("ManageCashDrawer", "");
                     component.set('v.error', 'Incorrect username and passcode.');
                 }
                 
