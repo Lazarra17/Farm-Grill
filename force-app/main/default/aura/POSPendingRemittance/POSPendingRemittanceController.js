@@ -71,8 +71,13 @@
     handleEvent: function(component, event, helper) {
         
         let pendingOpportunities = event.getParam("pendingOpportunities");
-        console.log('Pending Oppty');
-        console.log(pendingOpportunities);
+        
+        pendingOpportunities.forEach(function(row, index) {
+            if(row.hasOwnProperty('Customer__r')){
+                row.Customer = row.Customer__r.Name;//Customer__r.Name;
+                
+            }
+        });
         
         component.set("v.mydata", pendingOpportunities);
         

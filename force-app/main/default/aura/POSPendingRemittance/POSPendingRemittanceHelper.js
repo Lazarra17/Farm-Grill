@@ -16,8 +16,6 @@
             if (state === "SUCCESS") {
                 
                 var res = response.getReturnValue();
-                console.log('menu: ');
-                console.log(res);
                 
                 
                 res.forEach(function(row, index) {
@@ -28,10 +26,6 @@
                         
                     }
                 });
-                
-                
-                console.log('oppties');
-                console.log(res);
                 
                 
                 if(res != null){
