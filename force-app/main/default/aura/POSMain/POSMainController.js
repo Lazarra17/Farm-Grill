@@ -192,9 +192,7 @@
         var order = component.get('v.order');
         
         if(order.PaymentReceived >= order.Total){
-            component.set('v.error', '');
-            var printModal = document.getElementById('printModal');
-            $A.util.removeClass(printModal, 'slds-hide');
+            
             helper.createOpportunity(component, event);
         }else{
             component.set('v.error', 'Insufficient payments.');
@@ -314,6 +312,10 @@
         
         component.set('v.selectedProduct', product);
         component.set('v.productImg', productImg);
+        
+        //remove the error message
+        component.set('v.error', '');
+        
         var varietyModal = document.getElementById('varietyModal');
         $A.util.removeClass(varietyModal, 'slds-hide');
         

@@ -196,7 +196,8 @@ public without sharing class POSMainController {
 
     @auraEnabled
     public static Opportunity createOpportunity(String posParams, String cashDrawerId, String mOP){
-        system.debug(posParams);
+        system.debug(posParams); 
+ 
         Integer queue = 1;
         POSMainController payload = (POSMainController) JSON.deserialize(posParams, POSMainController.class);
         
@@ -717,7 +718,7 @@ public without sharing class POSMainController {
    
         //Get the Stock Level records in Map
         Map<Id, Stock_Level__c> stockLevelMap = new Map<Id, Stock_Level__c>(); 
-        for(Stock_Level__c sl : [SELECT Id, Product__c, Change_Quantity__c FROM Stock_Level__c WHERE Product__c IN : prodStockLevelIds]){
+        for(Stock_Level__c sl : [SELECT Id, Product__c, Product__r.Name, Change_Quantity__c, Available_to_Sell__c FROM Stock_Level__c WHERE Product__c IN : prodStockLevelIds]){
             stockLevelMap.put(sl.Product__c, sl);
         }
         
@@ -763,11 +764,35 @@ public without sharing class POSMainController {
                 for(Stock_Level__c sl : stockLevelMap.values()){
                     
                     if(stockLevelVsQuantity.containsKey(sl.Product__c)){
-                        //Negative Values as it is a minus stock
-                        sl.Change_Quantity__c = -stockLevelVsQuantity.get(sl.Product__c);
+                        
+                        //Check if there is still stock available
+                        if((sl.Available_to_Sell__c + -stockLevelVsQuantity.get(sl.Product__c)) < 0){
+                            
+                            try {
+                                Map<String, String> errorMap = new Map<String, String>{
+                                    	'code' => '400',
+                                        'message' => 'ERROR: ' + sl.Product__r.Name + ' is Out of Stock.  Please ask for assitance!',
+                                        'severity' => 'High'
+                                        };
+                                            throw new AuraHandledException(JSON.serialize(errorMap));
+                                
+                            } catch (Exception e) {
+                                // If it's already an AuraHandledException, rethrow it
+                                if(e instanceof AuraHandledException) throw e;
+                                // Otherwise, wrap the system error
+                                throw new AuraHandledException('System Error: ' + e.getMessage());
+                            }
+                            
+                        }else{
+                            
+                            //Negative Values as it is a minus stock
+                            sl.Change_Quantity__c = -stockLevelVsQuantity.get(sl.Product__c);      
+                            stockLevelToUpdate.add(sl);
+                        }
+                        
                         
                     }
-                    stockLevelToUpdate.add(sl);
+                   
                 }
                 
                 system.debug('stockLevelToUpdate: ' + stockLevelToUpdate);
@@ -810,7 +835,7 @@ public without sharing class POSMainController {
         
         //Get the Stock Level records in Map
         Map<Id, Stock_Level__c> stockLevelMap = new Map<Id, Stock_Level__c>(); 
-        for(Stock_Level__c sl : [SELECT Id, Product__c, Change_Quantity__c FROM Stock_Level__c WHERE Product__c IN : prodStockLevelIds]){
+        for(Stock_Level__c sl : [SELECT Id, Product__c, Change_Quantity__c, Available_to_Sell__c, Product__r.Name FROM Stock_Level__c WHERE Product__c IN : prodStockLevelIds]){
             stockLevelMap.put(sl.Product__c, sl);
         }
         
@@ -856,8 +881,35 @@ public without sharing class POSMainController {
             
             for(Stock_Level__c sl : stockLevelMap.values()){
                 
-                sl.Change_Quantity__c = -sl.Change_Quantity__c;
-                stockLevelToUpdate.add(sl);
+                //Check if there is still stock available
+                if((sl.Available_to_Sell__c + -sl.Change_Quantity__c) < 0){
+                    
+                    try {
+                        Map<String, String> errorMap = new Map<String, String>{
+                            'code' => '400',
+                                'message' => 'ERROR: ' + sl.Product__r.Name + ' is Out of Stock.  Please ask for assitance!',
+                                'severity' => 'High'
+                                };
+                                    throw new AuraHandledException(JSON.serialize(errorMap));
+                        
+                    } catch (Exception e) {
+                        // If it's already an AuraHandledException, rethrow it
+                        if(e instanceof AuraHandledException) throw e;
+                        // Otherwise, wrap the system error
+                        throw new AuraHandledException('System Error: ' + e.getMessage());
+                    }
+                    
+                }else{
+                    
+                    //Negative Values as it is a minus stock
+                    sl.Change_Quantity__c = -sl.Change_Quantity__c;
+                    stockLevelToUpdate.add(sl);
+                }
+                
+                
+                
+                
+                
                 
             }
             

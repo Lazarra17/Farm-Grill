@@ -357,6 +357,7 @@
                                 
                                 
                                 <div class="slds-col slds-size_12-of-12 slds-m-top_small">
+                                    <p class="error-msg slds-p-bottom_small">{!v.error}</p>
                                     <aura:if isTrue="{!AND(
                                                      v.orderTypeOptionSelected != 'Delivery', 
                                                      v.modeOfPaymentSelected == 'Cash', 

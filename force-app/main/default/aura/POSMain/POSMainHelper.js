@@ -338,6 +338,8 @@
         var cashDrawer = component.get('v.cashDrawer');
         var action = component.get("c.createOpportunity");  
         var modeOfPayment = component.get('v.modeOfPaymentSelected');
+        component.set('v.showSpinner', true);  //Show loading
+
         console.log('modeOfPayment: ' + modeOfPayment);
         action.setParams({       
             posParams : JSON.stringify(order),
@@ -353,6 +355,11 @@
                 
                 var res = response.getReturnValue();
                 component.set('v.opp', res);
+                
+                component.set('v.error', '');
+                var printModal = document.getElementById('printModal');
+                $A.util.removeClass(printModal, 'slds-hide');
+                
                 
                 //Print Customer Receipt
                 this.printReceipt(
@@ -371,9 +378,13 @@
                 else if (state === "ERROR") {
                     var errors = response.getError();  
                     console.log("Error: " + errors[0].message);
-                    
+                    const errorObj = JSON.parse(errors[0].message);
+                    console.log(errorObj.message);
+                    component.set('v.error', errorObj.message);
                     // Show error message
-                }    
+                }  
+            
+            component.set('v.showSpinner', false);  //Show loading
        
         });               
         
