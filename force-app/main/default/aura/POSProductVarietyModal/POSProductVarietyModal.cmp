@@ -58,8 +58,8 @@
                                             <p class="slds-p-bottom_medium">
                                                 <lightning:button variant="brand-outline"
                                                                   class="full-width slds-p-top_x-small slds-p-bottom_x-small"
-                                                                  label="{!prod.Product__r.Sub_Family__c}" 
-                                                                  title="{!prod.Product__r.Sub_Family__c}"
+                                                                  label="{!prod.Product__r.Display_Name__c}" 
+                                                                  title="{!prod.Product__r.Display_Name__c}"
                                                                   value="{!prod.Product__c}"
                                                                   onclick="{! c.createOrderItem }" />
                                             </p>
