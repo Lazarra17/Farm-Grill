@@ -80,6 +80,10 @@
                 else if (state === "ERROR") {
                     var errors = response.getError();  
                     console.log("Error: " + errors[0].message);
+                                        
+                    const errorObj = JSON.parse(errors[0].message);
+                    console.log(errorObj.message);
+                    component.set('v.errMessage', errorObj.message);
                     
                     // Show error message
                 }    
