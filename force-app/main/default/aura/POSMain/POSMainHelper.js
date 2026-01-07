@@ -12,8 +12,6 @@
             //console.log('state: ' + state);
             if (state === "SUCCESS") {
                 var res = response.getReturnValue();  
-                console.log('PRODUCTS');
-                console.log(res);
                 
                 var products = [];
                 for(var key in res){
@@ -475,8 +473,6 @@
             if (state === "SUCCESS") {
               
                 var res = response.getReturnValue();
-                console.log('CONTACT');
-                console.log(res);
                 if(res != null){
                     component.set('v.employee', res);
                     this.setCookie("username", username);
@@ -488,10 +484,10 @@
                     
                     this.getModeOfPayment(component, event);
                     this.getOrderType(component, event);
-                    this.getCashDrawer(component, res.Id, res.AccountId);
                     this.getExistingCustomers(component, res.AccountId);
                  	this.getRiders(component, event);
                     this.getCashiers(component, event);
+                    this.getCashDrawer(component, res.Id, res.AccountId);
                     
                 }else{
                     this.setCookie("FirstName", "");

@@ -42,7 +42,8 @@
     
     handleApplicationEvent : function(component, event, helper) {
         var employee = event.getParam("employee");
-        
+        console.log('EMPLOYEE');
+        console.log(employee);
         if(employee != null){
             component.set("v.employee", employee);
             
