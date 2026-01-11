@@ -1,6 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
- <!--types>
+
+  <!--types>
+    <members>*</members>
+    <name>AuraDefinitionBundle</name>
+  </types>
+  <types>
+    <members>*</members>
+    <name>ApexClass</name>
+  </types-->
+  <types>
+    <members>*</members>
+    <name>Flow</name>
+  </types>
+
+  <types>
+    <members>Cash_Drawer_Item__c</members>
+    <members>Discount__c</members>
+    <members>Discount_Product__c</members>
+    <name>CustomObject</name>
+  </types>
+
+  <types>
+    <members>OpportunityLineItem.POS_Display_Name__c</members>
+    <members>Contact.PWD_Id__c</members>
+    <members>Contact.Sr_Citizen_Id__c</members>
+    <name>CustomField</name>
+  </types>
+
+  <types>
+    <members>POS_Setting__mdt-POS Setting Layout</members>
+    <members>Product2-Product Layout</members>
+    
+    <name>Layout</name>
+  </types>
+
+  <types>
+    <members>*</members>
+    <name>CustomTab</name>
+  </types>
+
+  <!--types>
+    <members>POS_Admin_User</members>
+    <name>PermissionSet</name>
+  </types-->
+
+  <types>
+    <members>*</members>
+    <name>FlexiPage</name>
+  </types>
+
+  
+
+
+
+  <!--types>
+    <members>POS_Admin_User</members>
+    <name>PermissionSet</name>
+  </types>
+
+  <types>
+    <members>*</members>
+    <name>ApexClass</name>
+  </types>
+
+
+  <types>
+    <members>Contact.Manage_Inventory__c</members>
+    <name>CustomField</name>
+  </types>
+
+  <types>
+    <members>Contact-POS Employee Layout</members>
+    <name>Layout</name>
+  </types>
+
+
+   <types>
+    <members>POSReceiptController</members>
+    <name>ApexClass</name>
+  </types>
+
+  <types>
+    <members>POSExpenseReceipt</members>
+    <name>AuraDefinitionBundle</name>
+  </types>
+
+  <types>
+    <members>POSApprovalModalController</members>
+    <name>ApexClass</name>
+  </types>
+
+  
+
+  <types>
+    <members>*</members>
+    <name>CustomMetadata</name>
+  </types>
+
+  <types>
+    <members>POS_Setting__mdt.Discount_Passcode__c</members>
+    <name>CustomField</name>
+  </types>
+  
+  <types>
+    <members>Contact.Manage_Cash_Drawers__c</members>
+    <members>Cash_Drawer_Session__c.Notes__c</members>
+    <name>CustomField</name>
+  </types>
+
+  <types>
+    <members>*</members>
+    <name>AuraDefinitionBundle</name>
+  </types>
+
+  <types>
+      <members>Contact-POS Contact Layout</members>
+      <members>Contact-POS Corporate Layout</members>
+      <members>Contact-POS Employee Layout</members>
+    <name>Layout</name>
+  </types>
+  <types>
+    <members>Cash_Drawer_Item__c-Cash Drawer Item Layout</members>
+    <members>Cash_Drawer_Item__c-POS Cash Drawer Item Layout</members>
+    <members>Cash_Drawer_Session__c-Cash Drawer Session Layout</members>
+    <members>Cash_Drawer_Session__c-POS Cash Drawer Session Layout</members>
+    <members>Contact-POS Contact Layout</members>
+    <members>Contact-POS Corporate Layout</members>
+    <members>Contact-POS Employee Layout</members>
+    <name>Layout</name>
+  </types>
+
+ <types>
     <members>Farm_Grill_POS</members>
     <name>CustomSite</name>
   </types>
@@ -36,9 +167,9 @@
   <types>
     <members>CommunitiesLanding</members>
     <name>ApexPage</name>
-  </types-->
+  </types>
 
-  <types>
+  <ypes>
         <members>OpportunityStage</members> 
         <members>Product2Family</members> 
         <members>LeadSource</members>
@@ -421,7 +552,7 @@
     <members>Cash_Drawer_Session__c-POS Cash Drawer Session Layout</members>
     <members>Contact-POS Contact Layout</members>
     <members>Contact-POS Corporate Layout</members>
-    <members>Contact-POS Employee Layout</members>>
+    <members>Contact-POS Employee Layout</members>
     <members>Designation__c-Designation Layout</members>
     <members>Leave__c-Leave Layout</members>
     <members>Loan_Advance__c-Loan %2F Advance Layout</members>
@@ -554,6 +685,6 @@
     <members>Cash_Drawer_Session__c.CDS_Invalid_End_Date</members>
     <members>Stock_Level__c.STCK_LVL_Last_Inventory_Date_Required</members>
     <name>ValidationRule</name>
-  </types>
+  </types-->
   <version>61.0</version>
 </Package>

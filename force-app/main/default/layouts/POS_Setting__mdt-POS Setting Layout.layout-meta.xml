@@ -20,7 +20,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>VFP_Url__c</field>
+                <field>Discount_Passcode__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

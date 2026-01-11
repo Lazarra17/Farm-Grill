@@ -22,10 +22,6 @@
                 <behavior>Edit</behavior>
                 <field>Display_Name__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Apply_Discount__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
