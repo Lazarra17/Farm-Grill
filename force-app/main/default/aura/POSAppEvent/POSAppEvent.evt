@@ -6,4 +6,5 @@
     <aura:attribute name="orderItem" type="Object"/>
     <aura:attribute name="action" type="String"/>
     <aura:attribute name="isOrderSuccessfull" type="Boolean"/>
+    
 </aura:event>

@@ -1,0 +1,43 @@
+<aura:component controller="POSDiscountedProductsModalController">
+    <aura:attribute name="error" type="String" />
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:attribute name="discountedItems" type="Object" />
+    <aura:attribute name="discountableProducts" type="Object" />
+    <aura:attribute name="mydata" type="Object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close" onclick="{!c.hideModal}">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">Discounted Items</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                
+                
+                <aura:if isTrue="{!v.mydata != null}">
+                    <lightning:datatable data="{! v.mydata }"
+                                         columns="{! v.mycolumns }"
+                                         keyField="Id"
+                                         onrowaction="{! c.handleRowAction }"
+                                         hideCheckboxColumn="true"
+                                         showRowNumberColumn="false"
+                                         />
+                    
+                    <aura:set attribute="else">
+                        <h3 class="slds-text-align_center slds-p-around_large">No records found.</h3>
+                    </aura:set>
+                </aura:if>
+                
+                
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation" ></div>
+    
+    
+</aura:component>

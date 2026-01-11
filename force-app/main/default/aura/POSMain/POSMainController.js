@@ -117,6 +117,8 @@
             
             helper.processOrder(component, event);
             
+        }else if(action == 'APPLY_SR_PWD_DISCOUNT'){
+           helper.applySrPwdDiscount(component, event);
         }
         
         
@@ -329,6 +331,8 @@
         
         component.set('v.selectedProduct', product);
         component.set('v.productImg', productImg);
+        
+        component.set('v.error', '');
         var approvalModal = document.getElementById('approvalModal');
         $A.util.removeClass(approvalModal, 'slds-hide');
         

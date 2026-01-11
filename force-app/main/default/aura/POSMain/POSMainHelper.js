@@ -693,7 +693,63 @@
         component.set("v.selectedProduct", null);
         component.set("v.order", order);
         console.log('Add to Cart');
-        console.log(JSON.stringify(order));
+        
+    },
+    
+    applySrPwdDiscount : function(component, event) {
+        var action = component.get("c.getSrDiscount");    
+        var order = component.get('v.order');
+        component.set('v.showSpinner', true);  //Show loading
+        action.setParams({       
+            posParams : JSON.stringify(order)
+        });   
+        
+        action.setCallback(this, function(response) {            
+            
+            var state = response.getState();    
+            if (state === "SUCCESS") {
+                
+                var res = response.getReturnValue();
+                console.log('Discountable Products');
+                console.log(res);
+                
+                res.forEach(function(element, index) {
+                  	element.ProductName = element.Product2.Name + '(20% Discount)';
+                });
+                
+               
+                
+                 console.log(res);
+                component.set('v.discountedItems', res);
+                component.set('v.error', '');
+                
+                 var discountedProdsModal = document.getElementById('discountedProdsModal');
+                $A.util.removeClass(discountedProdsModal, 'slds-hide');
+                
+                
+                
+            } else if (state === "INCOMPLETE") {
+                console.log("No response from server or client is offline.");
+                
+                // Show offline error
+            }
+                else if (state === "ERROR") {
+                    var errors = response.getError();  
+                    console.log("Error: " + errors[0].message);
+                    const errorObj = JSON.parse(errors[0].message);
+                    console.log(errorObj.message);
+                    component.set('v.error', errorObj.message);
+                    // Show error message
+                }  
+            
+            component.set('v.showSpinner', false);  //Show loading
+            
+        });               
+        
+        $A.enqueueAction(action);     
+        
+        
+        
         
     },
     

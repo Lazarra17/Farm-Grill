@@ -22,7 +22,7 @@ public without sharing class POSReceiptController {
         system.debug('#' + recordId);
         ReceiptData receipt = new ReceiptData();
         receipt.oppty = [SELECT Id, Name, Queue_Number__c, Amount, Cash_Tendered__c, Change__c, Notes__c, Mode_of_Payment__c, Type FROM Opportunity WHERE Id =: recordId];
-        receipt.opptyLines = [SELECT Id, Product2.Name, Quantity, TotalPrice FROM OpportunityLineItem WHERE OpportunityId =: recordId];
+        receipt.opptyLines = [SELECT Id, Product2.Name, Quantity, TotalPrice, POS_Display_Name__c FROM OpportunityLineItem WHERE OpportunityId =: recordId];
         receipt.opptyRoles = [SELECT Id, Role, Contact.FirstName, Contact.Name, Contact.Complete_Address__c, Contact.MobilePhone FROM OpportunityContactRole WHERE OpportunityId =: recordId ORDER BY Role ASC];
         
         

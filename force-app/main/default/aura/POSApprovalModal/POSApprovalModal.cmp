@@ -1,7 +1,11 @@
 <aura:component controller="POSApprovalModalController">
+    <aura:attribute name="discountType" type="String" /> 
     <aura:attribute name="passcode" type="String" />  
+    <aura:attribute name="idType" type="String" default="SR Citizen Id" />  
+    <aura:attribute name="contact" type="Contact" default="{'FirstName' : ''}" /> 
     <aura:attribute name="error" type="String" />
     <aura:attribute name="posSettings" type="POS_Setting__mdt" />
+    <aura:attribute name="order" type="Object"  />
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
     <aura:registerEvent name="posAppEvent" type="c:POSAppEvent"/>
     
@@ -19,28 +23,68 @@
                     
                     
                     <div class="slds-col slds-size_12-of-12">
-                        <p class="panel-p">Passcode</p> 
+                        <aura:if isTrue="{!v.discountType == 'SR/PWD Discount'}">
+                            
+                            <lightning:select name="idType" label="ID Type" required="true" value="{!v.idType}">
+                                <option value="SR Citizen Id">SR Citizen Id</option>
+                                <option value="PWD Id">PWD Id</option>
+                            </lightning:select>
+                            
+                            <p class="panel-p">First Name</p>
+                            <lightning:input class="" value="{!v.contact.FirstName}" name="firstName" aura:id="contactForm" 
+                                             variant="label-hidden" required="true"  />
+                            
+                            <p class="panel-p">Last Name</p>
+                            <lightning:input class="" value="{!v.contact.LastName}" name="lastName" aura:id="contactForm" 
+                                             variant="label-hidden" required="true"  />
+                            
+                            <p class="panel-p">Date of Birth</p>
+                            <lightning:input class="" value="{!v.contact.Birthdate}" type="date" name="dob" aura:id="contactForm" 
+                                             variant="label-hidden" required="true"  />
+                            
+                            <aura:if isTrue="{!v.idType == 'SR Citizen Id'}">
+                                <p class="panel-p">Senior Citizen Id</p>
+                                <lightning:input class="" value="{!v.contact.Sr_Citizen_Id__c}" name="srId" aura:id="contactForm" 
+                                                 variant="label-hidden" required="true"  />
+                                
+                                <aura:set attribute="else">
+                                    <p class="panel-p">PWD Id</p>
+                                    <lightning:input class="" value="{!v.contact.PWD_Id__c}" name="pwdId" aura:id="contactForm" 
+                                                     variant="label-hidden" required="true"  />
+                                </aura:set>
+                            </aura:if>
+                        </aura:if>
+                        
                         <span onkeypress="{!c.loginViaEnter}">
                             
-                            <input type="password" class="pos-cash pos-approval-input" name="approvalPasscode" id="approvalPasscode" 
-                                   maxlength="6" />
+                            <p class="panel-p">Passcode</p>
+                            <lightning:input class="" type="password" value="{!v.contact.Passcode}"  name="approvalPasscode" aura:id="contactForm" 
+                                             variant="label-hidden" required="true"  maxlength="6" />
+                            
+                            <!--input type="password" class="pos-approval-input" required="true" name="approvalPasscode" id="approvalPasscode" 
+                                   maxlength="6" /-->
                         </span>
                     </div>
                     
                     
                     
-                        <div class="slds-col slds-size_12-of-12 slds-m-bottom_medium slds-m-top_small">
-                           
+                    <div class="slds-col slds-size_12-of-12 slds-m-bottom_medium slds-m-top_small">
+                        <aura:if isTrue="{!v.discountType == 'SR/PWD Discount'}">
+                            <lightning:button variant="brand" class="pos-cash btn-pos btn-pos-new-order" onclick="{!c.applyDiscount}" label="Apply Discount" title="Apply Discount"  />
+                            
+                            <aura:set attribute="else">
                                 <lightning:button variant="brand" class="pos-cash btn-pos btn-pos-new-order" onclick="{!c.approve}" label="Approve" title="Approve"  />
-                           
-                            <p class="error-msg">{!v.error}</p>
-                        </div>
-                        
-                        
+                                
+                            </aura:set>
+                        </aura:if>
+                        <p class="error-msg">{!v.error}</p>
                     </div>
                     
                     
-              
+                </div>
+                
+                
+                
                 
             </div>
         </div>

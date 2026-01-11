@@ -102,7 +102,7 @@
             
             <aura:iteration items="{!v.receiptData.opptyLines}" var="item">
                 <tr>
-                    <td>{!item.Quantity} &nbsp; {!item.Product2.Name}</td>
+                    <td>{!item.Quantity} &nbsp; {!item.POS_Display_Name__c}</td>
                     <td style="text-align: center;"> <lightning:formattedNumber value="{!item.TotalPrice}" style="currency" currencyCode="PHP"/></td>
                 </tr>
             </aura:iteration>

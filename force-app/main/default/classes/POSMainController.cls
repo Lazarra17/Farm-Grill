@@ -293,8 +293,8 @@ public without sharing class POSMainController {
         for(OpportunityLineItem opptyLine : payload.orderItems){
             
             if(pbeMap.containsKey(opptyLine.PricebookEntryId)){
-                opptyLine.OpportunityId = opp.Id;
-                opptyLine.UnitPrice = pbeMap.get(opptyLine.PricebookEntryId).UnitPrice;
+                opptyLine.OpportunityId = opp.Id; 
+                //opptyLine.UnitPrice = pbeMap.get(opptyLine.PricebookEntryId).UnitPrice;
                 orderLines.add(opptyLine);
                 
             }
@@ -336,6 +336,84 @@ public without sharing class POSMainController {
         
         update oppToUpdate;
         return oppToUpdate;
+        
+    }
+    
+    //Compare the Discount from Discount Record and return the discounted price to Site
+    @auraEnabled
+    public static List<PricebookEntry> getSrDiscount(String posParams){
+        system.debug(posParams); 
+        POSMainController payload = (POSMainController) JSON.deserialize(posParams, POSMainController.class);
+        
+        
+        
+        //Get Discounted Products
+        Map<Id, Discount_Product__c> discountProdMap = new Map<Id, Discount_Product__c>();
+        
+        for(Discount_Product__c dp : [SELECT Id, Product__c, Discount__r.Name, Discount__r.Amount__c, Discount__r.Account__c, Discount__r.Calculation_Type__c,
+                                      Discount__r.Start_Date_Time__c, Discount__r.Expiry_Date_Time__c
+                                      FROM Discount_Product__c WHERE Discount__r.Name = 'SR/PWD Discount' ORDER BY Sort__c ASC]){
+                                          
+                                          //Check if discount is active
+                                          Boolean active = false;
+                                          if(dp.Discount__r.Start_Date_Time__c <= System.NOW() && dp.Discount__r.Expiry_Date_Time__c == null){
+                                              active = true;
+                                          }
+                                          
+                                          if(dp.Discount__r.Start_Date_Time__c <= system.NOW() && dp.Discount__r.Expiry_Date_Time__c >= system.Now()){
+                                              active = true;
+                                          }
+                                          system.debug('active: ' + active);
+                                          if(active){
+                                              discountProdMap.put(dp.Product__c, dp);
+                                          }else{
+                                              
+                                              try {
+                                                  Map<String, String> errorMap = new Map<String, String>{
+                                                      'code' => '400',
+                                                          'message' => 'ERROR: ' + dp.Discount__r.Name + ' is expired.  Please ask for assitance!',
+                                                          'severity' => 'High'
+                                                          };
+                                                              throw new AuraHandledException(JSON.serialize(errorMap));
+                                                  
+                                              } catch (Exception e) {
+                                                  // If it's already an AuraHandledException, rethrow it
+                                                  if(e instanceof AuraHandledException) throw e;
+                                                  // Otherwise, wrap the system error
+                                                  throw new AuraHandledException('System Error: ' + e.getMessage());
+                                              }
+                                          }
+                                          
+                                          
+                                      }
+        system.debug('discountProdMap: ' + discountProdMap);
+        Map<Id, PricebookEntry> pbeMap = new Map<Id, PricebookEntry>();
+        List<PricebookEntry> discountedItems = new List<PricebookEntry>();
+        
+        for(PricebookEntry pbe : [SELECT Id, Product2Id, Product2.Display_Name__c, Product2.Name, UnitPrice FROM PricebookEntry 
+                                                WHERE Product2ID IN : discountProdMap.KeySet() AND PriceBook2.Name = 'Standard Price Book']){
+            
+            pbeMap.put(pbe.Product2Id, pbe);
+            /*
+            if(discountProdMap.containsKey(pbe.Product2Id)){
+                pbe.UnitPrice = pbe.UnitPrice - discountProdMap.get(pbe.Product2Id).Discount__r.Amount__c * pbe.UnitPrice;
+                
+            }
+                                                    */
+            
+        }
+        
+        
+        for(String dpmId : discountProdMap.KeySet()){
+            if(pbeMap.containsKey(dpmId)){
+                pbeMap.get(dpmId).UnitPrice = pbeMap.get(dpmId).UnitPrice - (discountProdMap.get(dpmId).Discount__r.Amount__c * pbeMap.get(dpmId).UnitPrice);
+       			discountedItems.add(pbeMap.get(dpmId));
+                
+            }
+            
+        }
+        
+        return discountedItems;
         
     }
     
@@ -509,7 +587,7 @@ public without sharing class POSMainController {
             
             if(pbeMap.containsKey(opptyLine.PricebookEntryId)){
                 opptyLine.OpportunityId = opp.Id;
-                opptyLine.UnitPrice = pbeMap.get(opptyLine.PricebookEntryId).UnitPrice;
+                //opptyLine.UnitPrice = pbeMap.get(opptyLine.PricebookEntryId).UnitPrice;
                 orderLines.add(opptyLine);
                 
             }

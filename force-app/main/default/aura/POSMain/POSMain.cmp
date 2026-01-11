@@ -25,6 +25,8 @@
     <aura:attribute name="startTime" type="Time" />
     <aura:attribute name="showSpinner" type="Boolean" default="false"  />
     <aura:attribute name="isAmountCalcButtons" type="Boolean" default="true"  />
+    <aura:attribute name="discountedItems" type="Object"  />
+    
     <aura:handler event="c:POSAppEvent" action="{!c.handleApplicationEvent}"/>
     <aura:registerEvent name="posAppEvent" type="c:POSAppEvent"/>
     
@@ -129,7 +131,7 @@
                             <aura:iteration items="{!item.value}" var="prodGroup" indexVar="prodIndex">
                                 <div class="slds-col slds-size_2-of-12">
                                     
-                                    <aura:if isTrue="{!prodGroup.Name != 'Discount'}">
+                                    <aura:if isTrue="{!AND(prodGroup.Name != 'Discount', prodGroup.Name != 'SR/PWD Discount')}">
                                         
                                         <button id="{!itemIndex + '_' + prodIndex}" 
                                                 class="product-tile" 
@@ -434,8 +436,12 @@
                                                           cashDrawer="{!v.cashDrawer}" />
                             </div>
                             
-                            <div class="slds-hide" id="approvalModal">
-                                <c:POSApprovalModal  />
+                            <div class="slds-hide" id="approvalModal" >
+                                <c:POSApprovalModal discountType="{!v.selectedProduct}" error="{!v.error}" order="{!v.order}"  />
+                            </div>
+                            
+                             <div class="slds-hide" id="discountedProdsModal" >
+                                <c:POSDiscountedProductsModal mydata="{!v.discountedItems}"  />
                             </div>
                             
                             
@@ -471,7 +477,6 @@
             </div>
         </aura:set>
     </aura:if>    
-    
     
     
 </aura:component>
