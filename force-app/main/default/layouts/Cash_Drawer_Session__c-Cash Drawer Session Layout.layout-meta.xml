@@ -140,6 +140,7 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Opportunity__c</fields>
+        <fields>Queue__c</fields>
         <fields>Customer__c</fields>
         <fields>Reference_Number__c</fields>
         <fields>Type__c</fields>
