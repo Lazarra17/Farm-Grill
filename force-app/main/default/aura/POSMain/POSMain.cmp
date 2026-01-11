@@ -26,7 +26,6 @@
     <aura:attribute name="showSpinner" type="Boolean" default="false"  />
     <aura:attribute name="isAmountCalcButtons" type="Boolean" default="true"  />
     <aura:attribute name="discountedItems" type="Object"  />
-    
     <aura:handler event="c:POSAppEvent" action="{!c.handleApplicationEvent}"/>
     <aura:registerEvent name="posAppEvent" type="c:POSAppEvent"/>
     
@@ -185,17 +184,36 @@
                             <aura:iteration items="{!item.value}" var="prodGroup" indexVar="prodIndex">
                                 <div class="slds-col slds-size_2-of-12">
                                     
-                                    <button id="{!itemIndex + '_' + prodIndex}" 
-                                            class="product-tile" 
-                                            data-group-name="{!prodGroup.Name}" 
-                                            data-product-img="{!prodGroup.Product_Image_Url__c}" 
-                                            
-                                            style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
-                                            onclick="{!c.showVariety}"
-                                            >
-                                        <p class="btn-label">{!prodGroup.Name} </p>
+                                    <aura:if isTrue="{!AND(prodGroup.Name != 'Discount', prodGroup.Name != 'SR/PWD Discount')}">
                                         
-                                    </button>
+                                        <button id="{!itemIndex + '_' + prodIndex}" 
+                                                class="product-tile" 
+                                                data-group-name="{!prodGroup.Name}" 
+                                                data-product-img="{!prodGroup.Product_Image_Url__c}" 
+                                                
+                                                style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
+                                                onclick="{!c.showVariety}"
+                                                >
+                                            <p class="btn-label">{!prodGroup.Name} </p>
+                                            
+                                        </button>
+                                        
+                                        <aura:set attribute="else">
+                                            
+                                            <button id="{!itemIndex + '_' + prodIndex}" 
+                                                    class="product-tile" 
+                                                    data-group-name="{!prodGroup.Name}" 
+                                                    data-product-img="{!prodGroup.Product_Image_Url__c}" 
+                                                    
+                                                    style="{!'background-image: url(\'' + prodGroup.Product_Image_Url__c + '\')'}"
+                                                    onclick="{!c.showApprovalModal}"
+                                                    >
+                                                <p class="btn-label">{!prodGroup.Name}</p>
+                                                
+                                            </button>
+                                        </aura:set>
+                                        
+                                    </aura:if>
                                 </div>
                             </aura:iteration>
                             

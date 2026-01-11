@@ -353,8 +353,13 @@
                 
                 var res = response.getReturnValue();
                 component.set('v.opp', res);
-                
                 component.set('v.error', '');
+                
+                var appEvent = $A.get("e.c:POSAppEvent");
+                appEvent.setParams({"action": "COMPLETE_ORDER"});
+                appEvent.fire();
+                
+                
                 var printModal = document.getElementById('printModal');
                 $A.util.removeClass(printModal, 'slds-hide');
                 

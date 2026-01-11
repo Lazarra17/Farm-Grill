@@ -15,9 +15,19 @@
         $A.util.addClass(approvalModal, 'slds-hide');
     },
     
+    handleApplicationEvent : function(component, event, helper) {
+        var action = event.getParam("action");
+        if(action == 'COMPLETE_ORDER' || action == 'deliveryOrder'){
+            var contact = component.get('v.contact');
+            contact = new Object();
+            component.set('v.contact', contact);
+            
+        }
+    },
+    
+    
     
     approve : function(component, event, helper) {
-        
         helper.approveDiscount(component, event);
         
     },

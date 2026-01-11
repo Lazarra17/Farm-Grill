@@ -34,15 +34,17 @@
     
     
     approveDiscount : function(component, event) {
-        
+        var contact = component.get('v.contact');
         var posSettings = component.get('v.posSettings');
-        var passcode = document.getElementById('approvalPasscode');
+
         
-        if(passcode.value != posSettings.Discount_Passcode__c){
+        if(contact.Passcode != posSettings.Discount_Passcode__c){
             component.set('v.error', 'Incorrect Passcode!');
         }else{
             
-            passcode.value = '';
+            contact.Passcode = '';
+            component.set('v.contact', contact);
+            
             var approvalModal = document.getElementById('approvalModal');
             $A.util.addClass(approvalModal, 'slds-hide');
             
@@ -76,6 +78,10 @@
         }
         
         if(allValid){
+            
+            contact.Passcode = '';
+            component.set('v.contact', contact);
+            
             
             var action = component.get("c.createSrPwdRecord");    
             action.setParams({       
