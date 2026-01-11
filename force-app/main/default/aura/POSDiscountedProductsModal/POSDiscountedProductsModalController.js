@@ -7,7 +7,7 @@
         
         component.set('v.mycolumns', [
             { label: 'Name', fieldName: 'ProductName', type: 'text'},
-            { label: 'Discounted Price', fieldName: 'UnitPrice', type: 'text'},
+            { label: 'Price', fieldName: 'UnitPrice', type: 'text', initialWidth: 120},
             {label: "Action",
              type: "button",
              initialWidth: 150,
