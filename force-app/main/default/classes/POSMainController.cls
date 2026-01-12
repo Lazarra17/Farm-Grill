@@ -294,7 +294,8 @@ public without sharing class POSMainController {
             
             if(pbeMap.containsKey(opptyLine.PricebookEntryId)){
                 opptyLine.OpportunityId = opp.Id; 
-                //opptyLine.UnitPrice = pbeMap.get(opptyLine.PricebookEntryId).UnitPrice;
+                //get the basic price by diving the quantity
+                opptyLine.UnitPrice = opptyLine.UnitPrice / opptyLine.Quantity;
                 orderLines.add(opptyLine);
                 
             }
@@ -587,6 +588,9 @@ public without sharing class POSMainController {
             
             if(pbeMap.containsKey(opptyLine.PricebookEntryId)){
                 opptyLine.OpportunityId = opp.Id;
+                //get the basic price by diving the quantity
+                opptyLine.UnitPrice = opptyLine.UnitPrice / opptyLine.Quantity;
+                
                 //opptyLine.UnitPrice = pbeMap.get(opptyLine.PricebookEntryId).UnitPrice;
                 orderLines.add(opptyLine);
                 
