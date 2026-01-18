@@ -4,8 +4,8 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <label>Contact</label>
     <referenceTo>Contact</referenceTo>
-    <relationshipLabel>Loans / Advances</relationshipLabel>
-    <relationshipName>Loans_Advances</relationshipName>
+    <relationshipLabel>Payments</relationshipLabel>
+    <relationshipName>Payments</relationshipName>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

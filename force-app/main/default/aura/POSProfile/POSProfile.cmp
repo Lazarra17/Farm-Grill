@@ -3,7 +3,9 @@
     
     <aura:attribute name="recordId" type="String" />
     <aura:attribute name="contact" type="Contact"  />
+    <aura:attribute name="employee" type="Object"  />
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    
     
     <div class="slds-grid slds-wrap slds-gutters pos-main pos-container slds-p-left_medium slds-p-right_medium slds-p-bottom_small  slds-p-top_small">
         <div class="slds-col slds-size_6-of-12 slds-p-left_none">
@@ -19,6 +21,7 @@
         
         <div class="slds-col slds-size_6-of-12 slds-text-align_right slds-p-top_xx-small">
             <lightning:buttonGroup>
+                <lightning:button label="New Loan/Advance" onclick="{!c.newLoan}" />
                 <lightning:button label="Reset Passcode" onclick="{!c.resetPasscode}" />
             </lightning:buttonGroup>
             
@@ -26,7 +29,11 @@
         
     </div>
     
-    <div class="slds-hide" id="resetPasscodeModal">
+    <div class="slds-hide" id="newLoanModal"> 
+        <c:POSNewLoanModal contactId="{!v.recordId}" />
+    </div>
+    
+     <div class="slds-hide" id="resetPasscodeModal">
         <c:POSResetPasscode contact="{!v.contact}" />
     </div>
     

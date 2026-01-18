@@ -1,0 +1,8 @@
+<design:component>
+    <design:attribute name="iconClass" 
+                      label="Icon Navigation Class" 
+                      description="Enter Font Awesome Icon Class Styling" />
+    <design:attribute name="title" 
+                      label="title" 
+                      description="Enter Title" />
+</design:component>

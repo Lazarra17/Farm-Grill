@@ -1,6 +1,5 @@
 <aura:component extends="forceCommunity:navigationMenuBase">
     <aura:attribute name="employee" type="Object" />
-    <aura:attribute name="manageInventory" type="Boolean" />
     <aura:attribute name="cashDrawer" type="String" />
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
     <aura:handler event="c:POSAppEvent" action="{!c.handleApplicationEvent}"/>
@@ -24,7 +23,7 @@
                 </div>
                 <hr />
                 <ul class="nav nav-pills flex-column mb-auto" onclick="{!c.onClick}">
-                    
+                    <aura:if isTrue="{!v.employee.Enable_POS__c}">
                     <aura:iteration items="{!v.menuItems}" var="item">
                         <aura:if isTrue="{!item.label == 'Home'}">
                             <li class="nav-item">
@@ -57,7 +56,7 @@
                                                 
                                                 
                                                 <aura:if isTrue="{!item.label == 'Products'}">
-                                                    <aura:if isTrue="{!v.manageInventory}">
+                                                    <aura:if isTrue="{!v.employee.Manage_Inventory__c}">
                                                         <li class="nav-item">
                                                             <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
                                                                 <i class="fa fa-barcode slds-p-right_x-small" aria-hidden="true"></i> 
@@ -66,12 +65,25 @@
                                                         </li>
                                                     </aura:if>
                                                     <aura:set attribute="else">
-                                                        <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
-                                                                <i class="slds-p-right_x-small" aria-hidden="true"></i> 
-                                                                {!item.label}
-                                                            </a>
-                                                        </li>
+                                                        <aura:if isTrue="{!item.label == 'Employees'}">
+                                                            <aura:if isTrue="{!v.employee.Manage_Employees__c}">
+                                                                <li class="nav-item">
+                                                                    <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                                                        <i class="fa fa-address-book slds-p-right_x-small" aria-hidden="true"></i> 
+                                                                        {!item.label}  
+                                                                    </a>
+                                                                </li>
+                                                            </aura:if>
+                                                            <aura:set attribute="else">
+                                                                <li class="nav-item">
+                                                                    <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                                                        <i class="slds-p-right_x-small" aria-hidden="true"></i> 
+                                                                        {!item.label}
+                                                                    </a>
+                                                                </li>
+                                                            </aura:set>
+                                                            
+                                                        </aura:if> 
                                                     </aura:set>
                                                     
                                                 </aura:if> 
@@ -92,7 +104,7 @@
                         
                         
                     </aura:iteration>
-                    
+                    </aura:if>
                     
                 
                 </ul>
@@ -100,7 +112,7 @@
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">   
                         <i class="fa fa fa-user slds-p-right_small"></i>
-                        <strong>{!v.employee.FirstName} </strong>
+                        <strong>{!v.employee.FirstName}</strong>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         <!--li><a class="dropdown-item" href="#">Settings</a></li-->

@@ -16,16 +16,19 @@
                 
                 var res = response.getReturnValue();
                 
-                
-                res.forEach(function(row, index) {
-                    if(row.hasOwnProperty('Customer__r')){
-                        row.Customer = row.Customer__r.Name;//Customer__r.Name;
-                        
-                    }
-                });
+             
                 
                 
                 if(res != null){
+                    
+                    res.forEach(function(row, index) {
+                        if(row.hasOwnProperty('Customer__r')){
+                            row.Customer = row.Customer__r.Name;//Customer__r.Name;
+                            
+                        }
+                    });
+                    
+                    
                     component.set('v.pendingRemittances', res.length);
                 }else{
                     component.set('v.pendingRemittances', 0);

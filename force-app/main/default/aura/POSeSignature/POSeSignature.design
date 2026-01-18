@@ -1,0 +1,4 @@
+<design:component>
+	<design:attribute name="signatureData" label="Signature Base64" />
+    <design:attribute name="isAccepted" label="Terms Accepted?" />
+</design:component>

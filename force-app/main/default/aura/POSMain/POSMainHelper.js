@@ -410,7 +410,7 @@
             
             var state = response.getState();    
             if (state === "SUCCESS") {
-              
+                
                 var res = response.getReturnValue();
                 if(res != null){
                     component.set('v.employee', res);
@@ -418,29 +418,44 @@
                     this.setCookie("FirstName", res.FirstName);
                     this.setCookie("ContactId", res.Id);
                     this.setCookie("AccountId", res.AccountId);
-                    this.setCookie("ManageInventory", res.Manage_Inventory__c);
-                    this.setCookie("ManageCashDrawer", res.Manage_Cash_Drawers__c);
+                    this.setCookie("Manage_Inventory__c", res.Manage_Inventory__c);
+                    this.setCookie("Manage_Cash_Drawers__c", res.Manage_Cash_Drawers__c);
+                    this.setCookie("Manage_Employees__c", res.Manage_Employees__c);
+                    this.setCookie("Enable_POS__c", res.Enable_POS__c);
+                    
                     
                 }else{
                     this.setCookie("FirstName", "");
                     this.setCookie("ContactId", "");
                     this.setCookie("AccountId", "");
-                    this.setCookie("ManageInventory", "");
-                    this.setCookie("ManageCashDrawer", "");
-                    
+                    this.setCookie("Manage_Inventory__c", "");
+                    this.setCookie("Manage_Cash_Drawers__c", "");
+                    this.setCookie("Manage_Employees__c", "");
+                    this.setCookie("Enable_POS__c", "");
                 }
                 
-                
+               
                 this.getOrderType(component, event);
                 this.getModeOfPayment(component, event);
                 this.getCashDrawer(component, res.Id, res.AccountId);
                 
-                
+                 
                 this.getRiders(component, event);
                 this.getCashiers(component, event);
+                
+                
+                if(!res.Enable_POS__c){
+                    var profileLink = '/profile?recordId=' + res.Id;
+                    this.gotoURL(component, event, profileLink);
+                }
+            
                 var appEvent = $A.get("e.c:POSAppEvent");
                 appEvent.setParams({"employee": res});
                 appEvent.fire();
+                
+                
+                
+            
                 
             } else if (state === "INCOMPLETE") {
                 console.log("No response from server or client is offline.");
@@ -484,8 +499,10 @@
                     this.setCookie("FirstName", res.FirstName);
                     this.setCookie("ContactId", res.Id);
                     this.setCookie("AccountId", res.AccountId);
-                    this.setCookie("ManageInventory", res.Manage_Inventory__c);
-                    this.setCookie("ManageCashDrawer", res.Manage_Cash_Drawers__c);
+                    this.setCookie("Manage_Inventory__c", res.Manage_Inventory__c);
+                    this.setCookie("Manage_Cash_Drawers__c", res.Manage_Cash_Drawers__c);
+                    this.setCookie("Manage_Employees__c", res.Manage_Employees__c);
+                    this.setCookie("Enable_POS__c",res.Enable_POS__c);
                     
                     this.getModeOfPayment(component, event);
                     this.getOrderType(component, event);
@@ -498,8 +515,10 @@
                     this.setCookie("FirstName", "");
                     this.setCookie("ContactId", "");
                     this.setCookie("AccountId", "");
-                    this.setCookie("ManageInventory", "");
-                    this.setCookie("ManageCashDrawer", "");
+                    this.setCookie("Manage_Inventory__c", "");
+                    this.setCookie("Manage_Cash_Drawers__c", "");
+                    this.setCookie("Manage_Employees__c", "");
+                    this.setCookie("Enable_POS__c", "");
                     component.set('v.error', 'Incorrect username and passcode.');
                 }
                 

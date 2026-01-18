@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Loan_Type__c</fullName>
-    <label>Loan Type</label>
+    <fullName>Loan_Status__c</fullName>
+    <label>Loan Status</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
@@ -11,14 +11,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Salary Advance</fullName>
+                <fullName>Active</fullName>
                 <default>false</default>
-                <label>Salary Advance</label>
+                <label>Active</label>
             </value>
             <value>
-                <fullName>Emergency Loan</fullName>
+                <fullName>Paid</fullName>
                 <default>false</default>
-                <label>Emergency Loan</label>
+                <label>Paid</label>
+            </value>
+            <value>
+                <fullName>Pending Approval</fullName>
+                <default>false</default>
+                <label>Pending Approval</label>
             </value>
         </valueSetDefinition>
     </valueSet>

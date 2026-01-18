@@ -179,9 +179,14 @@
         <fields>NAME</fields>
         <fields>Loan_Type__c</fields>
         <fields>Date__c</fields>
-        <fields>Status__c</fields>
         <fields>Amount__c</fields>
         <relatedList>Loan_Advance__c.Contact__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Amount__c</fields>
+        <fields>Date__c</fields>
+        <relatedList>Payment__c.Contact__c</relatedList>
     </relatedLists>
     <relatedObjects>AccountId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

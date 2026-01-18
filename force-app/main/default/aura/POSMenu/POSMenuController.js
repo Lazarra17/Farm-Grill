@@ -17,10 +17,8 @@
                 obj[key] = value;
             }
                                                });
-            
-            
+            console.log(JSON.stringify(obj));
             component.set('v.employee', obj);
-            component.set('v.manageInventory', obj.ManageInventory);
             
         }
         
@@ -34,6 +32,11 @@
         document.cookie = "ContactId=;";
         document.cookie = "AccountId=;";
         document.cookie = "CashDrawer=;";
+        document.cookie = "Manage_Cash_Drawers__c=;";
+        document.cookie = "Manage_Inventory__c=;";
+        document.cookie = "Manage_Employees__c=;";
+        document.cookie = "Enable_POS__c=;";
+        
         document.getElementById('headerMenu').classList.remove('show');
         document.getElementById('headerMenu').classList.add('collapse');
         console.log('Cookie on Signout: ' + document.cookie);
@@ -41,15 +44,12 @@
     },
     
     handleApplicationEvent : function(component, event, helper) {
-        var employee = event.getParam("employee");
-        console.log('EMPLOYEE');
-        console.log(employee);
-        if(employee != null){
-            component.set("v.employee", employee);
-            
-            var cashDrawer = helper.getCookie('CashDrawer');
-            component.set('v.cashDrawer', cashDrawer);
-        }
+        
+        
+        
+        var cashDrawer = helper.getCookie('CashDrawer');
+        component.set('v.cashDrawer', cashDrawer);
+        
         
     },
     

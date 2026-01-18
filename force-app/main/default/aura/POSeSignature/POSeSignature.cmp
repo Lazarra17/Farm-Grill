@@ -1,0 +1,24 @@
+<aura:component implements="lightning:availableForFlowScreens">
+    <aura:attribute name="signatureData" type="String" description="Base64 string of the signature" access="global" />
+    <aura:attribute name="isAccepted" type="Boolean" default="false" access="global" />
+    <aura:attribute name="isDrawing" type="Boolean" default="false" />
+    <div class="slds-theme_default">
+        <label class="slds-form-element__label">Sign Here</label>
+        <canvas aura:id="signatureCanvas" 
+                width="400" 
+        		height="250"
+                style="border: 1px solid #000; background: #fff; "
+                onmousedown="{!c.handleMouseDown}"
+                onmousemove="{!c.handleMouseMove}"
+                onmouseup="{!c.handleMouseUp}"
+                ontouchstart="{!c.handleTouchStart}"
+                ontouchmove="{!c.handleTouchMove}"
+                ontouchend="{!c.handleTouchEnd}">
+        </canvas>
+        
+        <div class="slds-m-top_small">
+            <lightning:button label="Clear" onclick="{!c.clearSignature}" />
+            <!--lightning:button label="Save Signature" variant="brand" onclick="{!c.saveSignature}" /-->
+        </div>
+    </div>
+</aura:component>
