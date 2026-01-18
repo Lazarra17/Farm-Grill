@@ -511,6 +511,13 @@
                     this.getCashiers(component, event);
                     this.getCashDrawer(component, res.Id, res.AccountId);
                     
+                    
+                    if(!res.Enable_POS__c){
+                        var profileLink = '/profile?recordId=' + res.Id;
+                        this.gotoURL(component, event, profileLink);
+                    }
+                    
+                    
                 }else{
                     this.setCookie("FirstName", "");
                     this.setCookie("ContactId", "");

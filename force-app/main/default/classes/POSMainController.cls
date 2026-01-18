@@ -26,7 +26,10 @@ public without sharing class POSMainController {
     public static Contact signIn(String username, String passcode){
         
         if(username != '' && passcode != ''){
-            List<Contact> conList = [SELECT Id, AccountId, FirstName, Role__c, Manage_Inventory__c, Manage_Cash_Drawers__c  FROM Contact WHERE Username__c =: username AND Passcode__c =: passcode LIMIT 1];
+            List<Contact> conList = [SELECT Id, AccountId, FirstName, Username__c, Passcode__c, Role__c,  Manage_Inventory__c, 
+                                     Manage_Cash_Drawers__c, Manage_Employees__c, Enable_POS__c 
+                                     
+                                     FROM Contact WHERE Username__c =: username AND Passcode__c =: passcode LIMIT 1];
             if(conList.size() > 0){
                 return conList[0];
             }else{
