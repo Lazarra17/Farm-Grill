@@ -503,7 +503,6 @@
                     this.setCookie("Manage_Cash_Drawers__c", res.Manage_Cash_Drawers__c);
                     this.setCookie("Manage_Employees__c", res.Manage_Employees__c);
                     this.setCookie("Enable_POS__c",res.Enable_POS__c);
-                    
                     this.getModeOfPayment(component, event);
                     this.getOrderType(component, event);
                     this.getExistingCustomers(component, res.AccountId);
@@ -511,11 +510,16 @@
                     this.getCashiers(component, event);
                     this.getCashDrawer(component, res.Id, res.AccountId);
                     
+                    var appEvent = $A.get("e.c:POSAppEvent");
+                    appEvent.setParams({"employee": res});
+                    appEvent.fire();
                     
                     if(!res.Enable_POS__c){
                         var profileLink = '/profile?recordId=' + res.Id;
                         this.gotoURL(component, event, profileLink);
                     }
+                    
+                  
                     
                     
                 }else{

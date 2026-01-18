@@ -52,8 +52,6 @@
             if (state === "SUCCESS") {
                 
                 var res = response.getReturnValue();
-                console.log('CONTACt');
-                console.log(res);
                 component.set('v.contact', res);
                 
             } else if (state === "INCOMPLETE") {

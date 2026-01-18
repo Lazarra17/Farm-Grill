@@ -45,7 +45,22 @@
     
     handleApplicationEvent : function(component, event, helper) {
         
-        
+        if(document.cookie != null){
+            
+            let obj = {};
+            document.cookie.split(";").forEach(pair => {
+                let [key, value] = pair.split("=");
+                if (key && value) {
+                key = key.trim();
+                value = value.trim();
+                obj[key] = value;
+            }
+                                               });
+            
+          
+            component.set('v.employee', obj);
+            
+        }
         
         var cashDrawer = helper.getCookie('CashDrawer');
         component.set('v.cashDrawer', cashDrawer);
