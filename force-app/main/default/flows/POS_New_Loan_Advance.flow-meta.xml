@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>65.0</apiVersion>
-    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <choices>
         <name>Emergency_Loan</name>
         <choiceText>Emergency Loan</choiceText>
@@ -26,12 +25,6 @@
             <stringValue>Salary Loan</stringValue>
         </value>
     </choices>
-    <customProperties>
-        <name>ScreenProgressIndicator</name>
-        <value>
-            <stringValue>{&quot;location&quot;:&quot;top&quot;,&quot;type&quot;:&quot;simple&quot;}</stringValue>
-        </value>
-    </customProperties>
     <decisions>
         <name>Is_Signature_NULL</name>
         <label>Is Signature valid</label>
@@ -156,27 +149,11 @@
             <name>Copy_1_of_HeaderTitle</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;NEW LOAN/ADVANCE&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>ErrorMsg</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(255, 0, 0);&quot;&gt;Error&lt;/strong&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Missing Signature.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -196,14 +173,6 @@
             <name>HeaderTitle</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;NEW LOAN/ADVANCE&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>Type</name>
@@ -215,14 +184,6 @@
             <fieldType>DropdownBox</fieldType>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>Amount</name>
@@ -232,14 +193,6 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <scale>2</scale>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>Purpose</name>
@@ -247,27 +200,11 @@
             <fieldType>LargeTextArea</fieldType>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>TermsAndCondition</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;TERMS &amp;amp; CONDITIONS&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;1. Purpose of &lt;/strong&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Type} &lt;/strong&gt;The Company agrees to provide a &lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Type}&lt;/span&gt; to the Employee to be used at the Employee’s discretion. This &lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Type} &lt;/span&gt;is not a gift or a bonus; it is a prepayment of wages already earned but not yet paid.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;2. Repayment Schedule&lt;/strong&gt; The Employee acknowledges and agrees that the total amount of the &lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Type} &lt;/span&gt;shall be settled in full on the &lt;strong&gt;immediate next Payday&lt;/strong&gt; following the receipt of the funds.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;3. Method of Settlement (Payroll Deduction)&lt;/strong&gt; By signing this agreement, the Employee provides express authorization for the Company to deduct the total &lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Type} &lt;/span&gt;amount from their net pay on the scheduled payday. If the Employee’s net pay is insufficient to cover the full amount, the remaining balance will be deducted from the subsequent pay period or must be paid via bank transfer within 24 hours of notification.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;4. Employment Termination&lt;/strong&gt; In the event that the Employee leaves the Company (whether via resignation or termination) before the &lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Type} &lt;/span&gt;is fully repaid, the Employee authorizes the Company to deduct the outstanding balance from any final compensation, including but not limited to final salary, accrued vacation pay, or commissions.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;5. Fees and Interest&lt;/strong&gt; N/A&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;6. Acknowledgement&lt;/strong&gt; By providing my electronic signature below, I certify that I have read and understood these terms. I voluntarily authorize the payroll deduction and confirm that this request is made of my own free will.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>eSignature</name>
@@ -279,14 +216,6 @@
                 <assignToReference>varEsignatureBase64</assignToReference>
                 <name>signatureData</name>
             </outputParameters>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -303,27 +232,11 @@
             <name>Copy_1_of_Copy_1_of_HeaderTitle</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;NEW LOAN/ADVANCE&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>Copy_1_of_ErrorMsg</name>
             <fieldText>&lt;p&gt;Your {!Type} has been submitted. We&apos;ll get back to you as soon as possible.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Your reference number is &lt;strong&gt;{!Save_Loan.Name}.&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
