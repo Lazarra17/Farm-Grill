@@ -24,8 +24,9 @@
         var products = component.get('v.products');
         var qty = component.get('v.qty');
         var cashdrawer = component.get('v.cashDrawer');
+        var cashDrawerStatus = helper.getCookie('CashDrawerStatus');
         
-        if(cashdrawer == null){
+        if(cashdrawer == null || cashDrawerStatus != 'Open'){
             component.set('v.error', 'No active cash drawer session.');
         }else{
             component.set('v.error', '');

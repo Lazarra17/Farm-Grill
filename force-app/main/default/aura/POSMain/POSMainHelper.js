@@ -573,6 +573,7 @@
               	
                 this.getPendingRemittances(component, employeeId);
                 this.setCookie('CashDrawer', res.Id);    
+                this.setCookie('CashDrawerStatus', res.Status__c);   
                 
                 var employee = component.get('v.employee');
                 var appEvent = $A.get("e.c:POSAppEvent");
