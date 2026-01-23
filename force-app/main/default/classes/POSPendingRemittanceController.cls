@@ -82,6 +82,7 @@ public without sharing class POSPendingRemittanceController {
         cdi.Type__c = cashDrawerItem.Type__c;
         cdi.Custom__c = opp.Amount;
         cdi.Opportunity__c = opp.Id;
+        cdi.Customer__c = opp.Customer__c;
         cdi.Reference_Number__c = cashDrawerItem.Reference_Number__c;
         cdi.Notes__c = cashDrawerItem.Notes__c;
         cdItems.add(cdi);
