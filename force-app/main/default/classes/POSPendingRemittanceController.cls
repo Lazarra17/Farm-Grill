@@ -29,7 +29,8 @@ public without sharing class POSPendingRemittanceController {
                                                      
                                                  }
              
-        List<Opportunity> oppties = [SELECT Id, Name, Order_DateTime__c, Order_Time__c, Customer__r.Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
+        List<Opportunity> oppties = [SELECT Id, Name, Order_DateTime__c, Order_Time__c, Customer__r.Name, Customer__c,
+                                     Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
                                      Id IN: opptySetId AND
                                      Payment_Status__c = 'Pending Remittance'];
         if(oppties.size() > 0){
@@ -54,7 +55,7 @@ public without sharing class POSPendingRemittanceController {
             cashDrawerItem.Type__c = 'Sales Gcash';
         }
         
-        Opportunity opp = [SELECT Id, Payment_Status__c, StageName, Cashier_Notes__c, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE Id =: cashDrawerItem.Opportunity__c];
+        Opportunity opp = [SELECT Id, Payment_Status__c, Customer__c, StageName, Cashier_Notes__c, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE Id =: cashDrawerItem.Opportunity__c];
         opp.Payment_Status__c = 'Paid';
         opp.StageName = 'Closed Won - Delivered';
         opp.Cashier_Notes__c = cashDrawerItem.Notes__c;
