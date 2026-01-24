@@ -193,6 +193,19 @@
     completeOrder : function(component, event, helper) {
         var order = component.get('v.order');
         
+        var element = event.getSource ? event.getSource() : event.target;
+        
+        var btn = event.getSource();
+        
+        //Fix the bug on pressing enter to reorder.   Removed the focus on the button
+        setTimeout($A.getCallback(function() {
+            var element = btn.getElement();
+            if (element) {
+                element.blur();
+            }
+        }), 50);
+        
+        
         if(order.PaymentReceived >= order.Total){
             
             helper.createOpportunity(component, event);
