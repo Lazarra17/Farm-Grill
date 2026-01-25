@@ -699,6 +699,10 @@
         <enabled>true</enabled>
         <flow>POS_New_Loan_Approve</flow>
     </flowAccesses>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>POS_Payment</flow>
+    </flowAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>POS Admin User</label>
     <objectPermissions>

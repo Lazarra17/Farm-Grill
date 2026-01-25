@@ -2,9 +2,14 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>65.0</apiVersion>
     <environments>Default</environments>
-    <interviewLabel>POS_New_Loan_Approve {!$Flow.CurrentDateTime}</interviewLabel>
+    <formulas>
+        <name>today</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <interviewLabel>POS_Payment {!$Flow.CurrentDateTime}</interviewLabel>
     <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
-    <label>POS_New_Loan_Approve</label>
+    <label>POS_Payment</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -24,6 +29,35 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Payment</name>
+        <label>Create Payment</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SuccessScreen</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Amount__c</field>
+            <value>
+                <elementReference>Amount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Date__c</field>
+            <value>
+                <elementReference>today</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Loan_Advance__c</field>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Payment__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordLookups>
         <name>Get_Contact</name>
         <label>Get Contact</label>
@@ -31,7 +65,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Loan_Status</targetReference>
+            <targetReference>Payment_Screen</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -66,72 +100,21 @@
         <object>Loan_Advance__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordLookups>
-        <name>Get_Loan_Status</name>
-        <label>Get Loan Status</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>ApproveScreeen</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>recordId</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Loan_Advance__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordUpdates>
-        <name>Update_Loan_Record</name>
-        <label>Update Loan Record</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <connector>
-            <targetReference>SuccessScreen</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Loan_Status.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Amount__c</field>
-            <value>
-                <elementReference>amount</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Loan_Status__c</field>
-            <value>
-                <stringValue>Active</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Loan_Advance__c</object>
-    </recordUpdates>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
-        <name>ApproveScreeen</name>
-        <label>ApproveScreeen</label>
+        <name>Payment_Screen</name>
+        <label>Payment Screen</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Update_Loan_Record</targetReference>
+            <targetReference>Create_Payment</targetReference>
         </connector>
         <fields>
             <name>Title</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;MANAGER&apos;S APPROVAL&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;NEW PAYMENT&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -140,12 +123,30 @@
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>amount</name>
+            <name>Loan_Amount</name>
             <dataType>Currency</dataType>
             <defaultValue>
-                <elementReference>Get_Loan_Status.Amount__c</elementReference>
+                <elementReference>Get_Loan.Amount__c</elementReference>
             </defaultValue>
             <fieldText>Loan Amount</fieldText>
+            <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isDisabled>
+                <booleanValue>true</booleanValue>
+            </isDisabled>
+            <isReadOnly>
+                <booleanValue>true</booleanValue>
+            </isReadOnly>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Amount</name>
+            <dataType>Currency</dataType>
+            <defaultValue>
+                <elementReference>Get_Loan.Amount__c</elementReference>
+            </defaultValue>
+            <fieldText>Payment Amount</fieldText>
             <fieldType>InputField</fieldType>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
@@ -165,12 +166,12 @@
         <allowPause>false</allowPause>
         <fields>
             <name>Copy_1_of_Title</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;MANAGER&apos;S APPROVAL&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;NEW PAYMENT&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Copy_1_of_EmployeeName</name>
-            <fieldText>&lt;p&gt;Your Loan {!Get_Loan_Status.Name} has been approved.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;Payment has been successfully saved.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -190,5 +191,13 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>varPayment</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Payment__c</objectType>
     </variables>
 </Flow>
