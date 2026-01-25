@@ -366,7 +366,7 @@
                 
                 //Print Customer Receipt
                 this.printReceipt(
-                    '/s/receipt-customer?recordId=' + res.Id
+                    '/forcepos/s/receipt-customer?recordId=' + res.Id
                 );
                 
               

@@ -1,0 +1,43 @@
+<aura:component extends="forceCommunity:navigationMenuBase">
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:attribute name="cartCount" type="Integer" default="1" />
+    
+    <nav class="navbar navbar-dark bg-dark d-flex flex-wrap justify-content-between align-items-center" style="padding: 10px 20px;">
+    
+    <a class="navbar-brand me-0" href="/">
+        <img src="{!$Resource.FarmGrillIconText}" class="nav-icon" style="height: 40px;" />
+    </a>
+    
+    <div class="order-2 order-md-3 d-flex align-items-center">
+        
+        <button class="navbar-toggler fg-cart-btn position-relative" type="button" style="overflow: visible;">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <span class="cart-badge">
+                {!v.cartCount} </span>
+        </button>
+        
+        <button class="navbar-toggler fg-cart-btn" type="button">
+            <i class="fa fa-user-circle" aria-hidden="true"></i>
+        </button>
+        
+        <button class="navbar-toggler fg-cart-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <form class="d-flex order-3 order-md-2 mt-3 mt-md-0 w-100 w-md-auto flex-grow-1 justify-content-center" style="max-width: 500px;">
+        <input class="form-control mx-md-auto" type="text" placeholder="Search" aria-label="Search" style="width: 100%;" />
+    </form>
+    
+    <div class="navbar-collapse collapse w-100 order-4" id="navbarsExample01">
+        <ul class="navbar-nav mr-auto mt-2" onclick="{!c.onClick}">
+            <aura:iteration items="{!v.menuItems}" var="item">
+                <li><a class="nav-link" data-menu-item-id="{!item.id}" href="javascript:void(0);">{!item.label}</a></li>
+            </aura:iteration>
+        </ul>
+    </div>
+</nav>
+    
+    
+    
+    </aura:component>

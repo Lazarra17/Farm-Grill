@@ -41,7 +41,7 @@
                 console.log('res: ' + res);
                 //get Cash Drawer
                 if(res == null){
-                    this.gotoURL(component, event,'/s/');
+                    this.gotoURL(component, event,'/forcepos/s/');
                 }else{
                     component.set('v.cashDrawer', res);
                 }

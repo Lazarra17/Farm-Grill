@@ -6,7 +6,7 @@
             
             helper.getCashDrawer(component, recordId);
         }else{
-            helper.gotoURL(component, event, '/s/');
+            helper.gotoURL(component, event, '/forcepos/s/');
         }
         
     },

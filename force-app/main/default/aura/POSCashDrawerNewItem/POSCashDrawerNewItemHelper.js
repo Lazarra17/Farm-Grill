@@ -17,7 +17,7 @@
                 
                 var res = response.getReturnValue();
                  '/apex/ReceiptCustomerVfp?id=' + res.Id
-                window.open('/s/receipt-expense?recordId=' + res.Id, '_blank');
+                window.open('/forcepos/s/receipt-expense?recordId=' + res.Id, '_blank');
                  
                 var cashDrawerItemModal = document.getElementById('cashDrawerItemModal');
                 $A.util.addClass(cashDrawerItemModal, 'slds-hide');

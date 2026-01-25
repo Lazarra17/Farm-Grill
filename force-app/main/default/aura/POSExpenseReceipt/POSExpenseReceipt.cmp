@@ -20,14 +20,22 @@
         </tr>
     </table>
     
-     <table class="customer-information" style="margin-bottom: 10px;">
+    <table class="customer-information" style="margin-bottom: 10px;">
         <tr>
             <td style="">Item Id: {!v.receiptData.Name}</td>
         </tr>
-         <tr>
+        <tr>
             <td style="">Cashier: {!v.receiptData.Cash_Drawer_Session__r.Contact__r.Name} </td>
             
         </tr>
+        
+        <aura:if isTrue="{!v.receiptData.Type__c == 'Ending Count'}">
+            <tr>
+                <td style="">Expected Count: <lightning:formattedNumber value="{!v.receiptData.Cash_Drawer_Session__r.Expected_Count__c}" style="currency" currencyCode="PHP"/> </td>
+                
+            </tr>
+        </aura:if>
+        
         <tr>
             <td style="">DateTime: {!v.dateTimeStamp} </td>
             

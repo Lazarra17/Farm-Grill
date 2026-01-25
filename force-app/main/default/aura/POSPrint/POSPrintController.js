@@ -8,13 +8,13 @@
     printCustReceipt : function(component, event, helper) {
         var opp = component.get("v.opp");
         var posSettings = component.get('v.posSettings');
-        window.open('/s/receipt-customer?recordId=' + opp.Id, '_blank');
+        window.open('/forcepos/s/receipt-customer?recordId=' + opp.Id, '_blank');
     },
     
     printKitchenReceipt : function(component, event, helper) {
         var opp = component.get("v.opp");
         var posSettings = component.get('v.posSettings');
-        window.open('/s/receipt-kitchen?recordId=' + opp.Id, '_blank');
+        window.open('/forcepos/s/receipt-kitchen?recordId=' + opp.Id, '_blank');
     },
     
     newOrder : function(component, event, helper) {
