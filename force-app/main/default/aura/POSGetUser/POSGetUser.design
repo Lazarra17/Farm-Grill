@@ -1,3 +1,5 @@
 <design:component>
     <design:attribute name="POSUserId" label="POSUserId" />
+    <design:attribute name="CashDrawerId" label="CashDrawerId" />
+    
 </design:component>

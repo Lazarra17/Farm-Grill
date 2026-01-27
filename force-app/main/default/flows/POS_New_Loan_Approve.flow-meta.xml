@@ -27,6 +27,38 @@
             <label>Status Pending Approval</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Is_Cash_Drawer_Active</name>
+        <label>Is Cash Drawer Active</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Error_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_Cash_Drawer.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>get_Cash_Drawer.Status__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Loan_Record</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>today</name>
@@ -55,6 +87,68 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Withdrawal</name>
+        <label>Create Withdrawal</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SuccessScreen</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Cash_Drawer_Session__c</field>
+            <value>
+                <elementReference>varCashDrawerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Custom__c</field>
+            <value>
+                <elementReference>amount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Customer__c</field>
+            <value>
+                <elementReference>Get_Contact.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>Get_Loan.Description__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type__c</field>
+            <value>
+                <stringValue>Withdrawal</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Cash_Drawer_Item__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>get_Cash_Drawer</name>
+        <label>get Cash Drawer</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Cash_Drawer_Active</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varCashDrawerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Cash_Drawer_Session__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>Get_Contact</name>
         <label>Get Contact</label>
@@ -103,7 +197,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>SuccessScreen</targetReference>
+            <targetReference>Create_Withdrawal</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -186,7 +280,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Update_Loan_Record</targetReference>
+            <targetReference>get_Cash_Drawer</targetReference>
         </connector>
         <fields>
             <name>Title</name>
@@ -244,6 +338,10 @@
                 <assignToReference>varPOSUser</assignToReference>
                 <name>POSUserId</name>
             </outputParameters>
+            <outputParameters>
+                <assignToReference>varCashDrawerId</assignToReference>
+                <name>CashDrawerId</name>
+            </outputParameters>
             <styleProperties>
                 <verticalAlignment>
                     <stringValue>top</stringValue>
@@ -254,6 +352,30 @@
             </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Approve Loan</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Error_Screen</name>
+        <label>Error Screen</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>NoActiveDrawer</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;MANAGER&apos;S APPROVAL&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(255, 0, 0);&quot;&gt;Error&lt;/strong&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;:&lt;/span&gt;&lt;strong style=&quot;color: rgb(255, 0, 0);&quot;&gt; No active Cash Drawer Session Found!&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
@@ -363,6 +485,13 @@
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>varCashDrawerId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
