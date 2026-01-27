@@ -1,0 +1,105 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" 
+                access="global" controller="POSPaymentReceiptController">
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="receiptData" type="Object" />
+    <aura:attribute name="receiptSettings" type="Object" />
+    
+    <table class="Company Information">
+        <tr style="">
+            <td style="padding-bottom: 15px; text-align:center;"> 
+                <h3>{!v.receiptSettings.Title__c}</h3> 
+                <p>{!v.receiptSettings.Tagline__c}</p>
+                <p>{!v.receiptSettings.Address__c}</p>
+                <p>{!v.receiptSettings.Contact_Number__c}</p>
+                <p style="border-bottom: 3px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;">
+                    
+                </p>
+            </td>
+            
+        </tr>
+    </table>
+    
+    <table class="customer-information" style="margin-bottom: 10px;">
+        <tr>
+            <td style="">Item Id: {!v.receiptData.payment.Name}</td>
+        </tr>
+        <tr>
+            <td style="">Cashier: {!v.receiptData.payment.POS_User__r.Name} </td>
+            
+        </tr>
+        
+        <tr>
+            <td style="">Staff/Debtor: {!v.receiptData.payment.Contact__r.Name} </td>
+            
+        </tr>
+        
+        
+        <tr>
+            <td style="">DateTime: {!v.dateTimeStamp} </td>
+            
+        </tr>
+         <tr>
+             <td><p style="border-bottom: 3px solid #ccc; margin-bottom: 3px; padding-bottom: 5px;"></p></td>
+         </tr>
+         
+    </table>
+    
+    <table class="items">
+        <thead>
+         
+            <tr>
+                <th style="width: 80%; text-align: left">ITEM</th>
+                <th style="text-align: right; width: 20%;">AMOUNT</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            
+            <tr>
+                <td>Loan Payment</td>
+                <td style="text-align: right;"> <lightning:formattedNumber value="{!v.receiptData.payment.Amount__c}" style="currency" currencyCode="PHP"/></td>
+            </tr>
+            
+            
+            
+            
+        </tbody>
+        
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        
+        
+            
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        
+            <tr> 
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            
+          
+            
+            <tr>
+                <td coslpan="2"  style="height: 20px; border-bottom: 3px solid #ccc"></td>
+                <td style="height: 50px; border-bottom: 3px solid #ccc"></td>
+            </tr>
+            
+        </tfoot>
+    </table>
+    
+</aura:component>
