@@ -1,0 +1,12 @@
+.THIS .signature {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 400px; /* Keeps it from stretching too far on desktop */
+    touch-action: none; /* Prevents scrolling while signing */
+}
+
+@media (min-width: 768px) {
+    .THIS .signature {
+        width: 400px !important;
+    }
+}

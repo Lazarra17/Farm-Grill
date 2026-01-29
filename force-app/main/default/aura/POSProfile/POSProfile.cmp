@@ -8,7 +8,7 @@
     
     
     <div class="slds-grid slds-wrap slds-gutters pos-main pos-container slds-p-left_medium slds-p-right_medium slds-p-bottom_small  slds-p-top_small">
-        <div class="slds-col slds-size_6-of-12 slds-p-left_none">
+        <div class="slds-col slds-size_6-of-12 slds-large-size_8-of-12 slds-p-left_none">
             
             <i class="fa fa-bars" data-bs-toggle="collapse" href="#headerMenu" role="button" aria-expanded="false" aria-controls="headerMenu"></i>
             
@@ -18,13 +18,14 @@
             <i class="fa fa-cash-register slds-p-left_xx-small"></i>
             
         </div>
-        
-        <div class="slds-col slds-size_6-of-12 slds-text-align_right slds-p-top_xx-small">
-            <lightning:buttonGroup>
-                <lightning:button label="New Loan/Advance" onclick="{!c.newLoan}" />
-                <lightning:button label="Reset Passcode" onclick="{!c.resetPasscode}" />
-            </lightning:buttonGroup>
-            
+        <div class="slds-col slds-size_6-of-12 slds-large-size_4-of-12 slds-text-align_right slds-p-top_xx-small">
+            <lightning:layoutItem size="12" mediumDeviceSize="auto">
+                <lightning:button label="New Loan" 
+                                  onclick="{!c.newLoan}" />
+                <lightning:button label="Reset Passcode" 
+                                  onclick="{!c.resetPasscode}"  />
+            </lightning:layoutItem>
+          
         </div>
         
     </div>

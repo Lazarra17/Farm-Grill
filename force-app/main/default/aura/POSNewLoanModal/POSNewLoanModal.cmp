@@ -13,9 +13,9 @@
             </div>
             <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
                 <div class="slds-grid slds-wrap slds-gutters">
-                    
+                    <div class="slds-col slds-size_1-of-1">
                     <lightning:flow aura:id="myFlow" />
-                    
+                    </div>
                 </div>
                 
             </div>
