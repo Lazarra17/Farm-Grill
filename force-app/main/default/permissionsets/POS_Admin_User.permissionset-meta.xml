@@ -456,11 +456,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Salary_Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Contact.Sr_Citizen_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
