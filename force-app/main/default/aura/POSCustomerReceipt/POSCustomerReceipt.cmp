@@ -460,6 +460,6 @@
         </tfoot>
     </table>
     
-    <c:POSKitchenReceipt receiptData="{!v.receiptData}" />
+    <!--c:POSKitchenReceipt receiptData="{!v.receiptData}" /-->
     
 </aura:component>
