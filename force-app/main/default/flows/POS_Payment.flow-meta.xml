@@ -61,6 +61,11 @@
     </decisions>
     <environments>Default</environments>
     <formulas>
+        <name>forPaymentNotes</name>
+        <dataType>String</dataType>
+        <expression>&apos;PAYMENT - &apos; + {!Get_Loan.Description__c}</expression>
+    </formulas>
+    <formulas>
         <name>today</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
@@ -116,7 +121,13 @@
         <inputAssignments>
             <field>Notes__c</field>
             <value>
-                <elementReference>Get_Loan.Description__c</elementReference>
+                <elementReference>forPaymentNotes</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Payment__c</field>
+            <value>
+                <elementReference>Create_Payment.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

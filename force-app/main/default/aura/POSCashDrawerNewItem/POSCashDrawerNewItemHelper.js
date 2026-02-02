@@ -4,6 +4,9 @@
         var cashDrawerItem = component.get('v.cashDrawerItem');
         var action = component.get("c.createCashDrawerItem");   
         var posSettings = component.get('v.posSettings');
+        component.set('v.showSpinner', true);
+        
+        
         action.setParams({       
             cashDrawerId : cashDrawerId,
             cashDrawerItem : JSON.stringify(cashDrawerItem),
@@ -22,7 +25,7 @@
                 var cashDrawerItemModal = document.getElementById('cashDrawerItemModal');
                 $A.util.addClass(cashDrawerItemModal, 'slds-hide');
                 $A.get('e.force:refreshView').fire();
-               
+                
             } else if (state === "INCOMPLETE") {
                 console.log("No response from server or client is offline.");
                 
@@ -33,7 +36,10 @@
                     console.log("Error: " + errors[0].message);
                     
                     // Show error message
-                }        
+                }      
+            
+            component.set('v.showSpinner', false);
+            
         });               
         
         $A.enqueueAction(action);     

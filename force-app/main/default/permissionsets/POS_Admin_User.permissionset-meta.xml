@@ -111,7 +111,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Cash_Drawer_Item__c.Payment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Cash_Drawer_Item__c.Queue_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Cash_Drawer_Item__c.Queue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

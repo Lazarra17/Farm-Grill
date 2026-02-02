@@ -5,12 +5,21 @@
     <aura:attribute name="type" type="String" />
     <aura:attribute name="modalId" type="String" default="cashDrawerItemModal" />
     <aura:attribute name="posSettings" type="POS_Setting__mdt" default="{'Account_Name__c': '', 'VFP_Url__c': ''}"  />
+    <aura:attribute name="showSpinner" type="Boolean" default="false"  />
     <aura:attribute name="cashDrawerItem" type="Cash_Drawer_Item__c" default="{
                                                                               'X1000__c' : '', 'X500__c' : '', 'X200__c' : '', 'X100__c' : '', 
                                                                               'X50__c' : '', 'X20__c' : '', 'X10__c' : '', 'X5__c' : '', 
                                                                               'X1__c' : '', 
                                                                               }"  />
     <aura:registerEvent name="compEvent" type="c:POSEvent"/>
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="pos-spinner">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    
+    
     
     <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
         <div class="slds-modal__container">
