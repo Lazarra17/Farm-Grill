@@ -114,6 +114,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Loan_Advance__c</field>
+            <value>
+                <elementReference>Get_Loan.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Notes__c</field>
             <value>
                 <elementReference>Get_Loan.Description__c</elementReference>
