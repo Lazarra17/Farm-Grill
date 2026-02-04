@@ -300,7 +300,7 @@
         
         var action = component.get("c.getPosSettings");    
         action.setParams({       
-            getPosSettings : 'Farm Grill'
+            getPosSettings : 'Farm Grill Settings'
         });   
         
         action.setCallback(this, function(response) {            
@@ -309,7 +309,6 @@
             if (state === "SUCCESS") {
                 
                 var res = response.getReturnValue();
-             
                 component.set("v.posSettings", res);
                 
             } else if (state === "INCOMPLETE") {

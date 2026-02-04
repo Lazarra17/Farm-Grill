@@ -3,7 +3,7 @@
         
         helper.getProducts(component, event);
         helper.getProductCategories(component, event);
-        
+        helper.getPosSettings(component, event);
         console.log('cookie: ' + document.cookie);   
         
         var contactId = helper.getCookie('ContactId');

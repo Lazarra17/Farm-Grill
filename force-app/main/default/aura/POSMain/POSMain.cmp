@@ -26,6 +26,7 @@
     <aura:attribute name="showSpinner" type="Boolean" default="false"  />
     <aura:attribute name="isAmountCalcButtons" type="Boolean" default="true"  />
     <aura:attribute name="discountedItems" type="Object"  />
+    <aura:attribute name="posSettings" type="String" />
     <aura:handler event="c:POSAppEvent" action="{!c.handleApplicationEvent}"/>
     <aura:registerEvent name="posAppEvent" type="c:POSAppEvent"/>
     
@@ -54,20 +55,22 @@
                 <p class="header-title">Session Date</p>
                 <h5 class="header-content"><lightning:formattedDateTime value="{!v.cashDrawer.Start_Date__c}"/></h5>
             </div>
-            
-            <div class="slds-col slds-size_1-of-12">
-                <p class="header-title">GCash</p>
-                <h5 class="header-content">
-                    <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Total_Sales_Gcash__c}" minimumFractionDigits="2" />
-                </h5> 
-            </div>
-            <div class="slds-col slds-size_1-of-12">
-                <p class="header-title">Cash in Drawer</p>
-                <h5 class="header-content">
-                    <!--lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" /-->
-                    ******
-                </h5>
-            </div>
+            <aura:if isTrue="{!v.posSettings.Display_Gcash__c == TRUE}">
+                <div class="slds-col slds-size_1-of-12">
+                    <p class="header-title">GCash</p>
+                    <h5 class="header-content">
+                        <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Total_Sales_Gcash__c}" minimumFractionDigits="2" />
+                    </h5> 
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.posSettings.Display_Cash_Drawer__c == TRUE}">
+                <div class="slds-col slds-size_1-of-12">
+                    <p class="header-title">Cash in Drawer</p>
+                    <h5 class="header-content">
+                        <lightning:formattedNumber type="currency" currencyCode="PHP" style="currency" value="{!v.cashDrawer.Expected_Count__c}" minimumFractionDigits="2" />
+                    </h5>
+                </div>
+            </aura:if>
             <div class="slds-col slds-size_2-of-12">
                 <p class="header-title slds-text-align_center">Pending Remittance</p>
                 <h5 class="header-content slds-text-align_center" >

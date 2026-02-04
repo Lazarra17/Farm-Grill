@@ -10,4 +10,12 @@
         <field>Discount_Passcode__c</field>
         <value xsi:type="xsd:string">213564</value>
     </values>
+    <values>
+        <field>Display_Cash_Drawer__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Display_Gcash__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
 </CustomMetadata>
