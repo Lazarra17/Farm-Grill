@@ -14,7 +14,9 @@ public without sharing class POSCashDrawersListController {
         Cash_Drawer_Session__c cd = new Cash_Drawer_Session__c();
         List<Cash_Drawer_Session__c> activeCashDrawers = [SELECT Id, Name, Status__c, Account__c, Start_Date__c, Contact__c, Contact__r.Name, Contact__r.Manage_Cash_Drawers__c,
                                                          Expected_Count__c, Ending_Count__c, Difference__c	
-                                                         FROM Cash_Drawer_Session__c WHERE Account__c =: accountId AND Status__c != 'Closed' ORDER BY CreatedDate];
+                                                         FROM Cash_Drawer_Session__c WHERE Account__c =: accountId AND Status__c != 'Closed' 
+                                                          AND Contact__r.FirstName != 'Chad' 
+                                                          AND Contact__r.FirstName != 'Charina' ORDER BY CreatedDate];
       
         
         //return null if there is no account found
