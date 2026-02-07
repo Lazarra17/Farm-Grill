@@ -20,7 +20,7 @@
                 }
             },
             { label: 'Stage', fieldName: 'StageName', type: 'text'},
-            { label: 'Payment Status', fieldName: 'Payment_Status__c', type: 'text'},
+            //{ label: 'Payment Status', fieldName: 'Payment_Status__c', type: 'text'},
             {
                 label: 'Total Amount',
                 fieldName: 'Amount',
@@ -29,12 +29,21 @@
             },
             {label: "Remit",
              type: "button",
-             initialWidth: 150,
+             initialWidth: 100,
              typeAttributes: {
                  label: "Remit",
                  name: "remit",
                  title: "Remit to Cashier",
                  variant: 'destructive-text',
+                 class: 'btn-table'
+             }},
+            {label: "Print Receipt",
+             type: "button",
+             initialWidth: 120,
+             typeAttributes: {
+                 label: "Print",
+                 name: "print",
+                 title: "Remit to Cashier",
                  class: 'btn-table'
              }}
         ]);
@@ -63,6 +72,13 @@
             
             var remittanceModal = document.getElementById('remittanceModal');
             $A.util.removeClass(remittanceModal, 'slds-hide');
+            
+            
+        }
+        
+        if (action.name === "print") {
+            component.set('v.opportunityId', row.Id);
+            window.open('/forcepos/s/receipt-customer?recordId=' + row.Id,'_blank');
             
             
         }
