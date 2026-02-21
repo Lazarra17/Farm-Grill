@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Barangay_Sitio__c</fullName>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Barangay / Sitio</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Barangay 1</fullName>
+                <default>true</default>
+                <label>Barangay 1</label>
+            </value>
+            <value>
+                <fullName>Barangay 2</fullName>
+                <default>false</default>
+                <label>Barangay 2</label>
+            </value>
+            <value>
+                <fullName>Barangay 2 - Salak</fullName>
+                <default>false</default>
+                <label>Barangay 2 - Salak</label>
+            </value>
+            <value>
+                <fullName>Barangay 3</fullName>
+                <default>false</default>
+                <label>Barangay 3</label>
+            </value>
+            <value>
+                <fullName>Barangay 4</fullName>
+                <default>false</default>
+                <label>Barangay 4</label>
+            </value>
+            <value>
+                <fullName>Barangay 5</fullName>
+                <default>false</default>
+                <label>Barangay 5</label>
+            </value>
+            <value>
+                <fullName>Barangay 6</fullName>
+                <default>false</default>
+                <label>Barangay 6</label>
+            </value>
+            <value>
+                <fullName>Barangay 7</fullName>
+                <default>false</default>
+                <label>Barangay 7</label>
+            </value>
+            <value>
+                <fullName>Barangay 8</fullName>
+                <default>false</default>
+                <label>Barangay 8</label>
+            </value>
+            <value>
+                <fullName>Barangay 9</fullName>
+                <default>false</default>
+                <label>Barangay 9</label>
+            </value>
+            <value>
+                <fullName>Barangay 10</fullName>
+                <default>false</default>
+                <label>Barangay 10</label>
+            </value>
+            <value>
+                <fullName>Barangay 11</fullName>
+                <default>false</default>
+                <label>Barangay 11</label>
+            </value>
+            <value>
+                <fullName>Barangay 12</fullName>
+                <default>false</default>
+                <label>Barangay 12</label>
+            </value>
+            <value>
+                <fullName>Barangay 13</fullName>
+                <default>false</default>
+                <label>Barangay 13</label>
+            </value>
+            <value>
+                <fullName>Barangay 13 - Matter / Kampo / Sabang</fullName>
+                <default>false</default>
+                <label>Barangay 13 - Matter / Kampo / Sabang</label>
+            </value>
+            <value>
+                <fullName>Barangay 14</fullName>
+                <default>false</default>
+                <label>Barangay 14</label>
+            </value>
+            <value>
+                <fullName>Barangay 15</fullName>
+                <default>false</default>
+                <label>Barangay 15</label>
+            </value>
+            <value>
+                <fullName>Bonghon</fullName>
+                <default>false</default>
+                <label>Bonghon</label>
+            </value>
+            <value>
+                <fullName>Dapdap</fullName>
+                <default>false</default>
+                <label>Dapdap</label>
+            </value>
+            <value>
+                <fullName>Japitan</fullName>
+                <default>false</default>
+                <label>Japitan</label>
+            </value>
+            <value>
+                <fullName>Malaintos</fullName>
+                <default>false</default>
+                <label>Malaintos</label>
+            </value>
+            <value>
+                <fullName>Malobago</fullName>
+                <default>false</default>
+                <label>Malobago</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
