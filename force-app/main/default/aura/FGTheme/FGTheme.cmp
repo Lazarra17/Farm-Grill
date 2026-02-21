@@ -14,7 +14,7 @@
     <ltng:require styles="{!$Resource.FontAwesome + '/css/all.css'}" />
     <ltng:require styles="{!$Resource.Google_Icons}" />
     <ltng:require styles="{!$Resource.BootstrapCss}" scripts="{!$Resource.BootstrapJS}" />
-    <div class="pos-container">
+    <div class="">
         <!--div class="pos-container" style="{!'background-image: url(\'' + $Resource.POSBackground + '\')'}"-->
         <div class="">   
             
@@ -26,6 +26,12 @@
                  
                 {!v.body}
             </div>
+        </div>
+        
+         <div class="">   
+            
+            <c:FGFooter />
+            
         </div>
       
     </div>

@@ -1,0 +1,78 @@
+.THIS .slds-tabs_default__nav{
+    font-weight: 600;
+}
+
+.THIS .fg-menu-item-title{
+    margin: 0px;
+    
+}
+
+.THIS .fg-menu-item-description{
+    color: #777;
+    
+}
+
+
+.THIS .fa-heart{
+    color: crimson;
+}
+
+
+
+.THIS .fg-menu-item-price{
+    font-weight: 600;
+    color: #666;
+}
+
+.THIS .slds-tabs_default__item{
+    font-size: 14px;
+    color: #333;
+}
+
+/* 2. Target the 'More' tab title specifically */
+.THIS .slds-tabs_default__overflow-button a {
+    font-size: 14px !important;
+    color: #333;
+     font-weight: 600;
+}
+
+/* 3. Mobile Adjustment: Shrink font size for small screens */
+@media (max-width: 768px) {
+    .THIS .slds-tabs_default__link,
+    .THIS .slds-tabs_default__overflow-button a {
+        font-size: 14px !important;
+        color: #333;
+        font-weight: 600;
+        text-decoration: none;
+    }
+}
+
+
+/* Targets the active tab text */
+.THIS .slds-tabs_default__item.slds-is-active a {
+    color: #592800 !important;
+    font-weight: 600;
+}
+
+/* Targets the active blue bottom border */
+.THIS .slds-tabs_default__item.slds-is-active:after {
+    background-color: #592800 !important;
+    padding-top:2px !important;
+    padding-bottom: 2px !important;
+}
+
+/* Optional: Targets the hover state if you want it to match */
+.THIS .slds-tabs_default__item:hover a {
+    color: #592800 !important;
+    padding-top:2px !important;
+    padding-bottom: 2px !important;
+}
+
+.THIS .slds-tabs_default__item:hover:after {
+    background-color: #592800 !important;
+    
+}
+
+.THIS .fg-product-tile:hover{
+    cursor: pointer; 
+}

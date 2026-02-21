@@ -1,0 +1,105 @@
+/* Circular buttons for + and - */
+.THIS .fg-btn-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+/* Gray state for minus/disabled */
+.THIS .fg-btn-minus {
+    background-color: #cccccc;
+    color: white;
+}
+
+/* Pink state for plus */
+.THIS .fg-btn-plus {
+    background-color: #789740; /* The signature Inasal/Food app pink */
+    color: white;
+}
+
+/* Quantity Number */
+.THIS .fg-quantity-text {
+    font-family: sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* Add to Cart Styling */
+.THIS .fg-btn-add-to-cart {
+    background-color: #592800; /* Matches the image's light gray button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 0;
+    font-weight: 600;
+    font-size: 1rem;
+    flex-grow: 1; /* Makes it take up remaining space */
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.THIS .fg-btn-circle:active, .THIS .btn-add-to-cart:active {
+    opacity: 0.8;
+}
+
+.THIS .fg-symbol{
+    margin-bottom: 4px;
+}
+
+.THIS .fg-menu-item{
+    border: 5px solid #ffeecf !important;
+}
+
+.THIS .fa-arrow-circle-left{
+    color: #592800;
+    font-size: 25px;
+    vertical-align: bottom;
+}
+
+.THIS .fg-back{
+    color:white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.THIS .fg-background-green{
+    background-color: #789740;
+}
+
+.THIS .fg-cart-title{
+    color: white;
+    margin: 0px;
+    padding-top: 1px;
+}
+
+.THIS .fg-total-price{
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.2rem;
+    padding-top: 8px;
+}
+
+
+.THIS .slds-spinner_container{
+    position: fixed;
+}
+
+.THIS .slds-input{
+    height: 40px;
+}
+
+.THIS .accordion-button:focus {
+    box-shadow: none;
+}
+
+.THIS .accordion-button:not(.collapsed) {
+    background-color: transparent;
+}

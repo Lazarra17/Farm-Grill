@@ -66,10 +66,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>label</name>
-                    <value>Tabs</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-29d7f2c6-8242-4a84-be4d-9667b2d5d6ef</value>
                 </componentInstanceProperties>
@@ -155,10 +151,6 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>Tabs</value>
-                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-164c8ebb-8183-4158-be1f-b1b22b0ef15c</value>

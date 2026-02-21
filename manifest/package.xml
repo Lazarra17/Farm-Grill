@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 
-  <!--types>
+  <types>
     <members>*</members>
     <name>AuraDefinitionBundle</name>
   </types>
   <types>
     <members>*</members>
     <name>ApexClass</name>
-  </types-->
+  </types>
   <types>
     <members>*</members>
     <name>Flow</name>
   </types>
 
   <types>
-    <members>Cash_Drawer_Item__c</members>
-    <members>Discount__c</members>
-    <members>Discount_Product__c</members>
+
+  
+  <members>Delivery_Fee_Setting__mdt</members>
+  <members>Resto_Site_Setting__mdt</members>
+    <members>Lead_Line_Item__c</members>
+    <members>Lead</members>
     <name>CustomObject</name>
   </types>
 
   <types>
-    <members>OpportunityLineItem.POS_Display_Name__c</members>
-    <members>Contact.PWD_Id__c</members>
-    <members>Contact.Sr_Citizen_Id__c</members>
+    <members>*</members>
     <name>CustomField</name>
   </types>
 
@@ -40,17 +41,17 @@
     <name>CustomTab</name>
   </types>
 
-  <!--types>
+  <types>
     <members>POS_Admin_User</members>
     <name>PermissionSet</name>
-  </types-->
-
-  <types>
-    <members>*</members>
-    <name>FlexiPage</name>
   </types>
 
-  
+
+
+   <types>
+    <members>*</members>
+    <name>CustomMetadata</name>
+  </types>
 
 
 
@@ -75,7 +76,10 @@
     <name>Layout</name>
   </types>
 
-
+  <types>
+    <members>*</members>
+    <name>FlexiPage</name>
+  </types>
    <types>
     <members>POSReceiptController</members>
     <name>ApexClass</name>

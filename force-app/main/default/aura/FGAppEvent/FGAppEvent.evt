@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="FG Application Event">
+    <aura:attribute name="leadId" type="String"/>
+    
+</aura:event>

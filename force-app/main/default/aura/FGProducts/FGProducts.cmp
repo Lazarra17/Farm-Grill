@@ -1,0 +1,57 @@
+<aura:component >
+    <aura:attribute name="products" type="List" />
+    <lightning:tabset selectedTabId="Popular">
+        
+      
+        <aura:iteration items="{!v.products}" var="category">
+            <lightning:tab label="{!category.key}" id="{!category.key}" class="fg-tab-title">
+                <div class="slds-grid slds-wrap slds-p-left_medium slds-p-right_medium">
+                    <div class="slds-col slds-size_12-of-12 slds-large-size_12-of-12 ">
+                        
+                        <h2>
+                            <aura:if isTrue="{!category.key == 'Popular'}"><i class="fa fa-heart" aria-hidden="true"></i>&nbsp; </aura:if>
+                            {!category.key}
+                        </h2>
+                        <aura:if isTrue="{!category.key == 'Popular'}"><p>Most ordered right now.</p></aura:if>
+                        
+                        
+                    </div>
+                    <aura:iteration items="{!category.value}" var="prod">
+                        
+                        <div class="slds-col slds-size_12-of-12 slds-large-size_12-of-12 slds-border_bottom slds-p-bottom_large slds-p-top_large ">
+                            
+                            <div class="slds-grid slds-wrap fg-product-tile" data-value="{!prod.Product__c}" onclick="{!c.selectProduct}">
+                                <div class="slds-col slds-size_8-of-12 slds-large-size_8-of-12 ">
+                                    <h5 class="fg-menu-item-title">{!prod.Product__r.Resto_Site_Display_Name__c}</h5>
+                                    <p class="fg-menu-item-description">{!prod.Product__r.Description}</p>
+                                    <p class="fg-menu-item-price">{!prod.Product__r.TECH_Unit_Price__c}
+                                        <lightning:formattedNumber 
+                                                                   value="{!prod.TECH_Unit_Price__c}" 
+                                                                   style="currency" 
+                                                                   currencyCode="PHP" 
+                                                                   currencyDisplayAs="symbol" />
+                                    </p>
+                                </div>
+                                
+                                <div class="slds-col slds-size_4-of-12 slds-large-size_4-of-12 ">
+                                    <img src="{!prod.Product__r.Product_Image_Url__c}" class="fg-menu-item" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                     
+                    </aura:iteration>
+                    
+                    
+                </div>
+                
+                
+                
+            </lightning:tab>
+        </aura:iteration>
+        
+        
+        
+    </lightning:tabset>
+</aura:component>

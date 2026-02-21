@@ -1,0 +1,18 @@
+<aura:component >
+    
+    <div class="slds-grid">
+        <div class="slds-col slds-size_12-of-12 slds-large-size_12-of-12 ">
+            <div class="fg-footer">
+                <p>Address: Corner Crisologo and Roxas Street, Brgy 9, Dolores Eastern Samar</p>
+                <p>Landmark: DNHS Main Gate</p>
+                <p>Contact No: 0960 877 3789</p>
+                <p>
+                    <a href="https://www.facebook.com/farmgrill" target="_blank"><i class="fab fa-facebook fg-social-icon fa-5x"></i></a>
+                    <a href="#"><i class="fab fa-instagram fg-social-icon fa-5x"></i></a>
+                </p>
+            </div>
+        </div>
+        
+    </div>
+    
+</aura:component>

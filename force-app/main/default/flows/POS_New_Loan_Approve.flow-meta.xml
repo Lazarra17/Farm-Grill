@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>65.0</apiVersion>
-    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
         <name>Check_Loan_Status</name>
         <label>Check Loan Status</label>
@@ -252,27 +251,11 @@
             <name>ApprovedScreen</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;MANAGER&apos;S APPROVAL&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>Copy_1_of_Copy_1_of_EmployeeName</name>
             <fieldText>&lt;p&gt;Your Loan&lt;strong&gt; &lt;/strong&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Get_Loan.Name}&lt;/strong&gt;&lt;strong&gt; &lt;/strong&gt;is already approved.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -292,27 +275,11 @@
             <name>Title</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;MANAGER&apos;S APPROVAL&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>EmployeeName</name>
             <fieldText>&lt;p&gt;Employee&apos;s Name: &lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Get_Contact.Name}&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>amount</name>
@@ -325,14 +292,6 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <scale>0</scale>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>POSUser</name>
@@ -348,14 +307,6 @@
                 <assignToReference>varCashDrawerId</assignToReference>
                 <name>CashDrawerId</name>
             </outputParameters>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Approve Loan</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -373,14 +324,6 @@
             <name>NoActiveDrawer</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;MANAGER&apos;S APPROVAL&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(255, 0, 0);&quot;&gt;Error&lt;/strong&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;:&lt;/span&gt;&lt;strong style=&quot;color: rgb(255, 0, 0);&quot;&gt; No active Cash Drawer Session Found!&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -397,14 +340,6 @@
             <name>Copy_1_of_Copy_1_of_Title</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;MANAGER&apos;S APPROVAL&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>OpenReceipt</name>
@@ -425,14 +360,6 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -452,27 +379,11 @@
             <name>Copy_1_of_Title</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;MANAGER&apos;S APPROVAL&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <fields>
             <name>Copy_1_of_EmployeeName</name>
             <fieldText>&lt;p&gt;Your Loan&lt;strong&gt; &lt;/strong&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Get_Loan.Name}&lt;/strong&gt;&lt;strong&gt; &lt;/strong&gt;has been approved.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Print Receipt</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>

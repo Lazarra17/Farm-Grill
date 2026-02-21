@@ -1,0 +1,11 @@
+<aura:component >
+    
+    <div class="fg-banner-container">
+        <img src="{!$Resource.FGBanner}" alt="Beautiful Landscape" class="fg-banner-container-img " />
+        
+    </div>
+    <div class="">
+    	<p class="fg-code slds-p-left_medium slds-p-right_medium">Use code <strong>FGFREE</strong> for <strong>FREE Delivery</strong> on selected Areas.</p>
+    </div>
+	
+</aura:component>

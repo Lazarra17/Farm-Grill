@@ -1,0 +1,58 @@
+.THIS .fb-product-header{
+    height: 250px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+}
+
+.THIS .fa-times{
+    font-size: 25px;
+    margin-right: 20px;
+    margin-top: 20px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50%;
+    border: 2px solid white;
+    color: white;
+    float: right;
+}
+
+.THIS .fg-add-on-title{
+    font-size: 20px;
+    font-weight: 600;
+    
+}
+
+.THIS .fg-text-grey{
+    color: #555;
+    
+}
+
+/* This targets the checkbox itself */
+.THIS .large-checkbox [type="checkbox"] {
+    transform: scale(1.5); /* Increase this number to make it even bigger */
+    margin: 10px;          /* Add margin to prevent it from overlapping the label */
+}
+
+/* This targets the label text if you want it to match the size */
+.THIS .large-checkbox .slds-form-element__label {
+    font-size: 1.2rem;
+    padding-left: 5px;
+}
+
+.THIS .fg-qty .slds-form-element__label {
+    display: none !important;
+}
+
+
+.THIS .fg-special-notes .slds-textarea {
+    /* Adjust the height to your preference */
+    min-height: 150px; 
+    /* Or use height if you want it fixed */
+    height: 150px;
+}
+
+.THIS .fg-footer-qty{
+    margin: 0px;
+    padding-bottom: 3px;
+}

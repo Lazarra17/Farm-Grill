@@ -1,0 +1,224 @@
+<aura:component implements="force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="FGCustomizeOrderController">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="leadId" type="String" />
+    <aura:attribute name="ipAddress" type="String" />
+    <aura:attribute name="notes" type="String" />
+    <aura:attribute name="product" type="Object" />
+    <aura:attribute name="beverages" type="List" />
+    <aura:attribute name="qty" type="Integer" default="1" />
+    <aura:attribute name="selectedBeverages" type="String[]" default="[]" />
+    <aura:attribute name="desserts" type="List" />
+    <aura:attribute name="selectedDesserts" type="String[]" default="[]" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="isFullyRendered" type="Boolean" default="false" />
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>    
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="full-page-spinner">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    <div class="container-fluid slds-p-around_none "> 
+        <div class="fg-background-green">
+            <div class="container">
+                <div class="slds-grid  slds-p-around_medium">
+                    <div class="slds-col slds-size_6-of-12 slds-large-size_6-of-12 ">
+                        
+                        <a href="/s" class="fg-back"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back</a>
+                        
+                        
+                    </div> 
+                    
+                    <div class="slds-col slds-size_6-of-12 slds-large-size_6-of-12 ">
+                        
+                        <h5 class="slds-text-align_center fg-cart-title">{!v.product.Product2.Family}</h5>
+                        
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div> 
+    
+    
+    <div class="container"> 
+        
+        <div class="slds-grid slds-wrap slds-gutters slds-m-top_large">
+            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12">
+                <img src="{!v.product.Product2.Product_Image_Url__c}" class="fg-menu-item" />
+                
+            </div>
+            
+            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12">
+                <h5 class="slds-p-top_medium slds-m-bottom_none">{!v.product.Product2.Name}</h5>
+                <p class="slds-p-top_xx-small fg-text-grey">{!v.product.Product2.Description}</p>
+                
+            </div>
+        </div>
+        
+       
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_12-of-12 slds-large-size_12-of-12">
+                <p class="slds-p-top_medium slds-m-bottom_none fg-add-on-title">Choice of Drink</p>
+                
+                
+            </div>
+            
+            <div class="slds-col slds-size_8-of-12 slds-large-size_8-of-12">            
+                <p class="fg-text-grey slds-m-bottom_none">Select as you like</p>
+                
+            </div>
+            
+            
+            
+            <div class="slds-col slds-size_4-of-12 slds-large-size_4-of-12">            
+                <p class="fg-text-grey">Price</p>
+                
+            </div>
+            
+            <!--Menu Starts here-->
+            
+            <aura:iteration items="{!v.beverages}" var="item">
+                
+                
+                
+                <div class="slds-col slds-size_8-of-12 slds-large-size_8-of-12">
+                    <aura:if isTrue="{!item.TECH_InStock__c == true}">
+                        <lightning:input type="checkbox" label="{!item.Product__r.Name}" value="{!item.TECH_PriceBookEntryId__c}" name="coke" class="large-checkbox" onchange="{!c.addBeverage}" />
+                        
+                        <aura:set attribute="else">
+                            <lightning:input type="checkbox" label="{!item.Product__r.Name}" disabled="true" name="coke" class="large-checkbox" />
+                            
+                        </aura:set>
+                    </aura:if>
+                    
+                </div>
+                
+                
+                
+                <div class="slds-col slds-size_4-of-12 slds-large-size_4-of-12">    
+                    <aura:if isTrue="{!item.TECH_InStock__c == true}">
+                        
+                        <p class="">
+                            + <lightning:formattedNumber 
+                                                         value="{!item.TECH_Unit_Price__c}" 
+                                                         style="currency" 
+                                                         currencyCode="PHP" 
+                                                         currencyDisplayAs="symbol" />
+                        </p>
+                        <aura:set attribute="else">
+                           Not available
+                            
+                        </aura:set>
+                    </aura:if>
+                    
+                </div>
+                
+            </aura:iteration>
+            
+            
+            <!--Ends HEre-->
+        </div>
+        
+        
+         <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_12-of-12 slds-large-size_12-of-12">
+                <p class="slds-p-top_medium slds-m-bottom_none fg-add-on-title">Choice of Dessert</p>
+                
+                
+            </div>
+            
+            <div class="slds-col slds-size_8-of-12 slds-large-size_8-of-12">            
+                <p class="fg-text-grey slds-m-bottom_none">Select as you like</p>
+                
+             </div>
+             
+             
+             
+             <div class="slds-col slds-size_4-of-12 slds-large-size_4-of-12">            
+                 <p class="fg-text-grey">Price</p>
+                 
+             </div>
+             
+             <!--Menu Starts here-->
+             
+             <aura:iteration items="{!v.desserts}" var="item">
+                 
+                 
+                 
+                 <div class="slds-col slds-size_8-of-12 slds-large-size_8-of-12">            
+                     <lightning:input type="checkbox" label="{!item.Product__r.Name}" value="{!item.TECH_PriceBookEntryId__c}" 
+                                      name="{!item.TECH_PriceBookEntryId__c}" class="large-checkbox" onchange="{!c.addDessert}" />
+                     
+                 </div>
+                 
+                 
+                 
+                 <div class="slds-col slds-size_4-of-12 slds-large-size_4-of-12">            
+                     <p class="">
+                         + <lightning:formattedNumber 
+                                                      value="{!item.TECH_Unit_Price__c}" 
+                                                      style="currency" 
+                                                      currencyCode="PHP" 
+                                                      currencyDisplayAs="symbol" />
+                     </p>
+                     
+                 </div>
+                 
+             </aura:iteration>
+             
+             
+             <!--Ends HEre-->
+        </div>
+        
+        
+        
+        <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_large">
+            <div class="slds-col slds-size_12-of-12 slds-large-size_12-of-12 slds-border_top">
+                <p class="slds-p-top_medium slds-m-bottom_none fg-add-on-title">Special instructions</p>
+                <p class="fg-text-grey slds-m-bottom_none">Please inform us of any food allergies or dietary restrictions before ordering.</p>
+                <lightning:textarea name="notes" label="Notes" class="fg-special-notes"  variant="label-hidden" value="{!v.notes}" />
+            </div>
+        </div>
+        
+        
+    </div>
+    <aura:if isTrue="{!v.isFullyRendered}">
+    <div class="sticky-bottom bg-light border-top p-4">
+        
+        <div class="slds-grid slds-wrap">
+            
+            
+            <div class="slds-col slds-size_12-of-12 slds-large-size_12-of-12">
+                <p class="fg-footer-qty">Quantity</p>
+            </div>
+            
+            <div class="slds-col slds-size_5-of-12 slds-large-size_5-of-12">
+                
+                <div class="d-flex align-items-center">
+                    
+                    <button class="fg-btn-circle btn-minus" onclick="{!c.handleDecrement}">
+                        <span class="fg-symbol"><strong>−</strong></span>
+                    </button>
+                    
+                    <span class="mx-3 fw-bold fg-quantity-text">{!v.qty}</span>
+                    
+                    <button class="fg-btn-circle fg-btn-plus" onclick="{!c.handleIncrement}">
+                        <span class="fg-symbol"><strong>+</strong></span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="slds-col slds-size_7-of-12 slds-large-size_7-of-12">
+                <button class="fg-btn-add-to-cart" onclick="{!c.addToCart}">
+                    Add to Cart
+                </button>
+            </div>
+            
+            </div>
+        </div>
+    </aura:if>
+    
+    
+</aura:component>

@@ -1,0 +1,63 @@
+/* The container holds everything together */
+.THIS .fg-banner-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 12px;
+    font-family: sans-serif;
+}
+
+/* The background image */
+.THIS .fg-banner-container-img {
+    width: 100%;
+    background-color: #ffeecf;
+    display: block; /* Removes bottom gap */
+    height: auto;
+}
+
+/* The overlay creates the text area */
+.THIS .fg-text-overlay {
+    position: absolute;
+    top: 150px;
+    left: 0;
+    width: 100%;
+    
+    /* Optional: darkens the image for better text readability 
+    background-color: rgba(0, 0, 0, 0.4); */
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.THIS .fg-code{
+    background-color: #ffeecf;
+    text-align: center;
+    padding: 10px;
+    color: #6c4804;
+}
+
+.THIS .fg-text-overlay h2 {
+    margin: 0;
+    font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+    /* Reduce padding so text has more horizontal room */
+    .THIS .fg-text-overlay {
+        padding: 10px;
+    }
+
+    /* Shrink the heading so it doesn't wrap 5 times */
+    .THIS .fg-text-overlay h2 {
+        font-size: 1.5rem; 
+        line-height: 1.1;
+    }
+
+    /* Shrink any paragraph text if you have it */
+    .THIS .fg-text-overlay p {
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+}

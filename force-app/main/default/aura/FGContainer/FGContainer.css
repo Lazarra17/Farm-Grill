@@ -1,0 +1,17 @@
+.THIS .fg-pos-relative{
+    position: relative;
+}
+
+.THIS .fg-cart-footer-amount{
+    position: absolute;
+    right: 20px;
+}
+
+.THIS .fg-cart-counts{
+    position: absolute;
+    left: 20px;
+    border: 1px solid white;
+    padding: 3px 9px 3px 9px;
+    font-size: 12px;
+    border-radius: 50%;
+}

@@ -1,0 +1,60 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global" controller="FGContainerController">
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="leadId" type="String" />
+    <aura:attribute name="ipAddress" type="String" />
+    <aura:attribute name="lead" type="Object" />
+    <aura:attribute name="products" type="List" />
+    <aura:attribute name="cartData" type="Map" />
+    
+    <div class="container">
+        <div class="slds-grid">
+            <div class="slds-col slds-size_12-of-12 slds-large-size_12-of-12 ">
+                
+                <c:FGBanner />
+                
+            </div>
+            
+        </div>
+        
+        <div class="slds-grid">
+            <div class="slds-col slds-size_12-of-12 slds-large-size_12-of-12 ">
+                <c:FGProducts products="{!v.products}" />
+                
+            </div>
+            
+        </div>
+        
+        <aura:if isTrue="{!v.cartData.totalQty > 0}">
+            <div class="sticky-bottom bg-light border-top p-2">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-12 slds-large-size_4-of-12">
+                        
+                    </div>
+                    <div class="slds-col slds-size_10-of-12 slds-large-size_4-of-12">
+                        <div class="d-flex align-items-center">
+                            <button class="fg-btn-add-to-cart fg-pos-relative" onclick="{!c.navigateToCart}">
+                                <span class="fg-cart-counts">{!v.cartData.totalQty}</span>    View your Cart <span class="fg-cart-footer-amount" >
+                                
+                                <lightning:formattedNumber 
+                                                           value="{!v.cartData.totalPrice}" 
+                                                           style="currency" 
+                                                           currencyCode="PHP" 
+                                                           currencyDisplayAs="symbol" />
+                                
+                                
+                                
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12 slds-large-size_4-of-12">
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </aura:if>
+    </div>
+</aura:component>
