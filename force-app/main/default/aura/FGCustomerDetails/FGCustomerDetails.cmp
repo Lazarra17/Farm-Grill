@@ -2,7 +2,7 @@
     <aura:attribute name="leadId" type="String" />
     <aura:attribute name="promoCode" type="String" />
     <aura:attribute name="leadItems" type="Object" />
-    <aura:attribute name="Contact" type="Contact" default="{'Municipality_City__c' : 'Dolores'}" />
+    <aura:attribute name="lead" type="Lead" default="{'Municipality_City__c' : 'Dolores'}" />
     <aura:attribute name="barangayOptions" type="Object" />
     <aura:attribute name="municipalityOptions" type="Object" />
     <aura:attribute name="showSpinner" type="Boolean" default="false" />
@@ -10,6 +10,11 @@
     <aura:attribute name="subTotal" type="Decimal" />
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
     
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="full-page-spinner">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
     
     <div class="container-fluid slds-p-around_none "> 
         <div class="fg-background-green">
@@ -50,32 +55,43 @@
                                     <div class="accordion-body">
                                         <div class="slds-grid slds-wrap  slds-m-bottom_small">
                                             <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_6-of-12">
-                                                <lightning:input name="firstName" placeholder="Enter First Name" required="true" label="First Name" value="{!v.Contact.FirstName}" />
+                                                <lightning:input name="firstName" placeholder="Enter First Name" required="true" label="First Name" 
+                                                                 value="{!v.lead.FirstName}" onblur="{!c.validateLeadUpdate}" aura:id="leadForm" />
                                             </div>
                                             
                                             <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_6-of-12">
-                                                <lightning:input name="lastName" placeholder="Enter Last Name" required="true" label="Last Name" value="{!v.Contact.LastName}" />
+                                                <lightning:input name="lastName" placeholder="Enter Last Name" required="true" label="Last Name"
+                                                                 value="{!v.lead.TECH_LastName__c}" onblur="{!c.validateLeadUpdate}" aura:id="leadForm" />
                                             </div>
                                             
                                             <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_12-of-12">
-                                                <lightning:input type="tel" placeholder="Enter Mobile Number" required="true" label="Mobile Number" name="mobileNumber" value="{!v.Contact.MobilePhone}" />
+                                                <lightning:input type="tel" placeholder="09*********" minlength="11" maxlength="11" messageWhenTooShort="Invalid Mobile Number" required="true" label="Mobile Number"
+                                                                 name="mobileNumber" value="{!v.lead.MobilePhone}" onblur="{!c.validateLeadUpdate}" aura:id="leadForm" />
                                             </div>
                                             
                                             <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_12-of-12">
-                                                <lightning:input name="completeAddress" placeholder="Enter Address" required="true" label="Complete Address" value="{!v.Contact.Complete_Address__c}" />
+                                                <lightning:input name="completeAddress" placeholder="Enter Address" required="true" label="Complete Address"
+                                                                 value="{!v.lead.Complete_Address__c}" onblur="{!c.validateLeadUpdate}" aura:id="leadForm" />
                                             </div>
-                                            
+                                             
                                             <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_6-of-12">
-                                                <lightning:select label="Barangay / Sitio" aura:id="deliveryFee" onchange="{!c.applyDeliveryFee}" name="barangay" required="true" value="{!v.Contact.Barangay_Sitio__c}">
+                                                <lightning:select label="Barangay / Sitio" onchange="{!c.applyDeliveryFee}" aura:id="leadForm"
+                                                                  name="barangay" required="true" value="{!v.lead.Barangay_Sitio__c}" >
                                                     <option value="">-- None --</option>
                                                     <aura:iteration items="{!v.barangayOptions}" var="opt">
-                                                        <option value="{!opt}">{!opt}</option>
+                                                        <aura:if isTrue="{!opt == v.lead.Barangay_Sitio__c}">
+                                                            <option selected="true" value="{!opt}">{!opt}</option>
+                                                            <aura:set attribute="else">
+                                                                <option value="{!opt}">{!opt}</option>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                        
                                                     </aura:iteration>
                                                 </lightning:select>
                                             </div>
                                             
                                             <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_6-of-12">
-                                                <lightning:select label="Municipality / City" name="municipality" required="true" value="{!v.Contact.Municipality_City__c}">
+                                                <lightning:select label="Municipality / City" name="municipality" required="true" value="{!v.lead.Municipality_City__c}">
                                                     <aura:iteration items="{!v.municipalityOptions}" var="opt">
                                                         <option value="{!opt}">{!opt}</option>
                                                     </aura:iteration>
@@ -120,7 +136,31 @@
                         
                         
                         
-                        
+                        <div class="accordion slds-m-top_large slds-m-bottom_medium " id="accordionPromoCode">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapseOne">
+                                        PAYMENT METHOD
+                                    </button>
+                                </h2>
+                                <div id="collapse4" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="slds-grid slds-wrap  slds-m-bottom_small">
+                                            
+                                            <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_12-of-12">
+                                                <lightning:select label="Payment Method" name="paymentMethod" required="true" value="{!v.lead.Mode_of_Payment__c}">
+                                                    <option value="COD">Cash on Delivery</option>
+                                                </lightning:select>
+                                            </div>
+                                            
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
                         
                         
                     </div>
@@ -184,47 +224,6 @@
                                             </div>
                                         </aura:iteration>
                                         
-                                         <div class="slds-grid slds-wrap  slds-m-bottom_small  slds-border_bottom">
-                                                <div class="slds-col  slds-size_9-of-12  slds-small-size_9-of-12 slds-large-size_9-of-12">
-                                                    <p class="slds-m-bottom_xx-small">Sub Total</p>
-                                                    
-                                                </div>
-                                                
-                                             
-                                                
-                                                <div class="slds-col  slds-size_3-of-12  slds-small-size_3-of-12 slds-large-size_3-of-12">
-                                                    <p class="slds-m-bottom_xx-small">  
-                                                        <lightning:formattedNumber 
-                                                                                   value="{!v.subTotal}" 
-                                                                                   style="currency" 
-                                                                                   currencyCode="PHP" 
-                                                                                   currencyDisplayAs="symbol" />
-                                                    </p>
-                                                    
-                                                </div>
-                                                
-                                            </div>
-                                        
-                                         <div class="slds-grid slds-wrap  slds-m-bottom_small  slds-border_bottom">
-                                                <div class="slds-col  slds-size_9-of-12  slds-small-size_9-of-12 slds-large-size_9-of-12">
-                                                    <p class="slds-m-bottom_xx-small">Delivery Fee</p>
-                                                    
-                                                </div>
-                                                
-                                             
-                                                
-                                                <div class="slds-col  slds-size_3-of-12  slds-small-size_3-of-12 slds-large-size_3-of-12">
-                                                    <p class="slds-m-bottom_xx-small">  
-                                                        <lightning:formattedNumber 
-                                                                                   value="{!v.subTotal}" 
-                                                                                   style="currency" 
-                                                                                   currencyCode="PHP" 
-                                                                                   currencyDisplayAs="symbol" />
-                                                    </p>
-                                                    
-                                                </div>
-                                                
-                                            </div>
                                         
                                         <div class="slds-grid slds-wrap  slds-m-bottom_small  slds-border_bottom">
                                             <div class="slds-col  slds-size_9-of-12  slds-small-size_9-of-12 slds-large-size_9-of-12">
@@ -275,25 +274,27 @@
         </div>
     </div>
     <div class="sticky-bottom bg-light border-top p-4">
+        <aura:if isTrue="{!v.grandTotal > 0}">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_5-of-12 slds-large-size_5-of-12">
+                    <p class="fg-total-price"> 
+                        <lightning:formattedNumber 
+                                                   value="{!v.grandTotal}" 
+                                                   style="currency" 
+                                                   currencyCode="PHP" 
+                                                   currencyDisplayAs="symbol" />
+                    </p>
+                </div>
+                
+                <div class="slds-col slds-size_7-of-12 slds-large-size_7-of-12">
+                    <button class="fg-btn-add-to-cart" onclick="{!c.validateOrder}">
+                        Place Order
+                    </button>
+                </div>
+                
+            </div>
+        </aura:if>
         
-        <div class="slds-grid slds-wrap">
-            <div class="slds-col slds-size_5-of-12 slds-large-size_5-of-12">
-                <p class="fg-total-price"> 
-                    <lightning:formattedNumber 
-                                               value="{!v.grandTotal}" 
-                                               style="currency" 
-                                               currencyCode="PHP" 
-                                               currencyDisplayAs="symbol" />
-                </p>
-            </div>
-            
-            <div class="slds-col slds-size_7-of-12 slds-large-size_7-of-12">
-                <button class="fg-btn-add-to-cart">
-                    Place Order
-                </button>
-            </div>
-            
-        </div>
     </div>
     
     

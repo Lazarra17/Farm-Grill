@@ -29,7 +29,7 @@
     
     <table class="customer-information" style="margin-bottom: 10px;">
         <tr>
-            <td style="">Receipt #: {!v.receiptData.oppty.Name}</td>
+            <td style="">Order Receipt #: {!v.receiptData.oppty.Name}</td>
         </tr>
         <tr>
             <td style="">DateTime: {!v.dateTimeStamp} </td>

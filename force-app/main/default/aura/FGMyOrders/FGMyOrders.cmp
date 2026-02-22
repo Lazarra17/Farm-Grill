@@ -1,0 +1,128 @@
+<aura:component implements="force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="FGMyOrdersController">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="product" type="Object" />
+    <aura:attribute name="grandTotal" type="Decimal" />
+    <aura:attribute name="leadId" type="String" />
+    <aura:attribute name="removeItem" type="String" />
+    <aura:attribute name="leadItems" type="Object" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:registerEvent name="fgAppEvent" type="c:FGAppEvent"/>
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:handler event="c:FGAppEvent" action="{!c.handleApplicationEvent}"/>
+     
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="full-page-spinner">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    
+    <div class="container-fluid slds-p-around_none "> 
+        <div class="fg-background-green">
+            <div class="container">
+                <div class="slds-grid  slds-p-around_medium">
+                    <div class="slds-col slds-size_6-of-12 slds-large-size_6-of-12 ">
+                        
+                        <a href="/s" class="fg-back"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back</a>
+                        
+                        
+                    </div> 
+                    
+                    <div class="slds-col slds-size_6-of-12 slds-large-size_6-of-12 ">
+                        
+                        <h5 class="slds-text-align_center fg-cart-title">My Orders</h5>
+                        
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div> 
+    <div class="container-fluid slds-p-around_none "> 
+        <div class="fg-container slds-p-around_medium">
+            <div class="container"> 
+                
+                <div class="slds-grid slds-wrap slds-gutters slds-p-top_small slds-m-bottom_small fg-cart-item-container">
+                    
+                    
+                     <div class="slds-col  slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_12-of-12">
+                     <div class="accordion slds-m-top_small slds-m-bottom_medium " id="accordionPromoCode">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                                        DE-0124 - Pending Review
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="slds-grid slds-wrap  slds-m-bottom_small">
+                                            
+                                            
+                                            <div class="slds-col  slds-size_4-of-12  slds-small-size_4-of-12 slds-large-size_2-of-12">
+                                                <img class="fg-menu-item" src="" />
+                                                
+                                            </div>
+                                            
+                                            <div class="slds-col slds-size_8-of-12 slds-small-size_8-of-12 slds-large-size_10-of-12">
+                                                <div class="slds-grid slds-wrap slds-gutters">
+                                                    <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12">
+                                                        <p class="slds-m-bottom_xx-small">test</p>            
+                                                    </div>
+                                                    <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
+                                                        <div class="d-flex align-items-left">
+                                                            <button class="fg-btn-circle fg-btn-circle_small btn-minus" data-id="" onclick="{!c.handleDecrement}">
+                                                                <span class="fg-symbol"><strong>−</strong></span>
+                                                            </button>
+                                                            
+                                                            <span class="mx-3 fw-bold fg-cart-qty">1</span>
+                                                            
+                                                            <button class="fg-btn-circle fg-btn-circle_small fg-btn-plus" data-id="" onclick="{!c.handleIncrement}">
+                                                                <span class="fg-symbol"><strong>+</strong></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
+                                                        <p class="slds-m-top_xx-small">   
+                                                            <lightning:formattedNumber 
+                                                                                       value="100" 
+                                                                                       style="currency" 
+                                                                                       currencyCode="PHP" 
+                                                                                       currencyDisplayAs="symbol" />
+                                                        </p>
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    
+                </div>
+                    
+                    
+                    
+                    
+                    
+                    <!--Ends HEre-->
+                </div>
+                
+            </div>
+            
+            
+        </div>
+        
+      
+        
+    </div>
+
+    
+    
+    
+</aura:component>
