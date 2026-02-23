@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>Mode_of_Payment_Options__c</field>
-        <value xsi:type="xsd:string">Cash,Gcash,COD</value>
+        <value xsi:type="xsd:string">Gcash,COD</value>
     </values>
     <values>
         <field>Order_Type__c</field>
