@@ -60,9 +60,9 @@
                 <label>Inasal</label>
             </value>
             <value>
-                <fullName>BBQ/Grill/Lechon</fullName>
+                <fullName>BBQ / Lechon</fullName>
                 <default>false</default>
-                <label>BBQ/Grill/Lechon</label>
+                <label>BBQ / Lechon</label>
             </value>
             <value>
                 <fullName>Add ons</fullName>
