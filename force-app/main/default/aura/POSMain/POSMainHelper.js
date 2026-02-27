@@ -12,7 +12,8 @@
             //console.log('state: ' + state);
             if (state === "SUCCESS") {
                 var res = response.getReturnValue();  
-                
+                console.log('Products');
+                console.log(res);
                 var products = [];
                 for(var key in res){
                     products.push({value:res[key], key:key});

@@ -247,9 +247,13 @@
             //console.log('state: ' + state);
             if (state === "SUCCESS") {
                 var res = response.getReturnValue();  
-                console.log('update lead');
-                console.log(res);
                 component.set('v.lead', res);
+                
+                var appEvent = $A.get("e.c:FGAppEvent");
+                appEvent.setParams({"leadId" : lead.Id});
+                appEvent.fire();
+                
+                this.navigateToUrl(component, event, '/s/my-orders');
                 
             } else if (state === "INCOMPLETE") {
                 console.log("No response from server or client is offline.");
@@ -265,6 +269,18 @@
         });               
         
         $A.enqueueAction(action);     
+        
+        
+    },
+    
+    navigateToUrl : function(component, event, url) {
+        
+        var urlEvent = $A.get("e.force:navigateToURL");
+        urlEvent.setParams({
+            "url": url
+        });
+        urlEvent.fire();
+        
         
         
     },

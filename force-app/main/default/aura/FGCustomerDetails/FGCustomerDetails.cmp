@@ -9,6 +9,7 @@
     <aura:attribute name="grandTotal" type="Decimal" />
     <aura:attribute name="subTotal" type="Decimal" />
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:registerEvent name="fgAppEvent" type="c:FGAppEvent"/>
     
     <aura:if isTrue="{!v.showSpinner}">
         <div class="full-page-spinner">

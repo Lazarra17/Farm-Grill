@@ -1,0 +1,14 @@
+.THIS .order-header{
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start;
+}
+
+.THIS .order-time{
+    font-size: 13px; 
+    color: #777; 
+}
+
+.THIS .fg-total-price{
+    text-align:left;
+}

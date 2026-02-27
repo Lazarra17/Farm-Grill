@@ -1,5 +1,51 @@
 ({
-	helperMethod : function() {
-		
-	}
+	   getSessionId : function(component, event) {
+        const leadId = localStorage.getItem('leadId');
+        console.log('leadId: '+ leadId);
+        if (leadId != null) {
+            
+            component.set("v.leadId", leadId);
+            
+        }else{
+            
+            
+        }
+        
+    },
+    
+    getOrders : function(component, event) {
+        var priceSum = 0;
+        var leadId = component.get('v.leadId');
+        var action = component.get("c.getOrders");    
+        action.setParams({       
+            leadId : leadId
+        });   
+        
+        action.setCallback(this, function(response) {            
+            
+            var state = response.getState();            
+            //console.log('state: ' + state);
+            if (state === "SUCCESS") {
+                var res = response.getReturnValue();  
+                console.log(res);
+                
+                component.set('v.myOrders', res);
+                
+                
+            } else if (state === "INCOMPLETE") {
+                console.log("No response from server or client is offline.");
+                // Show offline error
+            }
+                else if (state === "ERROR") {
+                    var errors = response.getError();  
+                    console.log("Error: " + errors[0].message);
+                    // Show error message
+                }        
+        });               
+        
+        $A.enqueueAction(action);     
+        
+        
+    },
+    
 })

@@ -8,6 +8,11 @@
 
   <types>
     <members>*</members>
+    <name>AuraDefinitionBundle</name>
+  </types>
+
+  <types>
+    <members>*</members>
     <name>ApexClass</name>
   </types>
 
@@ -17,7 +22,11 @@
   </types>
 
   <types>
+    <members>Stock_Level__c</members>
     <members>Product_Stock_Level__c</members>
+    <members>OpportunityLineItem</members>
+    <members>Delivery_Fee_Setting__mdt</members>
+    <members>Resto_Site_Setting__mdt</members>
     <name>CustomObject</name>
   </types>
 
@@ -28,6 +37,8 @@
 
   <types>
     <members>Product_Stock_Level__c-Product Stock Level Layout</members>
+    <members>Product2-Product Layout</members>
+    <!--members>Opportunity-Opportunity Layout</members-->
     <name>Layout</name>
   </types>
 

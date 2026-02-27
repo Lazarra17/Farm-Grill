@@ -40,73 +40,25 @@
         <div class="fg-container slds-p-around_medium">
             <div class="container"> 
                 
-                <!--HEADER FOR LARGE DEVICE-->
-                <div class="slds-grid slds-wrap slds-gutters slds-m-top_medium slds-m-bottom_small slds-p-top_medium slds-show_large fg-cart-item-container">
-                    <div class="slds-col  slds-size_4-of-12  slds-small-size_4-of-12 slds-large-size_2-of-12">
-                        
-                        
-                    </div>
-                    
-                    <div class="slds-col slds-size_8-of-12 slds-small-size_8-of-12 slds-large-size_10-of-12">
-                        <div class="slds-grid slds-wrap slds-gutters">
-                            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12">
-                                <p class="">Product</p>            
-                            </div>
-                            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
-                                <p class="">Quantity</p>   
-                            </div>
-                            
-                            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
-                                <p class="">Total Price</p>
-                                
-                            </div>
-                            
-                        </div>
-                        
-                        
-                    </div>
-                    
-                    
-                    
-                    
-                </div>
-                <!--HEADER FOR SMALL DEVICE-->
-                <aura:iteration items="{!v.leadItems}" var="prod">
-                
-                    
-                    <div class="slds-grid slds-wrap slds-gutters slds-p-top_small slds-m-bottom_small fg-cart-item-container">
+                <aura:if isTrue="{! v.leadItems != null}">
+                    <!--HEADER FOR LARGE DEVICE-->
+                    <div class="slds-grid slds-wrap slds-gutters slds-m-top_medium slds-m-bottom_small slds-p-top_medium slds-show_large fg-cart-item-container">
                         <div class="slds-col  slds-size_4-of-12  slds-small-size_4-of-12 slds-large-size_2-of-12">
-                            <img class="fg-menu-item" src="{!prod.Product__r.Product_Image_Url__c}" />
+                            
                             
                         </div>
                         
                         <div class="slds-col slds-size_8-of-12 slds-small-size_8-of-12 slds-large-size_10-of-12">
                             <div class="slds-grid slds-wrap slds-gutters">
                                 <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12">
-                                    <p class="slds-m-bottom_xx-small">{!prod.Product__r	.Resto_Site_Display_Name__c}</p>            
+                                    <p class="">Product</p>            
                                 </div>
                                 <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
-                                    <div class="d-flex align-items-left">
-                                        <button class="fg-btn-circle fg-btn-circle_small btn-minus" data-id="{!prod.Id}" onclick="{!c.handleDecrement}">
-                                            <span class="fg-symbol"><strong>−</strong></span>
-                                        </button>
-                                        
-                                        <span class="mx-3 fw-bold fg-cart-qty">{!prod.Quantity__c}</span>
-                                        
-                                        <button class="fg-btn-circle fg-btn-circle_small fg-btn-plus" data-id="{!prod.Id}" onclick="{!c.handleIncrement}">
-                                            <span class="fg-symbol"><strong>+</strong></span>
-                                        </button>
-                                    </div>
+                                    <p class="">Quantity</p>   
                                 </div>
                                 
                                 <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
-                                    <p class="slds-m-top_xx-small">   
-                                        <lightning:formattedNumber 
-                                                                   value="{!prod.Total_Price__c}" 
-                                                                   style="currency" 
-                                                                   currencyCode="PHP" 
-                                                                   currencyDisplayAs="symbol" />
-                                    </p>
+                                    <p class="">Total Price</p>
                                     
                                 </div>
                                 
@@ -118,44 +70,121 @@
                         
                         
                         
-                        <!--Ends HEre-->
                     </div>
+                    <!--HEADER FOR SMALL DEVICE-->
+                    <aura:iteration items="{!v.leadItems}" var="prod">
+                        
+                        
+                        <div class="slds-grid slds-wrap slds-gutters slds-p-top_small slds-m-bottom_small fg-cart-item-container">
+                            <div class="slds-col  slds-size_4-of-12  slds-small-size_4-of-12 slds-large-size_2-of-12">
+                                <img class="fg-menu-item" src="{!prod.Product__r.Product_Image_Url__c}" />
+                                
+                            </div>
+                            
+                            <div class="slds-col slds-size_8-of-12 slds-small-size_8-of-12 slds-large-size_10-of-12">
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12">
+                                        <p class="slds-m-bottom_xx-small">{!prod.Product__r	.Resto_Site_Display_Name__c}</p>            
+                                    </div>
+                                    <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
+                                        <div class="d-flex align-items-left">
+                                            <button class="fg-btn-circle fg-btn-circle_small btn-minus" data-id="{!prod.Id}" onclick="{!c.handleDecrement}">
+                                                <span class="fg-symbol"><strong>−</strong></span>
+                                            </button>
+                                            
+                                            <span class="mx-3 fw-bold fg-cart-qty">{!prod.Quantity__c}</span>
+                                            
+                                            <button class="fg-btn-circle fg-btn-circle_small fg-btn-plus" data-id="{!prod.Id}" onclick="{!c.handleIncrement}">
+                                                <span class="fg-symbol"><strong>+</strong></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
+                                        <p class="slds-m-top_xx-small">   
+                                            <lightning:formattedNumber 
+                                                                       value="{!prod.Total_Price__c}" 
+                                                                       style="currency" 
+                                                                       currencyCode="PHP" 
+                                                                       currencyDisplayAs="symbol" />
+                                        </p>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                                
+                            </div>
+                            
+                            
+                            
+                            
+                            <!--Ends HEre-->
+                        </div>
+                        
+                        
+                    </aura:iteration>
                     
-                    
-                </aura:iteration>
+                    <aura:set attribute="else">
+                        <div class="slds-grid slds-wrap slds-gutters slds-m-top_medium slds-m-bottom_small slds-p-top_medium fg-cart-item-container">
+                            <div class="slds-col  slds-size_2-of-12  slds-small-size_2-of-12 slds-large-size_4-of-12">
+                            </div>
+                            <div class="slds-col  slds-size_8-of-12  slds-small-size_8-of-12 slds-large-size_4-of-12">
+                                
+                                <div>
+                                    <h5 class="slds-text-align_center">Your cart is empty.  </h5>
+                                    
+                                    <button class="fg-btn-add-to-cart" onclick="{!c.navigateToHome}">
+                                        Shop here
+                                    </button>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="slds-col  slds-size_2-of-12  slds-small-size_2-of-12 slds-large-size_4-of-12">
+                            </div>
+                            
+                        
+                        
+                        
+                    </div>
+                    </aura:set>
+                </aura:if>
             </div>
             
             
         </div>
         
-        <!--Modal for removing Item-->
-        <div class="slds-hide" id="cartRemoveItemModal">
-            <c:FGCartRemoveItemModal leadItemId="{!v.removeItem}" leadId="{!v.leadId}" />
-        </div>
-        
-    </div>
-    <div class="sticky-bottom bg-light border-top p-4">
-        
-        <div class="slds-grid slds-wrap">
-            <div class="slds-col slds-size_5-of-12 slds-large-size_5-of-12">
-                <p class="fg-total-price">
-                    <lightning:formattedNumber 
-                                               value="{!v.grandTotal}" 
-                                               style="currency" 
-                                               currencyCode="PHP" 
-                                               currencyDisplayAs="symbol" />
-                </p>
-            </div>
-            
-            <div class="slds-col slds-size_7-of-12 slds-large-size_7-of-12">
-                <button class="fg-btn-add-to-cart" onclick="{!c.navigateToCustomerPage}">
-                    Checkout
-                </button>
-            </div>
-            
-        </div>
+       
     </div>
     
+    <aura:if isTrue="{! v.leadItems != null}">
+        <div class="sticky-bottom bg-light border-top p-4">
+            
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_5-of-12 slds-large-size_5-of-12">
+                    <p class="fg-total-price">
+                        <lightning:formattedNumber 
+                                                   value="{!v.grandTotal}" 
+                                                   style="currency" 
+                                                   currencyCode="PHP" 
+                                                   currencyDisplayAs="symbol" />
+                    </p>
+                </div>
+                
+                <div class="slds-col slds-size_7-of-12 slds-large-size_7-of-12">
+                    <button class="fg-btn-add-to-cart" onclick="{!c.navigateToCustomerPage}">
+                        Checkout
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </aura:if>
+    <!--Modal for removing Item-->
+    <div class="slds-hide" id="cartRemoveItemModal">
+        <c:FGCartRemoveItemModal leadItemId="{!v.removeItem}" leadId="{!v.leadId}" />
+    </div>
     
     
 </aura:component>
