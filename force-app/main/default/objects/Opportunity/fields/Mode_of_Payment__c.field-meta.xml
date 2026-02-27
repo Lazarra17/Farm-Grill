@@ -9,28 +9,6 @@
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Cash</fullName>
-                <default>true</default>
-                <label>Cash</label>
-            </value>
-            <value>
-                <fullName>Gcash</fullName>
-                <default>false</default>
-                <label>Gcash</label>
-            </value>
-            <value>
-                <fullName>COD</fullName>
-                <default>false</default>
-                <label>COD</label>
-            </value>
-            <value>
-                <fullName>COP</fullName>
-                <default>false</default>
-                <label>COP</label>
-            </value>
-        </valueSetDefinition>
+        <valueSetName>Mode_of_Payment</valueSetName>
     </valueSet>
 </CustomField>

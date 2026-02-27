@@ -41,6 +41,17 @@
     <name>PermissionSet</name>
   </types>
 
+  <types>
+    <members>Municipalities_Cities</members>
+    <members>Mode_of_Payment</members>
+    <members>Barangays</members>
+    <name>GlobalValueSet</name>
+  </types>
+
+   <types>
+    <members>*</members>
+    <name>CustomMetadata</name>
+  </types>
 
   <!--types>
     <members>*</members>
