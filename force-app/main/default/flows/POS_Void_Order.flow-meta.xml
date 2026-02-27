@@ -71,6 +71,31 @@
             <label>Yes</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Is_Order_been_reversed</name>
+        <label>Is Order been reversed?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>ApproveScreeen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed Lost - Cancelled</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_ApproveScreeen</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>today</name>
@@ -165,7 +190,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Contact</targetReference>
+            <targetReference>Is_Order_been_reversed</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -213,7 +238,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Get_Opportunity</targetReference>
+            <targetReference>Get_Contact</targetReference>
         </connector>
         <fields>
             <name>Title</name>
@@ -241,6 +266,27 @@
             </outputParameters>
         </fields>
         <nextOrFinishButtonLabel>Confirm</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Copy_2_of_ApproveScreeen</name>
+        <label>Error 1</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Copy_3_of_Title</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;VOID ORDER&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Copy_2_of_EmployeeName</name>
+            <fieldText>&lt;p&gt;This order has already been reversed.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
@@ -290,7 +336,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>ApproveScreeen</targetReference>
+            <targetReference>Get_Opportunity</targetReference>
         </connector>
     </start>
     <status>Active</status>

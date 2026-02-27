@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Drinks_Product</fullName>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>Parent_Product__c</columns>
+    <columns>PRODUCT2.FAMILY</columns>
+    <columns>Sub_Family__c</columns>
+    <columns>Bundled__c</columns>
+    <columns>Track_Inventory__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>PRODUCT2.FAMILY</field>
+        <operation>equals</operation>
+        <value>Beverages</value>
+    </filters>
+    <label>Drinks Product</label>
+</ListView>

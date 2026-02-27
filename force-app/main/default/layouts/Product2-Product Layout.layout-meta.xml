@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <excludeButtons>OpenSlackRecordChannel</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
@@ -150,8 +151,8 @@
     </relatedLists>
     <relatedLists>
         <fields>Stock_Level__c</fields>
-        <fields>Stock_Level_Name__c</fields>
         <fields>Available_to_Sell__c</fields>
+        <fields>Units__c</fields>
         <relatedList>Product_Stock_Level__c.Product__c</relatedList>
     </relatedLists>
     <relatedLists>

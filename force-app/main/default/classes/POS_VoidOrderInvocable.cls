@@ -31,21 +31,22 @@ public without sharing class POS_VoidOrderInvocable {
             List<Stock_Level__c> stockLevelToUpdate = new List<Stock_Level__c>();
             Map<Id, Decimal> stockLevelMap = new Map<Id, Decimal>();
             Map<Id, Id> prodStockLvlMap = new Map<Id, Id>();
+            Map<Id, Decimal> prodStockLvlUnitsPerProductMap = new Map<Id, Decimal>();
             
-            for(Product_Stock_Level__c psl : [SELECT Id, Stock_Level__c, Product__c FROM Product_Stock_Level__c WHERE Product__c IN : prodQuantityMap.keySet()]){
+            for(Product_Stock_Level__c psl : [SELECT Id, Stock_Level__c, Product__c, Units__c FROM Product_Stock_Level__c WHERE Product__c IN : prodQuantityMap.keySet()]){
                 
                 prodStockLvlMap.put(psl.Product__c, psl.Stock_Level__c);
-                
+                prodStockLvlUnitsPerProductMap.put(psl.Product__c, psl.Units__c);
             }
             
-            for(Product_Stock_Level__c psl : [SELECT Id, Stock_Level__c, Product__c FROM Product_Stock_Level__c WHERE Product__c IN : prodQuantityMap.keySet()]){
+            for(Product_Stock_Level__c psl : [SELECT Id, Stock_Level__c, Product__c, Units__c FROM Product_Stock_Level__c WHERE Product__c IN : prodQuantityMap.keySet()]){
                  
                 if(prodQuantityMap.containsKey(psl.Product__c)){
                     
                     if(stockLevelMap.containsKey(psl.Stock_Level__c)){
-                        stockLevelMap.put(psl.Stock_Level__c, stockLevelMap.get(psl.Stock_Level__c) + prodQuantityMap.get(psl.Product__c));
+                        stockLevelMap.put(psl.Stock_Level__c, stockLevelMap.get(psl.Stock_Level__c) + (prodQuantityMap.get(psl.Product__c) * psl.Units__c));
                     }else{
-                        stockLevelMap.put(psl.Stock_Level__c, prodQuantityMap.get(psl.Product__c));
+                        stockLevelMap.put(psl.Stock_Level__c, prodQuantityMap.get(psl.Product__c) * psl.Units__c);
                     }
                     
                     /*

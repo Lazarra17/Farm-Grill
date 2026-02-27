@@ -155,10 +155,9 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Stock Level</label>
     <nameField>
-        <displayFormat>SL{0000}</displayFormat>
-        <label>Stock Level Id</label>
+        <label>Stock Level Name</label>
         <trackHistory>false</trackHistory>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Stock Levels</pluralLabel>
     <searchLayouts></searchLayouts>
