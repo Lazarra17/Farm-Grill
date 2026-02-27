@@ -12,8 +12,12 @@ public without sharing class FGCartController {
         
         List<Lead_Line_Item__c> lineItems = [SELECT Id, Product__c, Product__r.Name,Product__r.Product_Image_Url__c, Quantity__c, Total_Price__c, Product__r.Resto_Site_Display_Name__c 
                                              FROM Lead_Line_Item__c WHERE Lead__c =: leadId ORDER BY TECH_MainProduct__c DESC];
+        if(lineItems.size() > 0){
+           return lineItems;  
+        }else{
+            return null;
+        }
         
-        return lineItems; 
     }
     
     

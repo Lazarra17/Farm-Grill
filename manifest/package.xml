@@ -2,8 +2,49 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 
   <types>
+    <members>Opportunity.Void_Order</members>
+    <name>QuickAction</name>
+  </types>
+
+  <types>
     <members>*</members>
-    <name>AuraDefinitionBundle</name>
+    <name>ApexClass</name>
+  </types>
+
+   <types>
+    <members>*</members>
+    <name>Flow</name>
+  </types>
+
+  <types>
+    <members>Product_Stock_Level__c</members>
+    <name>CustomObject</name>
+  </types>
+
+  <types>
+    <members>*</members>
+    <name>CustomField</name>
+  </types>
+
+  <types>
+    <members>Product_Stock_Level__c-Product Stock Level Layout</members>
+    <name>Layout</name>
+  </types>
+
+  <types>
+    <members>*</members>
+    <name>CustomTab</name>
+  </types>
+
+  <types>
+    <members>POS_Admin_User</members>
+    <name>PermissionSet</name>
+  </types>
+
+
+  <!--types>
+    <members>*</members>
+    <name>CustomMetadata</name>
   </types>
   <types>
     <members>*</members>
@@ -51,7 +92,7 @@
    <types>
     <members>*</members>
     <name>CustomMetadata</name>
-  </types>
+  </types-->
 
 
 
