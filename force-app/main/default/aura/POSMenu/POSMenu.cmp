@@ -1,6 +1,7 @@
 <aura:component extends="forceCommunity:navigationMenuBase">
     <aura:attribute name="employee" type="Object" />
     <aura:attribute name="cashDrawer" type="String" />
+    <aura:attribute name="isActive" type="Boolean" />
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
     <aura:handler event="c:POSAppEvent" action="{!c.handleApplicationEvent}"/>
     
@@ -36,7 +37,8 @@
                             <aura:set attribute="else">
                                 <aura:if isTrue="{!item.label == 'Cash Drawer'}">
                                     <li class="nav-item">
-                                        <a href="{!'/forcepos/s/cash-drawer?recordId=' + v.cashDrawer}" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
+                                        <a href="javascript:void(0);" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}"
+                                           data-menu-item-id="cashDrawer" aria-current="page">
                                             <i class="fa fa-cash-register slds-p-right_x-small" aria-hidden="true"></i> 
                                             {!item.label} 
                                         </a>
@@ -45,11 +47,32 @@
                                     <aura:set attribute="else">
                                         
                                         <aura:if isTrue="{!item.label == 'Delivery Orders'}">
-                                            <li class="nav-item">
-                                                <a href="{!'/forcepos/s/pending-remittance?recordId=' + v.cashDrawer}" class="{!item.active ? 'nav-link active' : 'nav-link link-dark'}" data-menu-item-id="{!item.id}" aria-current="page">
-                                                    <i class="fa fa-truck slds-p-right_x-small" aria-hidden="true"></i> 
-                                                    {!item.label} 
+                                            <li class="nav-item dropdown dropend" >
+                                                <a href="javascript:void(0)" 
+                                                   class="{!OR(item.active, v.isActive) ? 'nav-link active d-flex justify-content-between align-items-center dropdown-toggle' : 'nav-link link-dark d-flex justify-content-between align-items-center dropdown-toggle'}" 
+                                                   id="navbarDropdown" 
+                                                   role="button" 
+                                                   data-bs-toggle="dropdown" 
+                                                   aria-expanded="false">
+                                                    <span>
+                                                        <i class="fa fa-truck slds-p-right_x-small" aria-hidden="true"></i> 
+                                                        Orders
+                                                    </span>
                                                 </a>
+                                                
+                                                <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
+                                                    <li>
+                                                        <a class="dropdown-item" href="/forcepos/s/opportunity/Opportunity/Default" onclick="{!c.hideModal}">
+                                                            All Orders
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="{!'/forcepos/s/pending-remittance?recordId=' + v.cashDrawer}">
+                                                            {!item.label}
+                                                        </a>
+                                                    </li>
+                                                    
+                                                </ul>
                                             </li>
                                             
                                             <aura:set attribute="else">

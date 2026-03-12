@@ -30,6 +30,16 @@ public without sharing class FGCustomizeOrderController {
         
     }
     
+    @AuraEnabled
+    public static Boolean getProductStock(String recordId){
+        
+        Product_Catalog_Item__c prod = [SELECT Id, TECH_InStock__c FROM Product_Catalog_Item__c WHERE Product__c =: recordId LIMIT 1];
+      	return prod.TECH_InStock__c;
+       
+        
+        
+    }
+    
     
     @AuraEnabled
     public static List<Product_Catalog_Item__c> getProductsByCategory(String category){

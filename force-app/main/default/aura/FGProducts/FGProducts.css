@@ -17,6 +17,11 @@
     color: crimson;
 }
 
+.THIS .fg-not-available{
+    color: red;
+    font-weight: 600;
+}
+
 
 
 .THIS .fg-menu-item-price{

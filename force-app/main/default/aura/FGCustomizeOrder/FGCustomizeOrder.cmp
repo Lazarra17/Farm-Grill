@@ -4,6 +4,7 @@
     <aura:attribute name="ipAddress" type="String" />
     <aura:attribute name="notes" type="String" />
     <aura:attribute name="product" type="Object" />
+    <aura:attribute name="inStock" type="Boolean" default="true" />
     <aura:attribute name="beverages" type="List" />
     <aura:attribute name="qty" type="Integer" default="1" />
     <aura:attribute name="selectedBeverages" type="String[]" default="[]" />
@@ -211,12 +212,17 @@
             </div>
             
             <div class="slds-col slds-size_7-of-12 slds-large-size_7-of-12">
-                <button class="fg-btn-add-to-cart" onclick="{!c.addToCart}">
-                    Add to Cart
-                </button>
+                <aura:if isTrue="{!v.inStock}">
+                    <button class="fg-btn-add-to-cart" onclick="{!c.addToCart}">
+                        Add to Cart
+                    </button>
+                    <aura:set attribute="else">
+                    	<p class="fg-not-available">Not Available</p>
+                    </aura:set>
+                </aura:if>
             </div>
             
-            </div>
+        </div>
         </div>
     </aura:if>
     

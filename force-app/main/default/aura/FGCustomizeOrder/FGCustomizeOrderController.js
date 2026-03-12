@@ -4,6 +4,7 @@
         
         helper.getSessionId(component, event);
 		helper.getProductDetail(component, event);
+        helper.getProductStock(component, event);
         helper.getBeverages(component, event);
         helper.getDesserts(component, event);
         helper.getIPAddress(component, event);

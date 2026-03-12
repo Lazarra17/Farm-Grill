@@ -12,6 +12,7 @@
             //console.log('state: ' + state);
             if (state === "SUCCESS") {
                 var res = response.getReturnValue();  
+                console.log('Products');
                 console.log(res);
                 var products = [];
                 var priorities = [];

@@ -11,8 +11,43 @@
             var state = response.getState();            
             //console.log('state: ' + state);
             if (state === "SUCCESS") {
-                var res = response.getReturnValue();                  
+                var res = response.getReturnValue();   
+                console.log('product');
+                console.log(res);
                 component.set("v.product", res);
+                
+            } else if (state === "INCOMPLETE") {
+                console.log("No response from server or client is offline.");
+                // Show offline error
+            }
+                else if (state === "ERROR") {
+                    var errors = response.getError();  
+                    console.log("Error: " + errors[0].message);
+                    // Show error message
+                }        
+        });               
+        
+        $A.enqueueAction(action);     
+        
+        
+    },
+    
+    getProductStock : function(component, event) {
+        var recordId = component.get('v.recordId');
+        var action = component.get("c.getProductStock");    
+        action.setParams({       
+            recordId : recordId
+        });   
+        
+        action.setCallback(this, function(response) {            
+            
+            var state = response.getState();            
+            //console.log('state: ' + state);
+            if (state === "SUCCESS") {
+                var res = response.getReturnValue();   
+                console.log('inStock');
+                console.log(res);
+                component.set("v.inStock", res);
                 
             } else if (state === "INCOMPLETE") {
                 console.log("No response from server or client is offline.");

@@ -17,6 +17,12 @@
     float: right;
 }
 
+.THIS .fg-not-available{
+    text-align: center;
+    font-weight: 600;
+    color: red;
+}
+
 .THIS .fg-add-on-title{
     font-size: 20px;
     font-weight: 600;

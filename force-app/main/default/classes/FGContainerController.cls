@@ -27,7 +27,7 @@ public without sharing class FGContainerController {
         Map<String, List<Product_Catalog_Item__c>> prodMap = new Map<String, List<Product_Catalog_Item__c>>();
         List<Product_Catalog_Item__c> products = [SELECT Id, Category__c, Product__r.Sub_Family__c, Popular__c, Product__r.Display_Name__c, Product__r.Resto_Site_Display_Name__c, Product__r.Description,
                                                   Product__c, Product_Group__c, Product_Group__r.Name, Product_Group__r.Product_Image_Url__c, Product__r.ProductCode, Product__r.Name, 
-                                                  Product__r.Product_Image_Url__c 
+                                                  Product__r.Product_Image_Url__c, TECH_InStock__c 
                                                   FROM Product_Catalog_Item__c 
                                                   WHERE Product_Catalog__r.Active__c = TRUE AND Product_Catalog__r.Name =: fgSetting.Catalog__c AND Category__c != 'Delivery'  ORDER BY Priority__c ASC, Row_Priority__c ASC];
         

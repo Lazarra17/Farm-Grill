@@ -27,7 +27,7 @@ public without sharing class POSMainController {
         
         if(username != '' && passcode != ''){
             List<Contact> conList = [SELECT Id, AccountId, FirstName, Username__c, Passcode__c, Role__c,  Manage_Inventory__c, 
-                                     Manage_Cash_Drawers__c, Manage_Employees__c, Enable_POS__c 
+                                     Manage_Cash_Drawers__c, Manage_Employees__c, Enable_POS__c, Enable_Void_Order__c 
                                      
                                      FROM Contact WHERE Username__c =: username AND Passcode__c =: passcode LIMIT 1];
             if(conList.size() > 0){
@@ -46,7 +46,7 @@ public without sharing class POSMainController {
         
         if(contactId != ''){
             List<Contact> conList = [SELECT Id, AccountId, FirstName, Username__c, Passcode__c, Role__c,  Manage_Inventory__c, 
-                                     Manage_Cash_Drawers__c, Manage_Employees__c, Enable_POS__c
+                                     Manage_Cash_Drawers__c, Manage_Employees__c, Enable_POS__c, Enable_Void_Order__c
                                      FROM Contact WHERE Id =: contactId LIMIT 1];
             if(conList.size() > 0){
                 return conList[0];

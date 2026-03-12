@@ -24,12 +24,15 @@
                                 <div class="slds-col slds-size_8-of-12 slds-large-size_8-of-12 ">
                                     <h5 class="fg-menu-item-title">{!prod.Product__r.Resto_Site_Display_Name__c}</h5>
                                     <p class="fg-menu-item-description">{!prod.Product__r.Description}</p>
-                                    <p class="fg-menu-item-price">{!prod.Product__r.TECH_Unit_Price__c}
+                                    <p class="fg-menu-item-price">
                                         <lightning:formattedNumber 
                                                                    value="{!prod.TECH_Unit_Price__c}" 
                                                                    style="currency" 
                                                                    currencyCode="PHP" 
                                                                    currencyDisplayAs="symbol" />
+                                        <aura:if isTrue="{!NOT(prod.TECH_InStock__c)}">
+                                            <span class="fg-not-available"> Not available - Out of stock</span>
+                                        </aura:if>
                                     </p>
                                 </div>
                                 

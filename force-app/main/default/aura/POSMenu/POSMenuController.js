@@ -5,6 +5,12 @@
         var cashDrawer = helper.getCookie('CashDrawer');
         component.set('v.cashDrawer', cashDrawer);
         
+        var path = window.location.pathname;
+        console.log('path: ' + path);
+        if(path == '/forcepos/s/opportunity/Opportunity/Default'){
+            component.set('v.isActive', true);
+        }
+        
         
         if(document.cookie != null){
             
@@ -71,14 +77,23 @@
     onClick : function(component, event, helper) {
         
         
-        
+        var cashDrawerId = component.get('v.cashDrawer');
         var id = event.target.dataset.menuItemId;
-        if (id) {
+        console.log('id' + id);
+        
+        if(id == 'cashDrawer'){
+            
+            helper.gotoURL(component, event, '/forcepos/s/cash-drawer?recordId=' + cashDrawerId);
+            document.getElementById('headerMenu').classList.remove('show');
+            document.getElementById('headerMenu').classList.add('collapse');
+            
+        }else if (id) {
             component.getSuper().navigate(id);
+            document.getElementById('headerMenu').classList.remove('show');
+            document.getElementById('headerMenu').classList.add('collapse');
         }
         
-        document.getElementById('headerMenu').classList.remove('show');
-        document.getElementById('headerMenu').classList.add('collapse');
+        
         
     },
     
