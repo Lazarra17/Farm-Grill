@@ -145,13 +145,6 @@
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Cash_Drawer_Session__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>varCashDrawerId</elementReference>
-            </value>
-        </filters>
-        <filters>
             <field>Opportunity__c</field>
             <operator>EqualTo</operator>
             <value>
@@ -220,6 +213,9 @@
                 <elementReference>recordId</elementReference>
             </value>
         </filters>
+        <inputAssignments>
+            <field>Payment_Status__c</field>
+        </inputAssignments>
         <inputAssignments>
             <field>StageName</field>
             <value>

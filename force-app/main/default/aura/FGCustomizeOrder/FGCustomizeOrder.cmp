@@ -184,7 +184,7 @@
         </div>
         
         
-    </div>
+  
     <aura:if isTrue="{!v.isFullyRendered}">
     <div class="sticky-bottom bg-light border-top p-4">
         
@@ -225,6 +225,6 @@
         </div>
         </div>
     </aura:if>
-    
+      </div>
     
 </aura:component>

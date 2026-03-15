@@ -104,6 +104,10 @@
     box-shadow: none;
 }
 
+.THIS .error-msg{
+    color:red;
+}
+
 .THIS .accordion-button:not(.collapsed) {
     background-color: transparent;
 }

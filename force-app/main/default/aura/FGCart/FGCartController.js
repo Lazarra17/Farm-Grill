@@ -79,6 +79,21 @@
     },
     
     
+    navigateToCustomizePage : function(component, event, helper) {
+      
+        const prodId = event.currentTarget.dataset.id;
+        var urlEvent = $A.get("e.force:navigateToURL");
+        urlEvent.setParams({
+            "url": "/s/customize-order?recordId=" + prodId
+        });
+        urlEvent.fire();
+        
+        
+        
+    },
+    
+    
+    
     navigateToHome : function(component, event, helper) {
         
         var urlEvent = $A.get("e.force:navigateToURL");

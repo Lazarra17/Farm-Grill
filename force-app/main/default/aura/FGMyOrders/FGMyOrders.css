@@ -12,3 +12,12 @@
 .THIS .fg-total-price{
     text-align:left;
 }
+
+.THIS .no-label-space .slds-form-element__label {
+    display: none !important;
+}
+
+.THIS .no-label-space .slds-form-element__control {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}

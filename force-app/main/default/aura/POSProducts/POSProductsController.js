@@ -6,8 +6,7 @@
         ];
         
         component.set('v.mycolumns', [
-            { label: 'Name', fieldName: 'ProductName', type: 'text'},
-            { label: 'Family', fieldName: 'ProductFamily', type: 'text'},
+            { label: 'Name', fieldName: 'Name', type: 'text'},
             { label: 'Available to Sell', fieldName: 'Available_to_Sell__c', type: 'text'},
             { label: 'Count on Hand', fieldName: 'Count_on_Hand__c', type: 'text'},
             {label: "Update",

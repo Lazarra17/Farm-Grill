@@ -1,6 +1,7 @@
 <aura:component implements="force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="FGCustomerDetailsController">
     <aura:attribute name="leadId" type="String" />
     <aura:attribute name="promoCode" type="String" />
+    <aura:attribute name="error" type="String" />
     <aura:attribute name="leadItems" type="Object" />
     <aura:attribute name="lead" type="Lead" default="{'Municipality_City__c' : 'Dolores'}" />
     <aura:attribute name="barangayOptions" type="Object" />
@@ -228,7 +229,7 @@
                                         
                                         <div class="slds-grid slds-wrap  slds-m-bottom_small  slds-border_bottom">
                                             <div class="slds-col  slds-size_9-of-12  slds-small-size_9-of-12 slds-large-size_9-of-12">
-                                                <p class="slds-m-bottom_xx-small">Grand Total</p>
+                                                <p class="slds-m-bottom_xx-small"><strong>Grand Total</strong></p>
                                                 
                                             </div>
                                             
@@ -236,18 +237,21 @@
                                             
                                             <div class="slds-col  slds-size_3-of-12  slds-small-size_3-of-12 slds-large-size_3-of-12">
                                                 <p class="slds-m-bottom_xx-small">  
-                                                    <lightning:formattedNumber 
+                                                    <strong><lightning:formattedNumber 
                                                                                value="{!v.grandTotal}" 
                                                                                style="currency" 
                                                                                currencyCode="PHP" 
-                                                                               currencyDisplayAs="symbol" />
+                                                                               currencyDisplayAs="symbol" /></strong>
                                                 </p>
                                                 
                                             </div>
                                             
                                         </div>
                                         
-                                     
+                                        <p class="error-msg slds-p-bottom_small">
+                                            <lightning:formattedText value="{!v.error}" />
+                                        </p>
+                                        
                                         
                                     </div>
                                 </div>

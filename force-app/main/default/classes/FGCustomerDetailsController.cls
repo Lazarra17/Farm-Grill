@@ -137,6 +137,16 @@ public without sharing class FGCustomerDetailsController {
         }
         
         
+        //Make the change quantity negative value
+        for(String slKey : currentStockLevelMap.KeySet()){
+            
+            if(currentStockLevelMap.containsKey(slKey)){
+                currentStockLevelMap.get(slKey).Change_Quantity__c = -(currentStockLevelMap.get(slKey).Change_Quantity__c);
+            }
+            
+        } 
+        
+        
         for(Product_Stock_Level__c psl : [SELECT Id, Product__c, Stock_Level__c, Stock_Level__r.Name, Available_to_Sell__c, Units__c FROM Product_Stock_Level__c 
                                           WHERE Product__c IN : leadItemMap.keySet()]){
                                               

@@ -5,6 +5,7 @@
     <aura:attribute name="showSpinner" type="Boolean" default="false" />
     <aura:registerEvent name="fgAppEvent" type="c:FGAppEvent"/>
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
+    <aura:attribute name="selectedValue" type="String" default="My Orders" />
     <aura:handler event="c:FGAppEvent" action="{!c.handleApplicationEvent}"/>
     
     <aura:if isTrue="{!v.showSpinner}">
@@ -26,7 +27,17 @@
                     
                     <div class="slds-col slds-size_6-of-12 slds-large-size_6-of-12 ">
                         
-                        <h5 class="slds-text-align_center fg-cart-title">My Orders</h5>
+                        <lightning:select name="industrySelect" class="no-label-space" variant="label-hidden"
+                                          label="Select an Industry" 
+                                          value="{!v.selectedValue}" 
+                                          onchange="{!c.handleOnChange}">
+                            
+                            <option value="My Orders" ><h5 class="slds-text-align_center fg-cart-title">My Orders</h5></option>
+                            <option value="Completed Orders"><h5 class="slds-text-align_center fg-cart-title">Completed Orders</h5></option>
+                            <option value="Cancelled Orders"><h5 class="slds-text-align_center fg-cart-title">Cancelled Orders</h5></option>
+                        </lightning:select>
+                        
+                        
                         
                     </div>
                 </div> 

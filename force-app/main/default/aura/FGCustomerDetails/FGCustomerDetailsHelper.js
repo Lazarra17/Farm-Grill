@@ -248,7 +248,7 @@
             if (state === "SUCCESS") {
                 var res = response.getReturnValue();  
                 component.set('v.lead', res);
-                
+                component.set('v.error', '');
                 var appEvent = $A.get("e.c:FGAppEvent");
                 appEvent.setParams({"leadId" : lead.Id});
                 appEvent.fire();
@@ -262,7 +262,9 @@
                 else if (state === "ERROR") {
                     var errors = response.getError();  
                     console.log("Error: " + errors[0].message);
-                    // Show error message
+                    const errorObj = JSON.parse(errors[0].message);
+                    console.log(errorObj.message);
+                    component.set('v.error', errorObj.message);
                 } 
             
              component.set('v.showSpinner', false);
