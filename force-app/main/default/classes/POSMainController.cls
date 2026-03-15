@@ -809,7 +809,7 @@ public without sharing class POSMainController {
         
         Map<Id, Product_Stock_Level__c> prodStockLevelMap = new Map<Id, Product_Stock_Level__c>(); 
         Map<Id, Stock_Level__c> currentStockLevelMap = new Map<Id, Stock_Level__c>(); 
-        
+        system.debug('opptyProdMap.keySet(): ' + opptyProdMap.keySet());
         for(Product_Stock_Level__c psl : [SELECT Id, Product__c, Stock_Level__c, Available_to_Sell__c, Units__c FROM Product_Stock_Level__c WHERE Product__c IN : opptyProdMap.keySet()]){
             
             
@@ -822,19 +822,27 @@ public without sharing class POSMainController {
                     
                     Stock_Level__c sl = new Stock_Level__c();
                     sl.Id = psl.Stock_Level__c;
-                    sl.Change_Quantity__c = -(opptyProdMap.get(psl.Product__c).Quantity * psl.Units__c);
+                    sl.Change_Quantity__c = opptyProdMap.get(psl.Product__c).Quantity * psl.Units__c;
                     currentStockLevelMap.put(psl.Stock_Level__c, sl);
                 }
                 
                 
             }
+                        
+        }
+        
+        //Make the change quantity negative value
+        for(String slKey : currentStockLevelMap.KeySet()){
             
-            
-            
+            if(currentStockLevelMap.containsKey(slKey)){
+                currentStockLevelMap.get(slKey).Change_Quantity__c = -(currentStockLevelMap.get(slKey).Change_Quantity__c);
+            }
             
         }
         
         
+        
+        system.debug('currentStockLevelMap: ' + currentStockLevelMap);
         for(Product_Stock_Level__c psl : [SELECT Id, Product__c, Stock_Level__c, Stock_Level__r.Name, Available_to_Sell__c, Units__c FROM Product_Stock_Level__c 
                                           WHERE Product__c IN : opptyProdMap.keySet()]){
             
