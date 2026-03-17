@@ -31,7 +31,7 @@
                 <th style="width: 90%; padding-left: 10px">ITEM</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="font-size: 16px;">
             
             <aura:iteration items="{!v.receiptData.opptyLines}" var="item">
                 <tr>
