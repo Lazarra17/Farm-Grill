@@ -29,23 +29,14 @@
                 type: 'currency',
                 typeAttributes: { currencyCode: 'PHP'}
             },
-            {label: "Remit",
-             type: "button",
-             initialWidth: 100,
-             typeAttributes: {
-                 label: "Remit",
-                 name: "remit",
-                 title: "Remit to Cashier",
-                 variant: 'destructive-text',
-                 class: 'btn-table'
-             }},
-            {label: "Print Receipt",
+            
+            {label: "Action",
              type: "button",
              initialWidth: 120,
              typeAttributes: {
-                 label: "Print",
-                 name: "print",
-                 title: "Remit to Cashier",
+                 label: "Open",
+                 name: "open",
+                 title: "Open Order",
                  class: 'btn-table'
              }}
         ]);
@@ -54,12 +45,7 @@
         
         helper.getPendingRemittances(component, event);
         
-        var contactId = helper.getCookie('ContactId');
-        var accountId = helper.getCookie('AccountId');
-        
-        if(contactId != '' && accountId != ''){
-             helper.getCashDrawer(component, contactId, accountId);
-        }
+
        
     },
     
@@ -89,34 +75,30 @@
     handleEvent: function(component, event, helper) {
         
         let pendingOpportunities = event.getParam("pendingOpportunities");
+        
+        pendingOpportunities.forEach(function(row, index) {
+            if(row.hasOwnProperty('Customer__r')){
+                row.Customer = row.Customer__r.Name;//Customer__r.Name;
+                
+            }
+        });
+        
+        component.set("v.mydata", pendingOpportunities);
+        
         if(pendingOpportunities != null){
-            
-            pendingOpportunities.forEach(function(row, index) {
-                if(row.hasOwnProperty('Customer__r')){
-                    row.Customer = row.Customer__r.Name;//Customer__r.Name;
-                    
-                }
-            });
-            
-            component.set("v.mydata", pendingOpportunities);
-            
-            if(pendingOpportunities != null){
-                component.set('v.pendingRemittances', pendingOpportunities.length);
-            }else{
-                component.set('v.pendingRemittances', 0);
-            }
-            
-            
-            var contactId = helper.getCookie('ContactId');
-            var accountId = helper.getCookie('AccountId');
-            
-            if(contactId != '' && accountId != ''){
-                helper.getCashDrawer(component, contactId, accountId);
-            }
-
+            component.set('v.pendingRemittances', pendingOpportunities.length);
         }else{
-            component.set('v.mydata', null);
-        }        
+            component.set('v.pendingRemittances', 0);
+        }
+        
+        
+        var contactId = helper.getCookie('ContactId');
+        var accountId = helper.getCookie('AccountId');
+        
+        if(contactId != '' && accountId != ''){
+            helper.getCashDrawer(component, contactId, accountId);
+        }
+        
         
     },
     

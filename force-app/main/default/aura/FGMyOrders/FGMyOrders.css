@@ -4,6 +4,11 @@
     align-items: flex-start;
 }
 
+.THIS .fg-cart-item-container{
+    background-color: white;
+    border-radius: 10px;
+}
+
 .THIS .order-time{
     font-size: 13px; 
     color: #777; 
@@ -20,4 +25,9 @@
 .THIS .no-label-space .slds-form-element__control {
     margin-top: 0 !important;
     padding-top: 0 !important;
+}
+
+.THIS .slds-tabs_default__nav{
+    padding-left: 0px;
+    font-weight: 600;
 }

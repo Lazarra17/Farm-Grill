@@ -34,7 +34,7 @@
                 let compEvent = component.getEvent("compEvent");
                 compEvent.setParams({ "pendingOpportunities" : res});
                 compEvent.fire();
-                
+                console.log('##RES: ' + res);
                 component.set('v.showSpinner', false);
                 
                 var remittanceModal = document.getElementById('remittanceModal');

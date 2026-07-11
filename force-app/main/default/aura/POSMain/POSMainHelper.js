@@ -35,6 +35,45 @@
         $A.enqueueAction(action);     
         
         
+        
+    },
+    
+    getOrderDetail : function(component, event) {
+        
+        var action = component.get("c.getOrderDetail");    
+        action.setParams({       
+            
+        });   
+        
+        action.setCallback(this, function(response) {            
+            
+            var state = response.getState();            
+            //console.log('state: ' + state);
+            if (state === "SUCCESS") {
+                var res = response.getReturnValue();  
+                console.log('Products');
+                console.log(res);
+                var products = [];
+                for(var key in res){
+                    products.push({value:res[key], key:key});
+                }
+                
+                component.set("v.products", products);
+                
+            } else if (state === "INCOMPLETE") {
+                console.log("No response from server or client is offline.");
+                // Show offline error
+            }
+                else if (state === "ERROR") {
+                    var errors = response.getError();  
+                    console.log("Error: " + errors[0].message);
+                    // Show error message
+                }        
+        });               
+        
+        $A.enqueueAction(action);     
+        
+        
     },
     
     

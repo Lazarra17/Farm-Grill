@@ -38,7 +38,7 @@ public without sharing class FGCartController {
         return lineItem; 
     }
     
-      @AuraEnabled
+    @AuraEnabled
     public static void deleteItem(String leadItemId){
         
         Lead_Line_Item__c lineItem = [SELECT Id FROM Lead_Line_Item__c WHERE Id =: leadItemId];
@@ -46,6 +46,17 @@ public without sharing class FGCartController {
         delete lineItem;
         
     }
+    
+    @AuraEnabled
+    public static void checkout(String leadId){
+        Lead l = [SELECT Id FROM Lead WHERE Id =: leadId];
+        //Check stocks and return an error if no stocks found
+        List<Stock_Level__c> productsStockMap =  FGUtilities.checkProductsStockList(l);
+
+        
+    }
+    
+    
 
     
 }

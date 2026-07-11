@@ -68,12 +68,8 @@
     
     navigateToCustomerPage : function(component, event, helper) {
         
-        var urlEvent = $A.get("e.force:navigateToURL");
-        urlEvent.setParams({
-            "url": "/s/customer-details"
-        });
-        urlEvent.fire();
-        
+      
+        helper.checkout(component, event);
         
         
     },

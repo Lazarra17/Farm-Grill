@@ -1,9 +1,10 @@
-<aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" 
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId,lightning:isUrlAddressable" 
                 access="global" controller="POSMainController">
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
     <aura:attribute name="products" type="List" />
     <aura:attribute name="productCategories" type="List" />
     <aura:attribute name="productImg" type="String" />
+    <aura:attribute name="leadId" type="String" />
     <aura:attribute name="selectedProduct" type="String" />
     <aura:attribute name="pendingRemittances" type="Integer" default="0" />
     <aura:attribute name="existingCustomers" type="Object" />

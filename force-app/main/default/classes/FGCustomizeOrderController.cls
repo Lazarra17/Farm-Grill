@@ -35,9 +35,7 @@ public without sharing class FGCustomizeOrderController {
         
         Product_Catalog_Item__c prod = [SELECT Id, TECH_InStock__c FROM Product_Catalog_Item__c WHERE Product__c =: recordId LIMIT 1];
       	return prod.TECH_InStock__c;
-       
-        
-        
+               
     }
     
     
@@ -99,13 +97,16 @@ public without sharing class FGCustomizeOrderController {
          
         return catalogItems;
         
-        
     }
     
     
     @AuraEnabled
     public static Lead createLead(PriceBookEntry product, Integer quantity, List<String> beverages, List<String> desserts, String notes, String ipAddress){
         List<String> addOns = new List<String>();
+        Set<String> productIdSet = new Set<String>();
+        productIdSet.add(product.Product2Id);
+        
+        
         
         Lead l = new Lead();
         l.LastName = 'Online Customer';
@@ -135,6 +136,9 @@ public without sharing class FGCustomizeOrderController {
             addOns.addAll(desserts);
         }
         
+        //Check stocks before adding to Cart
+        isStocksEnough(productIdSet, quantity);
+        
         if(addOns.size() > 0){
             for(PriceBookEntry pbItem : [SELECT Id, UnitPrice, Product2Id FROM PriceBookEntry WHERE Id IN : addOns AND PriceBook2.Name = 'Standard Price Book']){
                 
@@ -154,8 +158,6 @@ public without sharing class FGCustomizeOrderController {
             }
         }
         
-        
-        
         return l;
         
         
@@ -163,6 +165,9 @@ public without sharing class FGCustomizeOrderController {
     
     @AuraEnabled
     public static String updateLead(String leadId, PriceBookEntry product, Integer quantity, List<String> beverages, List<String> desserts, String notes, String ipAddress){
+        Set<String> productIdSet = new Set<String>();
+        productIdSet.add(product.Product2Id);
+        
         
         List<String> addOns = new List<String>();
         List<Lead_Line_Item__c> leadItems = new List<Lead_Line_Item__c>();
@@ -175,7 +180,14 @@ public without sharing class FGCustomizeOrderController {
             addOns.addAll(desserts);
         }
         
+        //get products from pricebookentry
+        for(PriceBookEntry pbEntry : [SELECT Id, Product2Id FROM PriceBookEntry WHERE Id IN : addOns]){
+            productIdSet.add(pbEntry.Product2Id);
+        }
         
+        
+        //Check stocks before adding to Cart
+        isStocksEnough(productIdSet, quantity);
         
         Map<Id, Lead_Line_Item__c> leadItemsMap = new Map<Id, Lead_Line_Item__c>();
         
@@ -229,18 +241,8 @@ public without sharing class FGCustomizeOrderController {
                     leadItems.add(addOn);
                     
                 }
-                
-                
-                
+                                
             }
-            
-            
-            
-
-            
-            
-            
-            
             
         }
         
@@ -251,6 +253,42 @@ public without sharing class FGCustomizeOrderController {
         
         return leadId;
         
+        
+    }
+    
+    
+    public static Boolean isStocksEnough(Set<String> productIdSet, Integer quantity){
+        system.debug('productIdSet: ' + productIdSet);
+        List<Product_Stock_Level__c> pslList = [SELECT Id, Product__c, Available_to_Sell__c, Stock_Level__r.Name, Stock_Level__c FROM Product_Stock_Level__c WHERE Product__c IN : productIdSet AND Product__r.Track_Inventory__c = true];
+        
+        if(pslList.size() == 0){
+             return true;
+        }
+        
+        for(Product_Stock_Level__c psl : pslList){
+            Decimal stockCount = psl.Available_to_Sell__c - quantity;
+            
+            if(stockCount < 0){
+                
+                try {
+                    Map<String, String> errorMap = new Map<String, String>{
+                        'code' => '400',
+                            'message' => 'ERROR: ' + psl.Stock_Level__r.Name + ' is out of stock or not enough.  \n  Available stock is ' + psl.Available_to_Sell__c ,
+                            'severity' => 'High'
+                            };
+                                throw new AuraHandledException(JSON.serialize(errorMap));
+                    
+                } catch (Exception e) {
+                    // If it's already an AuraHandledException, rethrow it
+                    if(e instanceof AuraHandledException) throw e;
+                    // Otherwise, wrap the system error
+                    throw new AuraHandledException('System Error: ' + e.getMessage());
+                }
+                
+            }
+        }
+        
+        return true;
         
     }
     

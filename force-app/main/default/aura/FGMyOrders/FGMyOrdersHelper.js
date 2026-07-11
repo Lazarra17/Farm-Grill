@@ -23,13 +23,27 @@
         
         action.setCallback(this, function(response) {            
             
-            var state = response.getState();            
+            var state = response.getState();  
+            var myOrders = [];
+            var myCompletedOrders = [];
+       
             //console.log('state: ' + state);
             if (state === "SUCCESS") {
                 var res = response.getReturnValue();  
+                
                 console.log(res);
                 
-                component.set('v.myOrders', res);
+                res.forEach(function(record) {
+                    console.log(record.oppty.StageName);
+                    if (record.oppty.StageName == 'Closed Won - Delivered') {
+                       myCompletedOrders.push(record);
+                    }else if (record.oppty.StageName == 'Pending Review' || record.oppty.StageName == 'Preparing' || record.oppty.StageName == 'Out for Delivery') {
+                        myOrders.push(record);
+                    }
+                });
+                
+                component.set('v.myOrders', myOrders);
+                component.set('v.myCompletedOrders', myCompletedOrders);
                 
                 
             } else if (state === "INCOMPLETE") {

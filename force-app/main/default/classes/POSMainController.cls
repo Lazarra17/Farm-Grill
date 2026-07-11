@@ -60,6 +60,23 @@ public without sharing class POSMainController {
     }
     
     @auraEnabled
+    public static POSMainController getOrderDetail(String leadId){
+        POSMainController payload = new POSMainController();
+        if(leadId != ''){
+            
+            
+            
+        }else{
+            return null;
+        }
+        return payload;
+    }
+    //return null if there is no account found
+    
+    
+    
+    
+    @auraEnabled
     public static Integer getPendingRemittances(String employeeId){
         
         Set<Id> opptySetId = new Set<Id>();

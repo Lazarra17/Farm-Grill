@@ -21,6 +21,7 @@
         <offset>0</offset>
     </actionCalls>
     <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
         <name>Has_Void_Access</name>
         <label>Has Void Access?</label>
@@ -240,11 +241,27 @@
             <name>Title</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;VOID ORDER&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>EmployeeName</name>
             <fieldText>&lt;p&gt;Please confirm if you wish to void this order?&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>POSUser</name>
@@ -260,6 +277,14 @@
                 <assignToReference>varCashDrawerId</assignToReference>
                 <name>CashDrawerId</name>
             </outputParameters>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Confirm</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -277,11 +302,27 @@
             <name>Copy_3_of_Title</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;VOID ORDER&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>Copy_2_of_EmployeeName</name>
             <fieldText>&lt;p&gt;This order has already been reversed.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -298,11 +339,27 @@
             <name>Copy_1_of_Title</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;VOID ORDER&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>ErrorMsg1</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(255, 0, 0);&quot;&gt;Error:&lt;/strong&gt;  You have no access to void order.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -319,11 +376,27 @@
             <name>Copy_1_of_Copy_1_of_Title</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;VOID ORDER&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>Copy_1_of_ErrorMsg1</name>
             <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(0, 147, 45);&quot;&gt;Success&lt;/strong&gt;&lt;strong style=&quot;color: rgb(0, 255, 77);&quot;&gt;:&lt;/strong&gt;  You have reversed this order.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>

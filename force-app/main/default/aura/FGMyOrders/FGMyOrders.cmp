@@ -2,6 +2,8 @@
     <aura:attribute name="leadId" type="String" />
     <aura:attribute name="opptyId" type="String" />
     <aura:attribute name="myOrders" type="Object" />
+    <aura:attribute name="myCompletedOrders" type="Object" />
+    <aura:attribute name="myCancelledOrders" type="Object" />
     <aura:attribute name="showSpinner" type="Boolean" default="false" />
     <aura:registerEvent name="fgAppEvent" type="c:FGAppEvent"/>
     <aura:handler name="init" value="{!this}" action="c.doInit"/>
@@ -27,17 +29,7 @@
                     
                     <div class="slds-col slds-size_6-of-12 slds-large-size_6-of-12 ">
                         
-                        <lightning:select name="industrySelect" class="no-label-space" variant="label-hidden"
-                                          label="Select an Industry" 
-                                          value="{!v.selectedValue}" 
-                                          onchange="{!c.handleOnChange}">
-                            
-                            <option value="My Orders" ><h5 class="slds-text-align_center fg-cart-title">My Orders</h5></option>
-                            <option value="Completed Orders"><h5 class="slds-text-align_center fg-cart-title">Completed Orders</h5></option>
-                            <option value="Cancelled Orders"><h5 class="slds-text-align_center fg-cart-title">Cancelled Orders</h5></option>
-                        </lightning:select>
-                        
-                        
+                        <h5 class="slds-text-align_center fg-cart-title">My Orders</h5>
                         
                     </div>
                 </div> 
@@ -49,117 +41,276 @@
             <div class="container"> 
                 
                 <div class="slds-grid slds-wrap slds-gutters slds-p-top_small slds-m-bottom_small fg-cart-item-container">
-                    
-                    
-                    <div class="slds-col  slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_12-of-12">
-                        <aura:iteration items="{!v.myOrders}" var="item" indexVar="index">
-                            <div class="accordion slds-m-top_small slds-m-bottom_medium " id="accordionPromoCode">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingOne">
-                                        
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="{!'#collapse' + index}" aria-expanded="true" aria-controls="collapseOne">
-                                            
-                                            <div class="order-header">
-                                                {!item.oppty.Name} - {!item.oppty.StageName}
-                                                <span class="slds-p-top_xx-small order-time">
-                                                    <lightning:formattedDateTime value="{!item.oppty.CloseDate}"  year="numeric"  month="short"  day="2-digit" />  - 
-                                                    
-                                                    <lightning:formattedDateTime value="{!item.oppty.Order_Time__c}" hour="2-digit" minute="2-digit" hour12="true" />
-                                                    
-                                                </span>
-                                                
-                                                
-                                                
-                                            </div>
-                                        </button>
-                                    </h2>
-                                    <div id="{!'collapse' + index}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <aura:iteration items="{!item.opptyLines}" var="prod">
-                                                <div class="slds-grid slds-wrap slds-p-bottom_small slds-p-top_small slds-border_bottom">
-                                                    <div class="slds-col  slds-size_4-of-12  slds-small-size_4-of-12 slds-large-size_2-of-12">
-                                                        <img class="fg-menu-item" src="{!prod.Product2.Product_Image_Url__c}" />
-                                                        
-                                                    </div>
-                                                    
-                                                    <div class="slds-col slds-size_8-of-12 slds-small-size_8-of-12 slds-large-size_10-of-12">
-                                                        <div class="slds-grid slds-wrap slds-gutters">
-                                                            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12">
-                                                                <p class="slds-m-bottom_xx-small">{!prod.Product2.Resto_Site_Display_Name__c}</p>            
-                                                            </div>
-                                                            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
-                                                                <p class="slds-m-bottom_xx-small">Quantity: {!prod.Quantity}</p>
-                                                            </div>
+                    <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_12-of-12">
+                        <lightning:tabset>
+                            <lightning:tab label="My Orders">
+                                <div class="slds-grid">
+                                    <aura:if isTrue="{!v.myOrders.length > 0}">
+                                        <div class="slds-col  slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_12-of-12">
+                                            <aura:iteration items="{!v.myOrders}" var="item" indexVar="index">
+                                                <div class="accordion slds-m-top_small slds-m-bottom_medium " id="accordionPromoCode">
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingOne">
                                                             
-                                                            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
-                                                                <p class="slds-m-bottom_none fg-myorder-price">   
-                                                                    <lightning:formattedNumber 
-                                                                                               value="{!prod.TotalPrice}" 
-                                                                                               style="currency" 
-                                                                                               currencyCode="PHP" 
-                                                                                               currencyDisplayAs="symbol" />
-                                                                </p>
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="{!'#collapse' + index}" aria-expanded="true" aria-controls="collapseOne">
+                                                                
+                                                                <div class="order-header">
+                                                                    {!item.oppty.Name} - {!item.oppty.StageName}
+                                                                    <span class="slds-p-top_xx-small order-time">
+                                                                        <lightning:formattedDateTime value="{!item.oppty.CloseDate}"  year="numeric"  month="short"  day="2-digit" />  - 
+                                                                        
+                                                                        <lightning:formattedDateTime value="{!item.oppty.Order_Time__c}" hour="2-digit" minute="2-digit" hour12="true" />
+                                                                        
+                                                                    </span>
+                                                                    
+                                                                    
+                                                                    
+                                                                </div>
+                                                            </button>
+                                                        </h2>
+                                                        <div id="{!'collapse' + index}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                            <div class="accordion-body">
+                                                                <aura:iteration items="{!item.opptyLines}" var="prod">
+                                                                    <div class="slds-grid slds-wrap slds-p-bottom_small slds-p-top_small slds-border_bottom">
+                                                                        <div class="slds-col  slds-size_4-of-12  slds-small-size_4-of-12 slds-large-size_2-of-12">
+                                                                            <img class="fg-menu-item" src="{!prod.Product2.Product_Image_Url__c}" />
+                                                                            
+                                                                        </div>
+                                                                        
+                                                                        <div class="slds-col slds-size_8-of-12 slds-small-size_8-of-12 slds-large-size_10-of-12">
+                                                                            <div class="slds-grid slds-wrap slds-gutters">
+                                                                                <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12">
+                                                                                    <p class="slds-m-bottom_xx-small">{!prod.Product2.Resto_Site_Display_Name__c}</p>            
+                                                                                </div>
+                                                                                <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
+                                                                                    <p class="slds-m-bottom_xx-small">Quantity: {!prod.Quantity}</p>
+                                                                                </div>
+                                                                                
+                                                                                <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
+                                                                                    <p class="slds-m-bottom_none fg-myorder-price">   
+                                                                                        <lightning:formattedNumber 
+                                                                                                                   value="{!prod.TotalPrice}" 
+                                                                                                                   style="currency" 
+                                                                                                                   currencyCode="PHP" 
+                                                                                                                   currencyDisplayAs="symbol" />
+                                                                                    </p>
+                                                                                    
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                            
+                                                                            
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                    </div>
+                                                                </aura:iteration>
+                                                                <div class="slds-grid slds-wrap">
+                                                                    <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_2-of-12">
+                                                                        
+                                                                        
+                                                                    </div>
+                                                                    
+                                                                    <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_10-of-12">
+                                                                        <div class="slds-grid slds-wrap">
+                                                                            
+                                                                            <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_6-of-12 ">
+                                                                                
+                                                                            </div>
+                                                                            
+                                                                            <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_3-of-12 slds-p-top_small slds-p-right_none">
+                                                                                <aura:if isTrue="{!item.oppty.StageName == 'Pending Review'}">
+                                                                                    <p class="slds-m-bottom_none">
+                                                                                        <lightning:button variant="destructive" value="{!item.oppty.Id}" 
+                                                                                                          label="Cancel Order" 
+                                                                                                          onclick="{!c.openCancelModal}" />
+                                                                                    </p>
+                                                                                </aura:if>
+                                                                            </div>
+                                                                            
+                                                                            <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_3-of-12">
+                                                                                <p class="fg-total-price slds-m-bottom_none"> Total: 
+                                                                                    <lightning:formattedNumber 
+                                                                                                               value="{!item.oppty.Amount}" 
+                                                                                                               style="currency" 
+                                                                                                               currencyCode="PHP" 
+                                                                                                               currencyDisplayAs="symbol" />
+                                                                                </p>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 
                                                             </div>
-                                                            
                                                         </div>
-                                                        
-                                                        
                                                     </div>
                                                     
-                                                    
-                                                    
-                                                    
                                                 </div>
-                                            </aura:iteration>
-                                            <div class="slds-grid slds-wrap">
-                                                <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_2-of-12">
+                                            </aura:iteration> 
+                                            
+                                            
+                                        </div>
+                                        <aura:set attribute="else">
+                                            <div class="slds-col  slds-size_2-of-12  slds-small-size_2-of-12 slds-large-size_12-of-12">
+                                            </div>
+                                            <div class="slds-col  slds-size_8-of-12  slds-small-size_8-of-12 slds-large-size_12-of-12">
+                                                
+                                                <div class="slds-p-bottom_medium ">
+                                                    <h5 class="slds-text-align_center">No orders found.  </h5>
                                                     
-                                                    
+                                                    <button class="fg-btn-add-to-cart" onclick="{!c.navigateToHome}">
+                                                        Shop here
+                                                    </button>
                                                 </div>
                                                 
-                                                <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_10-of-12">
-                                                    <div class="slds-grid slds-wrap">
+                                            </div>
+                                            
+                                            <div class="slds-col  slds-size_2-of-12  slds-small-size_2-of-12 slds-large-size_12-of-12">
+                                            </div>
+                                            
+                                        </aura:set>
+                                    </aura:if>
+                                </div>
+                        </lightning:tab>
+                        <lightning:tab label="Completed Orders">
+                            <div class="slds-grid">
+                                <aura:if isTrue="{!v.myCompletedOrders.length > 0}">
+                                    <div class="slds-col  slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_12-of-12">
+                                        <aura:iteration items="{!v.myCompletedOrders}" var="item" indexVar="index">
+                                            <div class="accordion slds-m-top_small slds-m-bottom_medium " id="accordionPromoCode">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingOne">
                                                         
-                                                        <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_6-of-12 ">
+                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="{!'#collapse' + index}" aria-expanded="true" aria-controls="collapseOne">
+                                                            
+                                                            <div class="order-header">
+                                                                {!item.oppty.Name} - {!item.oppty.StageName}
+                                                                <span class="slds-p-top_xx-small order-time">
+                                                                    <lightning:formattedDateTime value="{!item.oppty.CloseDate}"  year="numeric"  month="short"  day="2-digit" />  - 
+                                                                    
+                                                                    <lightning:formattedDateTime value="{!item.oppty.Order_Time__c}" hour="2-digit" minute="2-digit" hour12="true" />
+                                                                    
+                                                                </span>
+                                                                
+                                                                
+                                                                
+                                                            </div>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="{!'collapse' + index}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                        <div class="accordion-body">
+                                                            <aura:iteration items="{!item.opptyLines}" var="prod">
+                                                                <div class="slds-grid slds-wrap slds-p-bottom_small slds-p-top_small slds-border_bottom">
+                                                                    <div class="slds-col  slds-size_4-of-12  slds-small-size_4-of-12 slds-large-size_2-of-12">
+                                                                        <img class="fg-menu-item" src="{!prod.Product2.Product_Image_Url__c}" />
+                                                                        
+                                                                    </div>
+                                                                    
+                                                                    <div class="slds-col slds-size_8-of-12 slds-small-size_8-of-12 slds-large-size_10-of-12">
+                                                                        <div class="slds-grid slds-wrap slds-gutters">
+                                                                            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_6-of-12">
+                                                                                <p class="slds-m-bottom_xx-small">{!prod.Product2.Resto_Site_Display_Name__c}</p>            
+                                                                            </div>
+                                                                            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
+                                                                                <p class="slds-m-bottom_xx-small">Quantity: {!prod.Quantity}</p>
+                                                                            </div>
+                                                                            
+                                                                            <div class="slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-large-size_3-of-12">
+                                                                                <p class="slds-m-bottom_none fg-myorder-price">   
+                                                                                    <lightning:formattedNumber 
+                                                                                                               value="{!prod.TotalPrice}" 
+                                                                                                               style="currency" 
+                                                                                                               currencyCode="PHP" 
+                                                                                                               currencyDisplayAs="symbol" />
+                                                                                </p>
+                                                                                
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                </div>
+                                                            </aura:iteration>
+                                                            <div class="slds-grid slds-wrap">
+                                                                <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_2-of-12">
+                                                                    
+                                                                    
+                                                                </div>
+                                                                
+                                                                <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_10-of-12">
+                                                                    <div class="slds-grid slds-wrap">
+                                                                        
+                                                                        <div class="slds-col slds-size_12-of-12  slds-small-size_12-of-12 slds-large-size_6-of-12 ">
+                                                                            
+                                                                        </div>
+                                                                        
+                                                                        <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_3-of-12 slds-p-top_small slds-p-right_none">
+                                                                            <aura:if isTrue="{!item.oppty.StageName == 'Pending Review'}">
+                                                                                <p class="slds-m-bottom_none">
+                                                                                    <lightning:button variant="destructive" value="{!item.oppty.Id}" 
+                                                                                                      label="Cancel Order" 
+                                                                                                      onclick="{!c.openCancelModal}" />
+                                                                                </p>
+                                                                            </aura:if>
+                                                                        </div>
+                                                                        
+                                                                        <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_3-of-12">
+                                                                            <p class="fg-total-price slds-m-bottom_none"> Total: 
+                                                                                <lightning:formattedNumber 
+                                                                                                           value="{!item.oppty.Amount}" 
+                                                                                                           style="currency" 
+                                                                                                           currencyCode="PHP" 
+                                                                                                           currencyDisplayAs="symbol" />
+                                                                            </p>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             
                                                         </div>
-                                                        
-                                                        <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_3-of-12 slds-p-top_small slds-p-right_none">
-                                                            <aura:if isTrue="{!item.oppty.StageName == 'Pending Review'}">
-                                                                <p class="slds-m-bottom_none">
-                                                                    <lightning:button variant="destructive" value="{!item.oppty.Id}" 
-                                                                                      label="Cancel Order" 
-                                                                                      onclick="{!c.openCancelModal}" />
-                                                                </p>
-                                                            </aura:if>
-                                                        </div>
-                                                        
-                                                        <div class="slds-col slds-size_6-of-12  slds-small-size_6-of-12 slds-large-size_3-of-12">
-                                                            <p class="fg-total-price slds-m-bottom_none"> Total: 
-                                                                <lightning:formattedNumber 
-                                                                                           value="{!item.oppty.Amount}" 
-                                                                                           style="currency" 
-                                                                                           currencyCode="PHP" 
-                                                                                           currencyDisplayAs="symbol" />
-                                                            </p>
-                                                        </div>
-                                                        
                                                     </div>
                                                 </div>
+                                                
+                                            </div>
+                                        </aura:iteration> 
+                                        
+                                        
+                                    </div>
+                                    <aura:set attribute="else">
+                                        <div class="slds-col  slds-size_2-of-12  slds-small-size_2-of-12 slds-large-size_12-of-12">
+                                        </div>
+                                        <div class="slds-col  slds-size_8-of-12  slds-small-size_8-of-12 slds-large-size_12-of-12">
+                                            
+                                            <div class="slds-p-bottom_medium">
+                                                <h5 class="slds-text-align_center">No orders found.  </h5>
+                                                
+                                                <button class="fg-btn-add-to-cart" onclick="{!c.navigateToHome}">
+                                                    Shop here
+                                                </button>
                                             </div>
                                             
                                         </div>
-                                    </div>
-                                </div>
-                                
+                                        
+                                        <div class="slds-col  slds-size_2-of-12  slds-small-size_2-of-12 slds-large-size_12-of-12">
+                                        </div>
+                                        
+                                    </aura:set>
+                                </aura:if>
                             </div>
-                        </aura:iteration> 
-                        
-                        
+                        </lightning:tab>
+                    </lightning:tabset>
+                    
+                    
                     </div>
-                    
-                    
                     
                     
                     

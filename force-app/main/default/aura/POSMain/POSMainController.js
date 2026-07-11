@@ -10,10 +10,24 @@
         if(contactId != ''){
             helper.getContact(component, event);
            
-        }var accountId = helper.getCookie('AccountId');
+        }
+        var accountId = helper.getCookie('AccountId');
         if(accountId != ''){
             helper.getExistingCustomers(component, accountId);
            
+        }
+        
+        var sPageURL = window.location.search;
+        
+        // 2. Use URLSearchParams to parse the string
+        var urlParams = new URLSearchParams(sPageURL);
+        
+        // 3. Get the specific parameter (check both with and without c__ prefix)
+        var leadId = urlParams.get("leadId");
+        
+        if (leadId) {
+            helper.getOrderDetail(component, event);
+        } else {
         }
      
         

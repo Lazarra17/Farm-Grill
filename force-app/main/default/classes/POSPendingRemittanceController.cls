@@ -29,7 +29,7 @@ public without sharing class POSPendingRemittanceController {
                                                      
                                                  }
              
-        List<Opportunity> oppties = [SELECT Id, Name, Order_DateTime__c, Order_Time__c, Customer__r.Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
+        List<Opportunity> oppties = [SELECT Id, Name, Order_DateTime__c, CreatedDate, Order_Time__c, Customer__r.Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
                                      Id IN: opptySetId AND
                                      Payment_Status__c = 'Pending Remittance'];
         if(oppties.size() > 0){

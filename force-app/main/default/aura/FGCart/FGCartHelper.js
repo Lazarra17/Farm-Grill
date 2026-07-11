@@ -95,4 +95,54 @@
         
     },
     
+    
+    checkout : function(component, event, method) {
+        var leadId = component.get('v.leadId');
+        var action = component.get("c.checkout");    
+        action.setParams({       
+            leadId : leadId
+        });   
+        
+        component.set('v.showSpinner', true);
+        action.setCallback(this, function(response) {            
+            
+            var state = response.getState();            
+            //console.log('state: ' + state);
+            if (state === "SUCCESS") {
+                var res = response.getReturnValue();  
+                component.set('v.error', '');
+                this.navigateToUrl("/s/customer-details");
+             
+            } else if (state === "INCOMPLETE") {
+                console.log("No response from server or client is offline.");
+                // Show offline error
+            }
+                else if (state === "ERROR") {
+                    var errors = response.getError();  
+                    console.log("Error: " + errors[0].message);
+                    const errorObj = JSON.parse(errors[0].message);
+                    console.log(errorObj.message);
+                    component.set('v.error', errorObj.message); 
+                }  
+            
+            component.set('v.showSpinner', false);
+        });               
+        
+        $A.enqueueAction(action);     
+        
+        
+    },
+    
+    
+    navigateToUrl : function(url) {
+        var urlEvent = $A.get("e.force:navigateToURL");
+        urlEvent.setParams({
+            "url": url
+        });
+        urlEvent.fire();
+        
+    },
+    
+    
+    
 })

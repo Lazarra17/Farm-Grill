@@ -1,5 +1,6 @@
 <aura:component implements="force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="FGCustomizeOrderController">
     <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="error" type="String" />
     <aura:attribute name="leadId" type="String" />
     <aura:attribute name="ipAddress" type="String" />
     <aura:attribute name="notes" type="String" />
@@ -216,6 +217,7 @@
                     <button class="fg-btn-add-to-cart" onclick="{!c.addToCart}">
                         Add to Cart
                     </button>
+                    <p class="error-msg">{!v.error}</p>
                     <aura:set attribute="else">
                     	<p class="fg-not-available">Not Available</p>
                     </aura:set>

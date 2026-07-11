@@ -2,16 +2,6 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 
   <types>
-    <members>Opportunity.Void_Order</members>
-    <name>QuickAction</name>
-  </types>
-
-  <types>
-    <members>*</members>
-    <name>AuraDefinitionBundle</name>
-  </types>
-
-  <types>
     <members>*</members>
     <name>ApexClass</name>
   </types>
@@ -22,11 +12,24 @@
   </types>
 
   <types>
+    <members>*</members>
+    <name>AuraDefinitionBundle</name>
+  </types>
+
+  <!--types>
+    <members>Product_Catalog_Item__c.TECH_InStock__c</members>
+    <name>CustomField</name>
+  </types>
+
+   <types>
+    <members>*</members>
+    <name>Flow</name>
+  </types>
+
+  <types>
+    <members>Product2</members>
     <members>Stock_Level__c</members>
     <members>Product_Stock_Level__c</members>
-    <members>OpportunityLineItem</members>
-    <members>Delivery_Fee_Setting__mdt</members>
-    <members>Resto_Site_Setting__mdt</members>
     <name>CustomObject</name>
   </types>
 
@@ -38,7 +41,7 @@
   <types>
     <members>Product_Stock_Level__c-Product Stock Level Layout</members>
     <members>Product2-Product Layout</members>
-    <!--members>Opportunity-Opportunity Layout</members-->
+    <members>Opportunity-Opportunity Layout</members>
     <name>Layout</name>
   </types>
 
@@ -63,7 +66,14 @@
     <members>*</members>
     <name>CustomMetadata</name>
   </types>
+  
+  <types>
+    <members>FGBanner</members>
+    <name>StaticResource</name>
+  </types-->
 
+ 
+   
   <!--types>
     <members>*</members>
     <name>CustomMetadata</name>
@@ -79,7 +89,9 @@
 
   <types>
 
-  
+      <members>Product2</members>
+    <members>Stock_Level__c</members>
+    <members>Product_Stock_Level__c</members>
   <members>Delivery_Fee_Setting__mdt</members>
   <members>Resto_Site_Setting__mdt</members>
     <members>Lead_Line_Item__c</members>

@@ -79,7 +79,7 @@
         var storedId = localStorage.getItem('leadId');
         console.log('StoreOd: ' + storedId);
         if(storedId != null){
-   console.log('updateLEad: ');            
+            console.log('updateLEad: ');            
             helper.updateLead(component, event);
         }else{
             console.log('createLEad: ');
