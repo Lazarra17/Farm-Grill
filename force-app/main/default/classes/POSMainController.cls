@@ -98,6 +98,26 @@ public without sharing class POSMainController {
     }
     
     @auraEnabled
+    public static Integer getCancelledOrders(String cashDrawerId){
+        
+        Set<Id> opptySetId = new Set<Id>();
+        for (Cash_Drawer_Item__c item : [SELECT Id, Opportunity__c FROM Cash_Drawer_Item__c 
+                                                 WHERE Cash_Drawer_Session__c =: cashDrawerId]){
+                                                     
+                                                     opptySetId.add(item.Opportunity__c);
+                                                     
+                                                 }
+             
+        List<Opportunity> oppties = [SELECT Id, Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
+                                     Id IN: opptySetId AND StageName = 'Closed Lost - Cancelled'];
+        if(oppties.size() > 0){
+            return oppties.size();
+        }else{
+            return 0;
+        }
+    }
+    
+    @auraEnabled
     public static List<Contact> getExistingCustomers(String accountId){
         
         
@@ -352,7 +372,7 @@ public without sharing class POSMainController {
         Opportunity oppToUpdate = [SELECT Id, Name, Opportunity_Number__c FROM Opportunity WHERE Id =: opp.Id]; 
         oppToUpdate.Name = oppToUpdate.Name	 + oppToUpdate.Opportunity_Number__c;
         if(payload.OrderType != 'Delivery'){
-            oppToUpdate.StageName = 'Closed - Won';
+            oppToUpdate.StageName = 'Closed Won';
         }else{
             oppToUpdate.StageName = 'Out for Delivery';
         }

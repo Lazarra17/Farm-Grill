@@ -611,6 +611,8 @@
                 component.set('v.cashDrawer', res);
               	
                 this.getPendingRemittances(component, employeeId);
+                this.getCancelledOrders(component, res.Id);
+                
                 this.setCookie('CashDrawer', res.Id);    
                 this.setCookie('CashDrawerStatus', res.Status__c);   
                 
@@ -653,6 +655,42 @@
                 
                 var res = response.getReturnValue();
                 component.set('v.pendingRemittances', res);
+              	
+            
+                
+                
+            } else if (state === "INCOMPLETE") {
+                console.log("No response from server or client is offline.");
+         
+                // Show offline error
+            }
+                else if (state === "ERROR") {
+                    var errors = response.getError();  
+                    console.log("Error: " + errors[0].message);
+            
+                    // Show error message
+                }        
+        });               
+        
+        $A.enqueueAction(action);     
+        
+        
+    },
+    
+    getCancelledOrders : function(component, cashDrawerId) {
+        var action = component.get("c.getCancelledOrders");   
+        
+        action.setParams({       
+            cashDrawerId : cashDrawerId
+        });   
+        
+        action.setCallback(this, function(response) {            
+            
+            var state = response.getState();    
+            if (state === "SUCCESS") {
+                
+                var res = response.getReturnValue();
+                component.set('v.cancelledOrders', res);
               	
             
                 

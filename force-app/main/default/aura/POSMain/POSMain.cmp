@@ -7,6 +7,7 @@
     <aura:attribute name="leadId" type="String" />
     <aura:attribute name="selectedProduct" type="String" />
     <aura:attribute name="pendingRemittances" type="Integer" default="0" />
+    <aura:attribute name="cancelledOrders" type="Integer" default="0" />
     <aura:attribute name="existingCustomers" type="Object" />
     <aura:attribute name="riderOptions" type="List" />
     <aura:attribute name="cashierOptions" type="List" />
@@ -83,6 +84,13 @@
                 <p class="header-title">Orders Count</p>
                 <h5 class="header-content">{!v.cashDrawer.Total_Count_Orders__c}</h5>
             </div>
+            
+            <div class="slds-col slds-size_1-of-12">
+                <p class="header-title">Cancelled Orders</p>
+                <h5 class="header-content">{!v.cancelledOrders}</h5>
+            </div>
+            
+            
             <div class="slds-col slds-size_1-of-12 slds-text-align_center">
                 <p class="header-title">Status</p>
                 <h5 class="header-content">{!v.cashDrawer.Status__c}</h5>
