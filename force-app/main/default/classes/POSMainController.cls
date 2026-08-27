@@ -99,17 +99,18 @@ public without sharing class POSMainController {
     
     @auraEnabled
     public static Integer getCancelledOrders(String cashDrawerId){
-        
+                /*
         Set<Id> opptySetId = new Set<Id>();
+
         for (Cash_Drawer_Item__c item : [SELECT Id, Opportunity__c FROM Cash_Drawer_Item__c 
                                                  WHERE Cash_Drawer_Session__c =: cashDrawerId]){
                                                      
                                                      opptySetId.add(item.Opportunity__c);
                                                      
                                                  }
-             
+             */
         List<Opportunity> oppties = [SELECT Id, Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
-                                     Id IN: opptySetId AND StageName = 'Closed Lost - Cancelled'];
+                                     CreatedDate =: System.Today() AND StageName = 'Closed Lost - Cancelled'];
         if(oppties.size() > 0){
             return oppties.size();
         }else{
