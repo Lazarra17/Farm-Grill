@@ -8,13 +8,39 @@
     printCustReceipt : function(component, event, helper) {
         var opp = component.get("v.opp");
         var posSettings = component.get('v.posSettings');
-        window.open('/forcepos/s/receipt-customer?recordId=' + opp.Id, '_blank');
+        var addressableUrl = '/forcepos/s/receipt-customer?recordId=' + opp.Id;
+        
+        // 1. Create a dynamic anchor element using '_blank'
+        var link = document.createElement('a');
+        link.href = addressableUrl;
+        link.target = '_blank'; // Correct target syntax for new tab
+        link.rel = 'noopener noreferrer';
+        
+        // 2. Trigger the click event
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        
+        
     },
     
     printKitchenReceipt : function(component, event, helper) {
         var opp = component.get("v.opp");
         var posSettings = component.get('v.posSettings');
-        window.open('/forcepos/s/receipt-kitchen?recordId=' + opp.Id, '_blank');
+        //window.open('/forcepos/s/receipt-kitchen?recordId=' + opp.Id, '_blank');
+        var addressableUrl = '/forcepos/s/receipt-kitchen?recordId=' + opp.Id;
+        
+        // 1. Create a dynamic anchor element using '_blank'
+        var link = document.createElement('a');
+        link.href = addressableUrl;
+        link.target = '_blank'; // Correct target syntax for new tab
+        link.rel = 'noopener noreferrer';
+        
+        // 2. Trigger the click event
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     },
     
     newOrder : function(component, event, helper) {

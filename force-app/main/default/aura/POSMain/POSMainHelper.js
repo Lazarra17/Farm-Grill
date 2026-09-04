@@ -868,13 +868,18 @@
     
     
     printReceipt: function(url) {
-        window.open(url, '_blank');
-        // Set a small delay for the second link
-        /*
-        setTimeout(function() {
-            window.open(url2, '_blank');
-        }, 500); // 500ms delay
-        */
+        //window.open(url, '_blank');
+        
+        // 1. Create a dynamic anchor element using '_blank'
+        var link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank'; // Correct target syntax for new tab
+        link.rel = 'noopener noreferrer';
+        
+        // 2. Trigger the click event
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         
     },
     

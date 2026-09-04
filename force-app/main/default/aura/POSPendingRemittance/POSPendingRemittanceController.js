@@ -79,8 +79,20 @@
         }
         
         if (action.name === "print") {
+            console.log('Open');
             component.set('v.opportunityId', row.Id);
-            window.open('/forcepos/s/receipt-customer?recordId=' + row.Id,'_blank');
+            var addressableUrl = '/forcepos/s/receipt-customer?recordId=' + row.Id;
+            
+            // 1. Create a dynamic anchor element using '_blank'
+            var link = document.createElement('a');
+            link.href = addressableUrl;
+            link.target = '_blank'; // Correct target syntax for new tab
+            link.rel = 'noopener noreferrer';
+            
+            // 2. Trigger the click event
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             
             
         }

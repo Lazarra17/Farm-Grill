@@ -110,7 +110,7 @@ public without sharing class POSMainController {
                                                  }
              */
         List<Opportunity> oppties = [SELECT Id, Name, Payment_Status__c, StageName, Amount, Cash_Drawer_Session__c FROM Opportunity WHERE 
-                                     CreatedDate =: System.Today() AND StageName = 'Closed Lost - Cancelled'];
+                                     CloseDate =: System.Today() AND StageName = 'Closed Lost - Cancelled'];
         if(oppties.size() > 0){
             return oppties.size();
         }else{

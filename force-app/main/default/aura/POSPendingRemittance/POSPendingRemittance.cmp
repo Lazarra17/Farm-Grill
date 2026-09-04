@@ -1,6 +1,6 @@
 <aura:component implements="force:appHostable,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" 
                 controller="POSPendingRemittanceController" access="global">
-    
+    <lightning:navigation aura:id="navService" />
     <aura:attribute name="cashDrawerSessionId" type="String" />
     <aura:attribute name="opptyName" type="String" />
     <aura:attribute name="cashDrawerItems" type="List" />
