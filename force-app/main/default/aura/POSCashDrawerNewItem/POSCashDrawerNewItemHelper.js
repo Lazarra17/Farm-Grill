@@ -19,8 +19,18 @@
             if (state === "SUCCESS") {
                 
                 var res = response.getReturnValue();
-                 '/apex/ReceiptCustomerVfp?id=' + res.Id
-                window.open('/forcepos/s/receipt-expense?recordId=' + res.Id, '_blank');
+                var url = '/forcepos/s/receipt-expense?recordId=' + res.Id;
+                        // 1. Create a dynamic anchor element using '_blank'
+                var link = document.createElement('a');
+                link.href = url;
+                link.target = '_blank'; // Correct target syntax for new tab
+                link.rel = 'noopener noreferrer';
+                
+                // 2. Trigger the click event
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
                  
                 var cashDrawerItemModal = document.getElementById('cashDrawerItemModal');
                 $A.util.addClass(cashDrawerItemModal, 'slds-hide');
