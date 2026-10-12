@@ -3,10 +3,10 @@
 
   <types>
     <members>*</members>
-    <name>ApexClass</name>
+    <name>StaticResource</name>
   </types>
 
-   <types>
+   <!--types>
     <members>*</members>
     <name>Flow</name>
   </types>
@@ -16,7 +16,7 @@
     <name>AuraDefinitionBundle</name>
   </types>
 
-  <!--types>
+  <types>
     <members>Product_Catalog_Item__c.TECH_InStock__c</members>
     <name>CustomField</name>
   </types>
